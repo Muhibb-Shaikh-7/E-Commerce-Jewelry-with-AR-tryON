@@ -24,13 +24,11 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-      val view= inflater.inflate(R.layout.fragment_search, container, false)
 
-        // Find RecyclerView and set up the adapter
+      val view= inflater.inflate(R.layout.fragment_product, container, false)
+
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
 
-        // Create a list of items
         val itemList = listOf(
             item(R.drawable.necklace1, "Necklace 1", "₹ 38,516"),
             item(R.drawable.necklace2, "Necklace 2", "₹ 38,516"),

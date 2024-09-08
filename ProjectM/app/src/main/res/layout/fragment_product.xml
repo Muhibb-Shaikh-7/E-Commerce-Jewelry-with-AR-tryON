@@ -10,23 +10,24 @@
 
 
     <TextView
-        android:layout_width="347dp"
+        android:layout_width="300dp"
         android:layout_height="69dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/poppins"
         android:text="What are you Looking for today?"
         android:textColor="#121212"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="410dp"
-        android:layout_height="617dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="#faf9f6"
+        android:layout_marginTop="95dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

@@ -10,6 +10,7 @@ import android.animation.ObjectAnimator
 import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.view.View
+
 import com.example.majorproject.navigation.Container
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -33,10 +34,8 @@ class SplashActivity : AppCompatActivity() {
             insets
         }
 
-        // Find the ImageView
         val logoImageView: View = findViewById(R.id.logoimageview)
 
-        // Get the height of the screen
         val screenHeight = resources.displayMetrics.heightPixels
 
         // Create ObjectAnimator to animate the ImageView's Y position from bottom to top

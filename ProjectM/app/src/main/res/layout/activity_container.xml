@@ -1,5 +1,5 @@
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -8,32 +8,22 @@
     tools:context=".navigation.Container"
   android:background="@color/white" >
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragmentContainer"
-        android:layout_width="413dp"
-        android:layout_height="730dp"
-
-        android:layout_alignParentEnd="true"
-        android:layout_weight="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true">
 
         <nl.joery.animatedbottombar.AnimatedBottomBar
             android:id="@+id/bottomBar"
-            android:layout_width="306dp"
+            android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-
-            android:layout_marginLeft="55dp"
-            android:layout_marginTop="600dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/bottom_nav"
             android:elevation="8dp"
-            android:padding="6dp"
+            android:padding="4dp"
             app:abb_animationDuration="300"
             app:abb_animationInterpolator="@anim/over_shoot"
             app:abb_badgeBackgroundColor="#F44336"
@@ -46,7 +36,14 @@
             app:abb_tabColorSelected="@color/black"
             app:abb_tabs="@menu/menu_for_container"
             app:abb_textAppearance="@style/NavBarText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.733"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
             tools:visibility="visible" />
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
+
