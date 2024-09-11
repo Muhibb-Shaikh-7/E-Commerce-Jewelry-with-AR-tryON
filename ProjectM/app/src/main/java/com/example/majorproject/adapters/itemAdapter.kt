@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.majorproject.R
 import com.example.majorproject.dataClass.item
 
@@ -31,7 +32,11 @@ class ItemAdapter(val context: Context, val list: List<item>) :
 
     override fun onBindViewHolder(holder: ItemAdapterViewModel, position: Int) {
         val currentItem = list[position]
-        holder.imageView.setImageResource(currentItem.image)
+        Glide.with(context)
+            .load(currentItem.image) // Use the URL instead of resource ID
+           // Optional: placeholder while loading
+             // Optional: error image if the load fails
+            .into(holder.imageView)
         holder.nameView.text = currentItem.name
         holder.weightView.text = currentItem.price
 

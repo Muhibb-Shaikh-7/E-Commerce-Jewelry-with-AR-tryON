@@ -54,6 +54,7 @@ dependencies {
         implementation("com.github.Spikeysanju:MotionToast:1.4")
     implementation("nl.joery.animatedbottombar:library:1.1.0")
     implementation("com.tbuonomo:dotsindicator:5.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
 
 
