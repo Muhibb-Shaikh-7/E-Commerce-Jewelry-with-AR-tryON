@@ -19,6 +19,9 @@
             android:name=".Search.SearchActivity"
             android:exported="false" />
         <activity
+            android:name=".Cart"
+            android:exported="false" />
+        <activity
             android:name=".description.ProductDescription"
             android:exported="false" />
         <activity

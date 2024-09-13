@@ -2,5 +2,28 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- Primary Colors -->
+    <color name="colorPrimary">#3F51B5</color> <!-- Deep Indigo -->
+    <color name="colorPrimaryDark">#303F9F</color> <!-- Darker Indigo -->
+    <color name="colorAccent">#FF4081</color> <!-- Bright Pink Accent -->
+
+    <!-- Background and Surface Colors -->
+    <color name="backgroundLight">#F9F9F9</color> <!-- Light Gray Background -->
+    <color name="backgroundCard">#FFFFFF</color> <!-- White Card Background -->
+
+    <!-- Text Colors -->
+    <color name="textPrimary">#212121</color> <!-- Dark Gray for Primary Text -->
+    <color name="textSecondary">#757575</color> <!-- Lighter Gray for Secondary Text -->
+
+    <!-- Icon Colors -->
+    <color name="iconColor">#616161</color> <!-- Medium Gray for Icons -->
+
+    <!-- Action Colors -->
+    <color name="errorColor">#D32F2F</color> <!-- Red for Error/Delete Action -->
+    <color name="successColor">#4CAF50</color> <!-- Green for Success Actions -->
+
+    <!-- Button Colors -->
+    <color name="buttonOutline">#FF4081</color> <!-- Pink Outline for Delete Button -->
+    <color name="buttonText">#3F51B5</color> <!-- Indigo for Text Buttons -->
 
 </resources>
