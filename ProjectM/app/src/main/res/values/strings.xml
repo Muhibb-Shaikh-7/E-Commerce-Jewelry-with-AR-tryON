@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Major Project</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="back_icon_desc">back_button</string>
+    <string name="fav_icon_desc">fav_button</string>
+    <string name="mahavir">Mahavir</string>
+    <string name="_18k_real_gold_and_diamond_ring">18k Real Gold and Diamond Ring</string>
+    <string name="_40_580">₹40,580</string>
+    <string name="inclusive_of_all_taxes">Inclusive of all taxes</string>
+    <string name="store_location">Store Location</string>
+    <string name="size_mm_and_gross_weight_gms">Size (mm) and Gross weight (gms)</string>
+    <string name="size_in_mm_and_gr_oss_weight_in_gms">Size in mm and Gross weight in gms</string>
+    <string name="size_mm">Size (mm)</string>
+    <string name="gross_weight_gms">Gross Weight (gms)</string>
+    <string name="ring_size_calculator">Ring Size Calculator</string>
+    <string name="only_1_stock_left">Only 1 left in stock </string>
+    <string name="office_wear">Office Wear</string>
+    <string name="product_description">Product Description</string>
+</resources>
