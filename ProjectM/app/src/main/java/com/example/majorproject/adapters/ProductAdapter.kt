@@ -11,8 +11,8 @@ import com.bumptech.glide.Glide
 import com.example.majorproject.R
 import com.example.majorproject.dataClass.item
 
-class SearchAdapter(val context: Context, val list: List<item>) :
-    RecyclerView.Adapter<SearchAdapter.ItemAdapterViewModel>() {
+class ProductAdapter(val context: Context, val list: List<item>) :
+    RecyclerView.Adapter<ProductAdapter.ItemAdapterViewModel>() {
 
     class ItemAdapterViewModel(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.isearchmageView)
