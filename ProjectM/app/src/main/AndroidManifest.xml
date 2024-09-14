@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MajorProject"
         tools:targetApi="31">
         <activity
+            android:name=".BookNow"
+            android:exported="false" />
+        <activity
             android:name=".Cart"
             android:exported="false" />
         <activity
