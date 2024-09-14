@@ -23,6 +23,9 @@
             android:name=".Search.SearchActivity"
             android:exported="false" />
         <activity
+            android:name=".BookNow"
+            android:exported="false" />
+        <activity
             android:name=".Cart"
             android:exported="false" />
         <activity

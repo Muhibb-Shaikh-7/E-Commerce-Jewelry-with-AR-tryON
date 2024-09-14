@@ -170,10 +170,10 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:padding="16dp"
-        android:layout_width="410dp"
+        android:layout_width="373dp"
+        android:layout_height="298dp"
         android:layout_margin="16dp"
-        android:layout_height="308dp"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.068"
