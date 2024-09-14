@@ -5,14 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.majorproject.R
-import com.example.majorproject.adapters.ItemAdapter
-import com.example.majorproject.dataClass.item
 
 
-class SearchFragment : Fragment() {
+class ProductFragment : Fragment() {
     // TODO: Rename and change types of parameters
 
 
