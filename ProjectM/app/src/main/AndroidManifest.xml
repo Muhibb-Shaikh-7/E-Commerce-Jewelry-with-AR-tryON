@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" >
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MajorProject"
         tools:targetApi="31" >
+        <activity
+            android:name=".EditprofileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Editprofile"
+            android:exported="false" />
         <activity
             android:name=".Search.SearchResult"
             android:exported="false" />
@@ -61,11 +66,10 @@
 
         <meta-data
             android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts"
-            />
+            android:resource="@array/preloaded_fonts" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCSyBH4kYfiD9V0jCCiOryiyuWIefGZcyU"/>
+            android:value="AIzaSyCSyBH4kYfiD9V0jCCiOryiyuWIefGZcyU" />
     </application>
 
 </manifest>

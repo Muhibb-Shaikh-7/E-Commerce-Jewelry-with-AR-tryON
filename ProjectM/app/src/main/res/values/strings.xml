@@ -15,4 +15,15 @@
     <string name="address_ic">Address icon</string>
     <string name="address">Address</string>
     <string name="email">email</string>
+    <string name="enter_your_address">Enter your address</string>
+    <string name="enter_your_username">Enter your username</string>
+    <string name="username">Username</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="edit_profile1">Edit Profile</string>
+    <string name="address1">Address</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="change_photo">Change photo</string>
+    <string name="email1">Email</string>
+    <string name="enter_your_phone_number">Enter your phone number</string>
 </resources>
