@@ -7,21 +7,18 @@
     android:gravity="center"
     android:padding="16dp">
 
-    <!-- Custom View to display the ring circle -->
     <View
         android:id="@+id/circleView"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:background="@drawable/circle_background" />
 
-    <!-- Slider to adjust diameter size -->
     <SeekBar
         android:id="@+id/diameterSeekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:max="100" /> <!-- Max value to control diameter -->
+        android:max="100" />
 
-    <!-- Displaying diameter size dynamically -->
     <TextView
         android:id="@+id/diameterValueText"
         android:layout_width="wrap_content"
@@ -29,7 +26,6 @@
         android:layout_marginTop="8dp"
         android:text="Diameter: 14 mm" />
 
-    <!-- Button to calculate the ring size -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/calculate_button"
         android:layout_width="wrap_content"

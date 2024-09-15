@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
-import android.view.ViewGroup.LayoutParams
 import androidx.appcompat.app.AppCompatActivity
 
 class RingSizeCalculator: AppCompatActivity() {
@@ -17,23 +16,20 @@ class RingSizeCalculator: AppCompatActivity() {
     private lateinit var diameterSeekBar: SeekBar
     private lateinit var diameterValueText: TextView
 
-    private var selectedDiameter = 14.0 // Default starting diameter (14 mm)
+    private var selectedDiameter = 14.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ring_size_calculator)
 
-        // Find the views
         circleView = findViewById(R.id.circleView)
         diameterSeekBar = findViewById(R.id.diameterSeekBar)
         diameterValueText = findViewById(R.id.diameterValueText)
         val calculateButton: Button = findViewById(R.id.calculate_button)
 
-        // Initialize the SeekBar for diameter adjustment
-        diameterSeekBar.max = 60 // You can adjust the max range as per your requirement (max 60mm)
-        diameterSeekBar.progress = 14 // Default starting position is 14 mm
+        diameterSeekBar.max = 60
+        diameterSeekBar.progress = 14
 
-        // Update the circle and text when SeekBar is adjusted
         diameterSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 selectedDiameter = progress.toDouble()
@@ -45,7 +41,6 @@ class RingSizeCalculator: AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
 
-        // Handle calculate button click
         calculateButton.setOnClickListener {
             val ringSize = calculateRingSize(selectedDiameter)
             Log.d("ringSize","${ringSize}")
@@ -56,7 +51,6 @@ class RingSizeCalculator: AppCompatActivity() {
         }
     }
 
-    // Function to calculate ring size using the chart
     private fun calculateRingSize(diameter: Double): String {
         val ringSizeChart = mapOf(
             9.0 to "09.00",
@@ -92,10 +86,9 @@ class RingSizeCalculator: AppCompatActivity() {
         return closestSize.ifEmpty { "Size not found" }
     }
 
-    // Function to dynamically adjust the circle size based on the diameter
     private fun updateCircleSize(diameter: Double) {
         val circleLayoutParams = circleView.layoutParams
-        val newSize = (diameter * 10).toInt() // Scale diameter for visibility
+        val newSize = (diameter * 10).toInt()
         circleLayoutParams.width = newSize
         circleLayoutParams.height = newSize
         circleView.layoutParams = circleLayoutParams
