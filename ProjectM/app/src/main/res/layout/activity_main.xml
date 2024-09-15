@@ -3,42 +3,75 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:paddingTop="20dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="MainActivity"
-    android:background="@drawable/gradient_background">
-
+    android:background="@color/transparent"
+    tools:context="MainActivity">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="348dp"
-        android:layout_height="538dp"
-        app:cardCornerRadius="30dp"
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+        android:background="@color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/grad_background">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-               app:tabIndicatorColor="#cccccc"/>
-
-
+            android:layout_height="match_parent"
+            android:background="@color/transparent">
             <FrameLayout
                 android:id="@+id/fragmentContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/tabLayout"
-                android:background="@color/white"
-                />
+                android:background="@drawable/main_cardview_bg" />
+
+            <TextView
+                android:id="@+id/welocme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/zen_antique"
+                android:gravity="center"
+                android:text="Welcome,"
+                android:textColor="@color/text_gray"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/glad_to_see_you"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/zen_antique"
+                android:gravity="center"
+                android:text="Glad to see you!"
+                android:layout_below="@id/welocme"
+                android:textColor="@color/text_gray"
+                android:textSize="16sp" />
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/authentication_viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/glad_to_see_you"
+                android:background="@color/transparent"/>
+
+
+            <!--            <com.google.android.material.tabs.TabLayout-->
+            <!--                android:id="@+id/tabLayout"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--               app:tabIndicatorColor="#cccccc"/>-->
+
+
+
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,29 +1,25 @@
 package com.example.majorproject.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.example.majorproject.R
-import com.google.android.material.textfield.TextInputEditText
+import com.example.majorproject.databinding.FragmentSignupBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 
-class SignupFragment : Fragment() {
+class SignUpFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
-    private lateinit var emailEditText: TextInputEditText
-    private lateinit var passwordEditText: TextInputEditText
-    private lateinit var confirmPasswordEditText: TextInputEditText
-    private lateinit var signUpButton: Button
+    private var _binding: FragmentSignupBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,44 +31,40 @@ class SignupFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_signupfragment, container, false)
+        // Initialize View Binding
+        _binding = FragmentSignupBinding.inflate(inflater, container, false)
 
-        emailEditText = view.findViewById(R.id.email)
-        passwordEditText = view.findViewById(R.id.password)
-        confirmPasswordEditText = view.findViewById(R.id.confirm_password)
-        signUpButton = view.findViewById(R.id.signup_button)
-
-        signUpButton.setOnClickListener {
+        // Set up the sign-up button listener
+        binding.signupButton.setOnClickListener {
             signUpUser()
         }
 
-        return view
+        return binding.root
     }
 
     private fun signUpUser() {
 
-        val email = emailEditText.text.toString().trim()
-        val password = passwordEditText.text.toString().trim()
-        val confirmPassword = confirmPasswordEditText.text.toString().trim()
+        val email = binding.email.text.toString().trim()
+        val password = binding.password.text.toString().trim()
+        val confirmPassword = binding.confirmPassword.text.toString().trim()
 
         if (TextUtils.isEmpty(email)) {
-            emailEditText.error = "Email is required"
+            binding.email.error = "Email is required"
             return
         }
 
         if (TextUtils.isEmpty(password)) {
-            passwordEditText.error = "Password is required"
+            binding.password.error = "Password is required"
             return
         }
 
         if (password.length < 6) {
-            passwordEditText.error = "Password must be at least 6 characters"
+            binding.password.error = "Password must be at least 6 characters"
             return
         }
 
         if (password != confirmPassword) {
-            confirmPasswordEditText.error = "Passwords do not match"
+            binding.confirmPassword.error = "Passwords do not match"
             return
         }
 
@@ -83,24 +75,15 @@ class SignupFragment : Fragment() {
                     val user = auth.currentUser
                     user?.sendEmailVerification()?.addOnCompleteListener { emailTask ->
                         if (emailTask.isSuccessful) {
-                            // Store user information in Firestore
-
-
-
-                                    MotionToast.createToast(
-                                        requireActivity(),
-                                        "Verification email sent",
-                                        "Please check your inbox.",
-                                        MotionToastStyle.INFO,
-                                        MotionToast.GRAVITY_BOTTOM,
-                                        MotionToast.LONG_DURATION,
-                                        ResourcesCompat.getFont(requireActivity(), R.font.helvetica_regular)
-                                    )
-
-                                    // Navigate to login fragment after successful sign-up
-
-
-
+                            MotionToast.createToast(
+                                requireActivity(),
+                                "Verification email sent",
+                                "Please check your inbox.",
+                                MotionToastStyle.INFO,
+                                MotionToast.GRAVITY_BOTTOM,
+                                MotionToast.LONG_DURATION,
+                                ResourcesCompat.getFont(requireActivity(), R.font.helvetica_regular)
+                            )
                         } else {
                             MotionToast.createToast(
                                 requireActivity(),
@@ -125,5 +108,10 @@ class SignupFragment : Fragment() {
                     )
                 }
             }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

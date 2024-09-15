@@ -66,18 +66,18 @@ class SplashActivity : AppCompatActivity() {
                             startActivity(Intent(this@SplashActivity, Container::class.java))
                         } else {
                             // Name doesn't exist, redirect to Name activity
-                            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                            startActivity(Intent(this@SplashActivity, AuthenticationSelection::class.java))
                         }
                         finish()
                     }.addOnFailureListener {
                         // Handle any errors
                         // Redirect to MainActivity or show error
-                        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                        startActivity(Intent(this@SplashActivity,AuthenticationSelection::class.java))
                         finish()
                     }
                 } else {
                     // User is not logged in, go to MainActivity
-                    startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                    startActivity(Intent(this@SplashActivity, AuthenticationSelection::class.java))
                     finish()
                 }
             }

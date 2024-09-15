@@ -16,6 +16,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Enable RenderScript support
+        renderscriptTargetApi=19
+        renderscriptSupportModeEnabled=true
     }
 
     buildTypes {
@@ -45,7 +49,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation(platform("com.google.firebase:firebase-bom:32.0.0")) // Manage Firebase versions
+    implementation(platform("com.google.firebase:firebase-bom:32.0.0"))
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-storage")
@@ -59,4 +63,5 @@ dependencies {
     implementation("nl.joery.animatedbottombar:library:1.1.0")
     implementation("com.tbuonomo:dotsindicator:5.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.github.wasabeef:blurry:3.0.0")
 }

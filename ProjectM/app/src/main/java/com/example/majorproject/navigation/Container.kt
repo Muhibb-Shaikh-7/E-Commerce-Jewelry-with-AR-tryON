@@ -24,7 +24,6 @@ class Container : AppCompatActivity() {
 
         val bottomBar = findViewById<AnimatedBottomBar>(R.id.bottomBar)
 
-        // Set HomeFragment as the default fragment
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, HomeFragment())

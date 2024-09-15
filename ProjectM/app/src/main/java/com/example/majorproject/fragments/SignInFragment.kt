@@ -6,26 +6,21 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.example.majorproject.R
+import com.example.majorproject.databinding.FragmentLoginBinding
 import com.example.majorproject.navigation.Container
-import com.example.majorproject.preferences.DobActivity
 import com.example.majorproject.preferences.NameActivity
-import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 
-class loginFragment : Fragment() {
+class SignInFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var emailEditText: TextInputEditText
-    private lateinit var passwordEditText: TextInputEditText
-    private lateinit var loginButton: Button
+    private lateinit var binding: FragmentLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,31 +31,26 @@ class loginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_login, container, false)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-        emailEditText = view.findViewById(R.id.email)
-        passwordEditText = view.findViewById(R.id.password)
-        loginButton = view.findViewById(R.id.login_button)
-
-        loginButton.setOnClickListener {
+        binding.signInButton.setOnClickListener {
             loginUser()
         }
 
-        return view
+        return binding.root
     }
 
     private fun loginUser() {
-        val email = emailEditText.text.toString().trim()
-        val password = passwordEditText.text.toString().trim()
+        val email = binding.email.text.toString().trim()
+        val password = binding.Password.text.toString().trim()
 
         if (TextUtils.isEmpty(email)) {
-            emailEditText.error = "Email is required"
+            binding.email.error = "Email is required"
             return
         }
 
         if (TextUtils.isEmpty(password)) {
-            passwordEditText.error = "Password is required"
+            binding.Password.error = "Password is required"
             return
         }
 
@@ -83,7 +73,6 @@ class loginFragment : Fragment() {
                                     startActivity(intent)
                                 }
                             } else {
-
                                 val userData = hashMapOf(
                                     "name" to null,
                                     "email" to email,
@@ -93,7 +82,6 @@ class loginFragment : Fragment() {
                                     "state" to null,
                                     "building" to null,
                                     "age" to null
-
                                 )
                                 userRef.set(userData).addOnSuccessListener {
                                     val intent = Intent(requireContext(), NameActivity::class.java)

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
+        <item>@font/aguafina_script</item>
+        <item>@font/alumni_sans_bold_italic</item>
+        <item>@font/ballet</item>
         <item>@font/poppins_bold</item>
         <item>@font/zen_antique</item>
         <item>@font/zilla_slab_semibold</item>

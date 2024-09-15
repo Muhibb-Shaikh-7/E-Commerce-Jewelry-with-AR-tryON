@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.majorproject.dataClass.ProductSpecification
-import com.example.majorproject.databinding.ItemProductSpecificationBinding
+import com.example.majorproject.databinding.ProductSpecificationItemBinding
 
 class ProductSpecificationAdapter(private val specList: List<ProductSpecification>) :
     RecyclerView.Adapter<ProductSpecificationAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: ItemProductSpecificationBinding) :
+    inner class ViewHolder(val binding: ProductSpecificationItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(spec: ProductSpecification) {
@@ -19,7 +19,7 @@ class ProductSpecificationAdapter(private val specList: List<ProductSpecificatio
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemProductSpecificationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ProductSpecificationItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 

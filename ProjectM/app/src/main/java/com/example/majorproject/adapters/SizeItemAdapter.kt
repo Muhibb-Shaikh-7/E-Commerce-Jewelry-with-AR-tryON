@@ -12,7 +12,7 @@ class SizeItemAdapter(private val sizeList: List<*>?) : RecyclerView.Adapter<Siz
     private var selectedPosition = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SizeViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_size, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.ring_size_item, parent, false)
         return SizeViewHolder(view)
     }
 

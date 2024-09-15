@@ -12,7 +12,7 @@ class WeightItemAdapter(private val weightList: List<*>?) : RecyclerView.Adapter
     private var selectedPosition = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeightViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_weight, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.ring_weight_item, parent, false)
         return WeightViewHolder(view)
     }
 

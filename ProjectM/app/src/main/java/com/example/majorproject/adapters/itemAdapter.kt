@@ -24,7 +24,7 @@ class ItemAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemAdapterViewModel {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_card, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.card_item, parent, false)
         return ItemAdapterViewModel(view)
     }
 

@@ -54,6 +54,32 @@ tools:context=".description.ProductDescription">
             android:clipToPadding="false"
             android:paddingStart="20dp"
             android:paddingEnd="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/zen_antique"
+            android:text="Try it On "
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:textColor="@color/white"
+            android:background="@color/black"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -129,7 +155,7 @@ tools:context=".description.ProductDescription">
                 android:gravity="center_vertical"
                 android:textColor="@color/black"
                 android:layout_weight="1"
-                android:textSize="17sp" />
+                android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="100dp"
@@ -152,9 +178,9 @@ tools:context=".description.ProductDescription">
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:paddingStart="20dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="10dp">
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingEnd="20dp">
 
             <TextView
                 android:id="@+id/size_and_gross_weight"
@@ -320,11 +346,9 @@ tools:context=".description.ProductDescription">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:paddingStart="20dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="10dp">
+            android:paddingTop="20dp"
+            android:paddingEnd="20dp">
 
                 <TextView
                     android:id="@+id/styling_title"
@@ -387,9 +411,8 @@ tools:context=".description.ProductDescription">
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:paddingStart="20dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="10dp">
+            android:paddingTop="15dp"
+            android:paddingEnd="20dp">
 
             <TextView
                 android:id="@+id/product_des_title"
@@ -447,9 +470,8 @@ tools:context=".description.ProductDescription">
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:paddingStart="20dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="10dp">
+            android:paddingTop="15dp"
+            android:paddingEnd="20dp">
 
             <TextView
                 android:id="@+id/price_break_title"
@@ -488,7 +510,7 @@ tools:context=".description.ProductDescription">
             android:paddingStart="20dp"
             android:visibility="gone"
             android:paddingEnd="20dp"
-            android:paddingBottom="10dp">
+            android:paddingBottom="20dp">
 
             <!-- Price Breaking - Diamond -->
             <TextView
@@ -651,8 +673,8 @@ tools:context=".description.ProductDescription">
             android:orientation="vertical"
             android:layout_gravity="center"
             android:paddingStart="20dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
             android:paddingEnd="20dp">
 
             <TextView
@@ -726,17 +748,19 @@ tools:context=".description.ProductDescription">
     android:layout_height="wrap_content"
     android:layout_marginBottom="61dp"
     android:padding="5dp"
-    android:paddingTop="10dp"
+    android:paddingTop="20dp"
+    android:layout_marginTop="10dp"
     android:paddingEnd="20dp"
+    android:paddingBottom="20dp"
     android:paddingStart="20dp"
     android:background="@color/white"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintEnd_toEndOf="parent">
     <ImageView
-        android:id="@+id/fav_button"
+        android:id="@+id/back_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/fav_icon"
+        android:src="@drawable/back"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:contentDescription="@string/fav_icon_desc" />
@@ -747,10 +771,10 @@ tools:context=".description.ProductDescription">
         android:layout_weight="1" />
 
     <ImageView
-        android:id="@+id/back_button"
+        android:id="@+id/fav_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/back"
+        android:src="@drawable/fav_icon"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:contentDescription="@string/back_icon_desc" />
