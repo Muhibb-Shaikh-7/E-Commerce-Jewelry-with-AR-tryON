@@ -16,9 +16,6 @@
         android:theme="@style/Theme.MajorProject"
         tools:targetApi="31" >
         <activity
-            android:name=".EditprofileActivity"
-            android:exported="false" />
-        <activity
             android:name=".Editprofile"
             android:exported="false" />
         <activity
