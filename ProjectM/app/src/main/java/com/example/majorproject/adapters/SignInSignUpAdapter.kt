@@ -1,4 +1,4 @@
-package com.example.majorproject
+package com.example.majorproject.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

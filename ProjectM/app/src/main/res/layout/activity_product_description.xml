@@ -1,154 +1,814 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:id="@+id/main"
+    android:background="@color/white"
+tools:context=".description.ProductDescription">
+
+<ScrollView
+    android:id="@+id/outerScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/main"
-    tools:context=".description.ProductDescription">
+    android:paddingBottom="61dp"
+    android:layout_marginTop="61dp"
+    tools:ignore="SpeakableTextPresentCheck"
+    app:layout_constraintTop_toTopOf="@id/linearLayout1"
+    app:layout_constraintBottom_toBottomOf="@id/linearLayoutBottom">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="SpeakableTextPresentCheck">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="42dp">
+
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/product_des_viewpager_bg"
+            android:padding="16dp" />
+
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:dotsColor="#c4c4c4"
+            app:dotsCornerRadius="21dp"
+            app:dotsSize="6dp"
+            app:dotsSpacing="2dp"
+            app:dotsWidthFactor="2.5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:selectedDotColor="@color/black" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:clipToPadding="false"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/zen_antique"
+            android:text="Try it On "
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:textColor="@color/white"
+            android:background="@color/black"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/zen_antique"
+                android:text="@string/mahavir"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/zen_antique"
+                android:layout_marginTop="5dp"
+                android:text="@string/_18k_real_gold_and_diamond_ring"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/product_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/zen_antique"
+                android:text="@string/_40_580"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/zen_antique"
+                android:text="@string/inclusive_of_all_taxes"
+                android:textColor="@color/text_gray"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/product_description_divider_bg"/>
+
+
+        <LinearLayout
+            android:id="@+id/store_location_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/zen_antique"
+                android:text="@string/store_location"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:contentDescription="TODO"
+                android:src="@drawable/destination"
+                />
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/product_description_divider_bg"/>
+
+
+        <RelativeLayout
+            android:id="@+id/size_and_weight_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:id="@+id/size_and_gross_weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/zen_antique"
+                android:text="@string/size_mm_and_gross_weight_gms"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/size_in_mm_and_gr_oss_weight_in_gms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/size_and_gross_weight"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/zen_antique"
+                android:text="@string/size_in_mm_and_gr_oss_weight_in_gms"
+                android:textColor="@color/text_gray"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/down_arrow_size_weight"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/all_ic_expandale_arrow" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/size_and_weight_extandable_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
             android:orientation="vertical">
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="16dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/back"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.002"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/fav_icon"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:layout_width="match_parent"
-                android:layout_height="290dp"
-                android:layout_margin="16dp"
-                android:background="#C4C4C4"
-                android:padding="16dp"/>
-            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:dotsColor="#c4c4c4"
-                app:dotsCornerRadius="21dp"
-                app:dotsSize="6dp"
-                android:layout_gravity="center"
-                app:dotsSpacing="2dp"
-                app:dotsWidthFactor="2.5"
-                app:selectedDotColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:fontFamily="@font/zen_antique"
+                android:text="@string/size_mm"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                android:clipToPadding="false"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_margin="16dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Title"
-                    android:textStyle="bold"
-                    android:textColor="#1070a1"
-                    android:textSize="23sp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="$0"
-                    android:textStyle="bold"
-                    android:textColor="#1070a1"
-                    android:textSize="22sp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_margin="16dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Select Size"
-                    android:textStyle="bold"
-                    android:layout_marginEnd="8dp"
-                    android:textColor="#1070a1"
-                    android:textSize="14sp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="5mm"
-                    android:textColor="#1070a1"
-                    android:textSize="14sp"/>
-            </LinearLayout>
-            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/size_recycle_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
+                android:layout_marginTop="8dp"
                 android:paddingStart="8dp"
-                android:paddingEnd="8dp"/>
+                android:paddingEnd="8dp" />
 
+            <LinearLayout
+                android:id="@+id/calculated_size_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                >
+                <TextView
+                    android:id="@+id/calculated_size_des"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/zen_antique"
+                    android:text="oops ! your size of ring is not avialable"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_gray"
+                    tools:ignore="HardcodedText" />
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/zen_antique"
+                android:text="@string/gross_weight_gms"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/weight_recycle_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:layout_marginTop="8dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                >
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/size_calculator_btn"
+                    android:layout_width="250dp"
+                    android:layout_height="53dp"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/ring_size_calculator"
+                    android:textAllCaps="false"
+                    android:background="@drawable/product_description_curved_button"/>
+
+            </RelativeLayout>
+
+
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/product_description_divider_bg"/>
+
+        <LinearLayout
+            android:id="@+id/stock_available_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:visibility="gone"
+
+            >
+
+            <TextView
+                android:id="@+id/stock_available_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingBottom="10dp"
+                android:layout_marginBottom="10dp"
+                android:paddingEnd="20dp"
+                android:fontFamily="@font/zen_antique"
+                android:text="@string/only_1_stock_left"
+                android:textColor="@color/text_gray"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/stock_borders"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@drawable/product_description_divider_bg"/>
+
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/styling_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="20dp">
+
+                <TextView
+                    android:id="@+id/styling_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Styling"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/down_arrow_styling"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/all_ic_expandale_arrow" />
+
+
+            <TextView
+                    android:id="@+id/styling_subtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/office_wear"
+                android:textColor="@color/black"
+                android:layout_below="@id/styling_title"
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp" />
+
+            <View
+                android:id="@+id/stylingView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/styling_extandable_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:visibility="gone"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/styling_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bask in the elegant opulence of this dual-toned ring, crafted in 18 karat white and rose gold, studded with diamonds. Stone Clarity: SI2."
+            android:textSize="14sp"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/product_des_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:paddingStart="20dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:id="@+id/product_des_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/product_description"
+                android:fontFamily="@font/zen_antique"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/down_arrow_product_des"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/all_ic_expandale_arrow" />
+
+
+            <TextView
+                android:id="@+id/product_des_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A detailed and reliable exposition of jewellry"
+                android:textColor="@color/text_gray"
+                android:fontFamily="@font/zen_antique"
+                android:layout_below="@id/product_des_title"
+                android:textSize="14sp"
+                android:layout_marginTop="8dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/product_des_extandable_layout"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:paddingStart="20dp"
+            android:visibility="gone"
+            android:paddingEnd="20dp"
+            android:paddingBottom="10dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/productSpecificationRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </RelativeLayout>
+
+
+
+
+        <RelativeLayout
+            android:id="@+id/price_break_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:paddingStart="20dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:id="@+id/price_break_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Price Breaking "
+                android:textColor="@color/black"
+                android:fontFamily="@font/zen_antique"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/down_arrow_price_break"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/all_ic_expandale_arrow" />
+
+
+            <TextView
+                android:id="@+id/price_break_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A transparent breakdown of pricing"
+                android:textColor="@color/text_gray"
+                android:layout_below="@id/price_break_title"
+                android:textSize="14sp"
+                android:fontFamily="@font/zen_antique"
+                android:layout_marginTop="8dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/price_break_extandable_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:visibility="gone"
+            android:paddingEnd="20dp"
+            android:paddingBottom="20dp">
+
+            <!-- Price Breaking - Diamond -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Desc"
-                android:layout_margin="16dp"/>
+                android:textColor="@color/black"
+                android:fontFamily="@font/zen_antique"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"
+                android:text="Diamond" />
+
+            <TextView
+                android:id="@+id/product_diamond_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:fontFamily="@font/zen_antique"
+                android:layout_marginStart="170dp"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"
+                android:text="₹30,850" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider16"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/product_diamond_price"
+                android:layout_marginTop="10dp"
+                app:dividerColor="@color/light_gray" />
+
+            <!-- Price Breaking - Making Charges -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:fontFamily="@font/zen_antique"
+                android:layout_below="@id/divider16"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"
+                android:text="Making Charges" />
+
+            <TextView
+                android:id="@+id/product_making_charges"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:fontFamily="@font/zen_antique"
+                android:layout_marginStart="170dp"
+                android:layout_below="@id/divider16"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"
+                android:text="₹2,713" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider19"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/product_making_charges"
+                android:layout_marginTop="10dp"
+                app:dividerColor="@color/light_gray" />
+
+            <!-- Price Breaking - Metal -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:fontFamily="@font/zen_antique"
+                android:layout_below="@id/divider19"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"
+                android:text="Metal" />
+
+            <TextView
+                android:id="@+id/product_metal_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:fontFamily="@font/zen_antique"
+                android:layout_marginStart="170dp"
+                android:layout_below="@id/divider19"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"
+                android:text="₹6,648" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider20"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/product_metal_price"
+                android:layout_marginTop="10dp"
+                app:dividerColor="@color/light_gray" />
+
+            <!-- Price Breaking - Taxes -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:fontFamily="@font/zen_antique"
+                android:layout_below="@id/divider20"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"
+                android:text="Taxes" />
+
+            <TextView
+                android:id="@+id/price_taxes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:fontFamily="@font/zen_antique"
+                android:layout_marginStart="170dp"
+                android:layout_below="@id/divider20"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"
+                android:text="₹396" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider21"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/price_taxes"
+                android:layout_marginTop="10dp"
+                app:dividerColor="@color/light_gray" />
+
+            <!-- Price Breaking - Total -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:fontFamily="@font/zen_antique"
+                android:layout_below="@id/divider21"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"
+                android:text="Total" />
+
+            <TextView
+                android:id="@+id/price_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:fontFamily="@font/zen_antique"
+                android:layout_marginStart="170dp"
+                android:layout_below="@id/divider21"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"
+                android:text="₹40,580" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/product_description_divider_bg"/>
+
+
+        <LinearLayout
+            android:id="@+id/contactus_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:id="@+id/title_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Still Confused what to Buy?"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:fontFamily="@font/zen_antique"
+                android:gravity="center"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/subtitle_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Go on a live video call with our design experts or visit your nearest Tanishq store to get a closer look and know more about the product."
+                android:textSize="14sp"
+                android:textColor="@color/text_gray"
+                android:gravity="center"
+                android:layout_marginBottom="16dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp">
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.AppCompat.Button"
-                    android:text="Buy Now"
-                    android:layout_weight="1"
-                    android:textSize="18sp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_marginBottom="100dp">
 
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/btn_2"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/talk_to_expert_button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:textAllCaps="false"
+                android:paddingStart="20dp"
+                android:layout_weight="1"
+                android:text="Talk to an Expert"
+                android:textColor="@color/black"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/product_description_curved_button" />
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/store_location_button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Store Location"
+                android:layout_weight="1"
+                android:paddingEnd="20dp"
+                android:layout_marginStart="10dp"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/black"
+                android:background="@drawable/product_description_filled_button" />
             </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
+
+</ScrollView>
+
+<LinearLayout
+    android:id="@+id/linearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="61dp"
+    android:padding="5dp"
+    android:paddingTop="20dp"
+    android:layout_marginTop="10dp"
+    android:paddingEnd="20dp"
+    android:paddingBottom="20dp"
+    android:paddingStart="20dp"
+    android:background="@color/white"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/fav_icon_desc" />
+
+    <View
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_weight="1" />
+
+    <ImageView
+        android:id="@+id/fav_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/fav_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/back_icon_desc" />
+
+</LinearLayout>
+
+
+<LinearLayout
+    android:id="@+id/linearLayoutBottom"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:padding="6dp"
+    app:flow_verticalAlign="bottom"
+    android:background="@color/white"
+    app:layout_constraintBottom_toBottomOf="parent">
+
+    <androidx.appcompat.widget.AppCompatButton
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/product_description_filled_button"
+        android:text="Add to CArt"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/shopping_cart" />
+
+</LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
