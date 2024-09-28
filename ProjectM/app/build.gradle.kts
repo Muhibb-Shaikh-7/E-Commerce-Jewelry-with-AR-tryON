@@ -1,3 +1,5 @@
+import com.android.sdklib.computeReleaseNameAndDetails
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
@@ -34,6 +36,18 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+        dataBinding =true
+
+    }
+    viewBinding{
+        enable=true
+    }
+    dataBinding{
+        enable=true
+    }
+
 }
 
 dependencies {
@@ -56,6 +70,7 @@ dependencies {
     implementation("nl.joery.animatedbottombar:library:1.1.0")
     implementation("com.tbuonomo:dotsindicator:5.0")
     implementation("com.github.wasabeef:blurry:3.0.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }
 
 

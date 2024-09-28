@@ -3,8 +3,8 @@ package com.example.majorproject.adapters
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.majorproject.fragments.SignUpFragment
-import com.example.majorproject.fragments.SignInFragment
+import com.example.majorproject.fragments.SignupFragment
+import com.example.majorproject.fragments.loginFragment
 
 class SignInSignUpAdapter(
     fragmentManager: FragmentManager,
@@ -15,8 +15,8 @@ class SignInSignUpAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 ->SignInFragment()
-            1 -> SignUpFragment()
+            0 ->loginFragment()
+            1 -> SignupFragment()
             else -> throw IllegalArgumentException("Invalid position")
         }
     }
