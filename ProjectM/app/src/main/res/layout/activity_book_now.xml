@@ -64,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:is24HourView="false"/>
+      />
 
     <EditText
         android:id="@+id/customerName"
