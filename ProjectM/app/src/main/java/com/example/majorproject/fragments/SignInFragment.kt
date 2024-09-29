@@ -7,12 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.example.majorproject.R
 import com.example.majorproject.navigation.Container
-import com.example.majorproject.preferences.DobActivity
 import com.example.majorproject.preferences.NameActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
@@ -20,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 
-class loginFragment : Fragment() {
+class SignInFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var emailEditText: TextInputEditText
@@ -37,11 +35,11 @@ class loginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_login, container, false)
+        val view = inflater.inflate(R.layout.fragment_signin, container, false)
 
         emailEditText = view.findViewById(R.id.email)
-        passwordEditText = view.findViewById(R.id.password)
-        loginButton = view.findViewById(R.id.login_button)
+        passwordEditText = view.findViewById(R.id.Password)
+        loginButton = view.findViewById(R.id.sign_in_button)
 
         loginButton.setOnClickListener {
             loginUser()

@@ -1,5 +1,3 @@
-import com.android.sdklib.computeReleaseNameAndDetails
-
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
@@ -16,7 +14,6 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -38,20 +35,10 @@ android {
     }
     buildFeatures {
         viewBinding = true
-        dataBinding =true
-
     }
-    viewBinding{
-        enable=true
-    }
-    dataBinding{
-        enable=true
-    }
-
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -65,15 +52,12 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.lottie)
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
     implementation("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
     implementation("com.github.Spikeysanju:MotionToast:1.4")
     implementation("nl.joery.animatedbottombar:library:1.1.0")
     implementation("com.tbuonomo:dotsindicator:5.0")
     implementation("com.github.wasabeef:blurry:3.0.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.paulrybitskyi.persistentsearchview:persistentsearchview:1.0.0")
 }
-
-
-
-
-

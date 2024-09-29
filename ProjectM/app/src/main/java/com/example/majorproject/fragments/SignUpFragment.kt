@@ -1,6 +1,5 @@
 package com.example.majorproject.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -16,7 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 
-class SignupFragment : Fragment() {
+class SignUpFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
@@ -36,11 +35,11 @@ class SignupFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_signupfragment, container, false)
+        val view = inflater.inflate(R.layout.fragment_signup, container, false)
 
         emailEditText = view.findViewById(R.id.email)
         passwordEditText = view.findViewById(R.id.password)
-        confirmPasswordEditText = view.findViewById(R.id.confirm_password)
+        confirmPasswordEditText = view.findViewById(R.id.confirmPassword)
         signUpButton = view.findViewById(R.id.signup_button)
 
         signUpButton.setOnClickListener {

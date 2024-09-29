@@ -5,9 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.example.majorproject.R
-import com.example.majorproject.fragments.SignupFragment
-import com.example.majorproject.fragments.loginFragment
+import com.example.majorproject.fragments.SignUpFragment
+import com.example.majorproject.fragments.SignInFragment
 
 import com.google.android.material.tabs.TabLayout
 
@@ -28,15 +27,15 @@ class MainActivity : AppCompatActivity() {
         tabLayout.addTab(tabLayout.newTab().setText("Sign Up"))
 
 
-        replaceFragment(loginFragment())
+        replaceFragment(SignInFragment())
         tabLayout.selectTab(tabLayout.getTabAt(0))
 
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
-                    0 -> replaceFragment(loginFragment())
-                    1 -> replaceFragment(SignupFragment())
+                    0 -> replaceFragment(SignInFragment())
+                    1 -> replaceFragment(SignUpFragment())
                 }
             }
 

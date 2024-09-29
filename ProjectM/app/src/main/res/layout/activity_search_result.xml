@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -21,48 +20,41 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="16dp">
 
-                >
                 <com.paulrybitskyi.persistentsearchview.PersistentSearchView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/persistent_search_view"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
-
+                    android:hint="Search here..." />
             </LinearLayout>
-
-
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="14dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Showing results for 'query'"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-
-                    />
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="28dp"
                     android:layout_height="28dp"
-                    android:src="@drawable/baseline_filter_list_24"
-
+                    android:src="@drawable/baseline_filter_list_24" />
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -72,12 +64,11 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycleview"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ProgressBar
                     android:id="@+id/progressBarItems"
@@ -88,11 +79,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
