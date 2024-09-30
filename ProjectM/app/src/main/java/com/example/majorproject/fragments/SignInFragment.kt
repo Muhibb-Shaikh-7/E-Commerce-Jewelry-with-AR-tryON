@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.example.majorproject.R
@@ -21,7 +22,7 @@ import www.sanju.motiontoast.MotionToastStyle
 class SignInFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var emailEditText: TextInputEditText
+    private lateinit var emailEditText:EditText
     private lateinit var passwordEditText: TextInputEditText
     private lateinit var loginButton: Button
 
@@ -37,7 +38,7 @@ class SignInFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_signin, container, false)
 
-        emailEditText = view.findViewById(R.id.email)
+        emailEditText = view.findViewById(R.id.emailAddress)
         passwordEditText = view.findViewById(R.id.Password)
         loginButton = view.findViewById(R.id.sign_in_button)
 

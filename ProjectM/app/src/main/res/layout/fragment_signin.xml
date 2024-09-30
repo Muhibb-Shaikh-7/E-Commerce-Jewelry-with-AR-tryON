@@ -17,13 +17,10 @@
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="-16dp">
-
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/email"
+            android:id="@+id/emailAddress"
             android:layout_width="330dp"
             android:layout_height="55dp"
             android:layout_marginTop="30dp"
@@ -41,7 +38,7 @@
             android:background="@color/transparent"
             app:endIconMode="password_toggle"
             app:endIconTint="@color/text_gray"
-            app:hintEnabled="false">  <!-- This disables the floating hint -->
+            app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/Password"
