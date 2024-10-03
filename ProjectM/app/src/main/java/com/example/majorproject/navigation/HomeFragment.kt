@@ -25,53 +25,25 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        Log.d("Check","Home Fragment Started ")
-
-        // Initialize itemList as mutable
+        // Initialize itemList and adapter
         itemList = mutableListOf()
-
-        val recyclerView = view?.findViewById<RecyclerView>(R.id.recycleview)
-        Log.d("Check","RecyclerView Initialized ")
-        val layoutManager = GridLayoutManager(context, 2)
-        recyclerView?.layoutManager = layoutManager
-
-        // Initialize adapter with Glide support for loading images
-
-        Log.d("Check","Adapter initialized ")
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recycleview)
+        recyclerView.layoutManager = GridLayoutManager(context, 2)
         adapter = ItemAdapter(requireContext(), itemList)
-//            val intent = Intent(context, ProductDescription::class.java)
-//            intent.putExtra("itemName", clickedItem.name)
-//            intent.putExtra("itemPrice", clickedItem.price)
-//            startActivity(intent)
-//        }
-        recyclerView?.adapter = adapter
+        recyclerView.adapter = adapter
 
-        val collectionPath = "Products"
-
-        // Add product data to Firestore (Optional, remove if already added)
-        val product1 = createProduct1()
-//        val product2 = createProduct2()
-
-        Log.d("Check","product1 , product2 initialized ")
-
-        addProductToFirestore( "Special-Occasion", product1)
-//        addProductToFirestore( "Everyday-Fashion", product2)
-
-        // Fetch product data from Firestore and add to RecyclerView
-        fetchProductData(
-            collectionPath = "Product",
+        // Fetch product data from Firestore for Women categories
+        fetchWomenCategoriesData(
+            collectionPath = "Products",
             documentId = "Ring",
             collectionPath2 = "Women",
-            documentId2 = "Special-Occasion",
-            onSuccess = { product ->
-                if (product != null) {
+            onSuccess = { products ->
+                for (product in products) {
                     addDataInRecyclerView(product)
-                } else {
-                    Log.d("Check", "No product data found!")
                 }
             },
             onFailure = { e ->
-                Log.d("Check", "Error retrieving product: $e")
+                Log.e("Firestore", "Error fetching Women categories data: $e")
             }
         )
 
@@ -82,170 +54,41 @@ class HomeFragment : Fragment() {
         // Add product data to itemList
         product.images["0"]?.let {
             item(
-               image= it, // Fetching the first image URL
+                image = it, // Fetching the first image URL
                 name = product.name,
                 price = product.price
             )
         }?.let {
-            itemList.add(
-                it
-            )
+            itemList.add(it)
         }
 
         // Notify the adapter that data has been added
         adapter.notifyDataSetChanged()
     }
 
-    private fun addProductToFirestore(
-        documentId2: String, product: Product
-    ) {
-
-        Log.d("Check","add () called ")
-        val firestore = FirebaseFirestore.getInstance()
-        Log.d("Check","firestore initailized ")
-
-        val productData = hashMapOf(
-            "name" to product.name,
-            "price" to product.price,
-            "images" to product.images,
-            "gross-weight" to product.grossWeight,
-            "price-breaking" to product.priceBreaking,
-            "product-specification" to product.productSpecification,
-            "size" to product.size,
-            "stock" to product.stock,
-            "styling" to product.styling
-        )
-        Log.d("Check","Product data initialized")
-
-        firestore.collection("Product")
-            .document("Ring")
-            .collection("Women")
-            .document(documentId2)
-            .set(productData)
-            .addOnSuccessListener {
-                Log.d("Check", "Product added successfully!")
-            }
-            .addOnFailureListener { e ->
-                Log.d("Check", "Error adding product: $e")
-            }
-    }
-
-    private fun fetchProductData(
+    private fun fetchWomenCategoriesData(
         collectionPath: String,
         documentId: String,
         collectionPath2: String,
-        documentId2: String,
-        onSuccess: (Product?) -> Unit,
+        onSuccess: (List<Product>) -> Unit,
         onFailure: (Exception) -> Unit
     ) {
-
-        Log.d("Check","fetch () called")
         val db = FirebaseFirestore.getInstance()
-        val documentRef = db.collection(collectionPath)
+        val womenCollectionRef = db.collection(collectionPath)
             .document(documentId)
             .collection(collectionPath2)
-            .document(documentId2)
 
-        documentRef.get()
-            .addOnSuccessListener { document ->
-                if (document != null && document.exists()) {
-                    val data = document.toObject(Product::class.java)
-                    onSuccess(data)
-                } else {
-                    Log.d("Firestore", "No such document!")
-                    onSuccess(null)
+        womenCollectionRef.get()
+            .addOnSuccessListener { querySnapshot ->
+                val productList = mutableListOf<Product>()
+                for (document in querySnapshot) {
+                    val product = document.toObject(Product::class.java)
+                    productList.add(product)
                 }
+                onSuccess(productList)
             }
             .addOnFailureListener { exception ->
                 onFailure(exception)
             }
     }
-
-    // Example Product creation functions (Optional, remove if unnecessary)
-    private fun createProduct1(): Product {
-        return Product(
-            name = "Avon Gleaming Diamond Ring", price = "₹74,624",
-            images = mapOf(
-               "0" to "gs://krishna-jewelry-app.appspot.com/product/ring/women/special occasion/2.4.jpeg",
-              "1" to  "gs://krishna-jewelry-app.appspot.com/product/ring/women/special occasion/2.1.jpeg",
-              " 2" to "gs://krishna-jewelry-app.appspot.com/product/ring/women/special occasion/2.2.jpeg",
-                "3" to "gs:/krishna-jewelry-app.appspot.com/product/ring/women/special occasion/2.3.jpeg"
-            ),
-            grossWeight = mapOf("0" to "1.938",
-                "1" to  "2.003",
-                "2" to "1.864")
-            , priceBreaking = mapOf(
-                "Diamond" to "₹30,850",
-                "Making Charges" to "₹2,713",
-                "Metal" to "₹6,648",
-                "Taxes" to "₹396",
-                "Total" to "₹40,580"
-            ),
-            productSpecification = mapOf(
-                "brand" to "Mahavir",
-                "collection" to "Mahavir",
-                "country-of-origin" to "India",
-                "design-type" to "BASIC",
-                "diamond-carat" to "0.20",
-                "diamond-clarity" to "S12",
-                "diamond-settings" to "Free",
-                "diamond-weight" to "0.406",
-                "gender" to "Women",
-                "item-type" to "Finger Ring",
-                "jewellery-type" to "Diamond Jewellery",
-                "karatage" to "14",
-                "material-color" to "Yellow Gold",
-                "metal" to "Gold",
-                "product-type" to "STUDDED"
-            ),
-            size = mapOf("0" to "16.40","1" to "17.40"," 2" to "1940"),
-            stock = "5",
-            styling = mapOf(
-                "des" to "Set in 14 KT Yellow Gold with diamonds",
-                "style" to "Wedding Party"
-            )
-        )
-    }
-
-//    private fun createProduct2(): Product {
-//        return Product(
-//            name = "Sparkling Diamond and Platinum Ring", price = "₹66,312",
-//            images = arrayOf(
-//                "gs://krishna-jewelry-app.appspot.com/product/ring/women/everyday fashion/3.3.jpeg",
-//                "gs://krishna-jewelry-app.appspot.com/product/ring/women/everyday fashion/3.1.jpeg",
-//                "gs://krishna-jewelry-app.appspot.com/product/ring/women/everyday fashion/3.2.jpeg",
-//                "gs://krishna-jewelry-app.appspot.com/product/ring/women/everyday fashion/3.4.jpeg",
-//                "gs://krishna-jewelry-app.appspot.com/product/ring/women/everyday fashion/3.5.jpeg"
-//            ),
-//            grossWeight = arrayOf("1.938", "2.003", "1.864"), priceBreaking = mapOf(
-//                "Diamond" to "₹30,850",
-//                "Making Charges" to "₹2,713",
-//                "Metal" to "₹6,648",
-//                "Taxes" to "₹396",
-//                "Total" to "₹40,580"
-//            ),
-//            productSpecification = mapOf(
-//                "brand" to "Mahavir",
-//                "collection" to "Mahavir",
-//                "country-of-origin" to "India",
-//                "design-type" to "BASIC",
-//                "diamond-carat" to "0.20",
-//                "diamond-clarity" to "S12",
-//                "diamond-settings" to "Free",
-//                "diamond-weight" to "0.16",
-//                "gender" to "Women",
-//                "item-type" to "Finger Ring",
-//                "jewellery-type" to "Diamond Jewellery",
-//                "karatage" to "14",
-//                "material-color" to "Silver",
-//                "metal" to "Platinum",
-//                "product-type" to "STUDDED"
-//            ),
-//            size = arrayOf("16.40", "17.40", "1940"), stock = "1",
-//            styling = mapOf(
-//                "des" to "KISNA 14k / 18k Real Gold & Diamond Ring",
-//                "style" to "Special Occasion"
-//            )
-//        )
-//    }
 }
