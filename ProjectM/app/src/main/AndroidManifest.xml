@@ -22,7 +22,7 @@
         </activity>
         <activity
             android:name=".Editprofile"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Search.SearchResult"
             android:exported="false" />
