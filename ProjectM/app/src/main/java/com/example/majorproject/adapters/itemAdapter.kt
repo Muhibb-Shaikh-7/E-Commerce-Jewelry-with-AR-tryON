@@ -10,18 +10,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.majorproject.R
 import com.example.majorproject.dataClass.item
+import com.google.android.material.imageview.ShapeableImageView
 
-class ItemAdapter(val context: Context, val list: List<item>) :
+class ItemAdapter(private val context: Context, private val list: List<item>) :
     RecyclerView.Adapter<ItemAdapter.ItemAdapterViewModel>() {
 
+    // ViewHolder class to hold item views
     class ItemAdapterViewModel(view: View) : RecyclerView.ViewHolder(view) {
-        val imageView: ImageView = view.findViewById(R.id.isearchmageView)
+        val imageView: ShapeableImageView = view.findViewById(R.id.isearchmageView)
         val nameView: TextView = view.findViewById(R.id.searchtitleTextView)
-        val weightView: TextView = view.findViewById(R.id.priceTextView)
-
+        val priceView: TextView = view.findViewById(R.id.priceTextView)
+        val styleText: TextView = view.findViewById(R.id.product_style)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemAdapterViewModel {
+        // Inflate the layout for each item
         val view = LayoutInflater.from(context).inflate(R.layout.item_card, parent, false)
         return ItemAdapterViewModel(view)
     }
@@ -31,14 +34,17 @@ class ItemAdapter(val context: Context, val list: List<item>) :
     }
 
     override fun onBindViewHolder(holder: ItemAdapterViewModel, position: Int) {
+        // Get the current item from the list
         val currentItem = list[position]
-        Glide.with(context)
-            .load(currentItem.image) // Use the URL instead of resource ID
-           // Optional: placeholder while loading
-             // Optional: error image if the load fails
-            .into(holder.imageView)
-        holder.nameView.text = currentItem.name
-        holder.weightView.text = currentItem.price
 
+        // Load the image using Glide
+        Glide.with(context)
+            .load(currentItem.image)   // Load image URL
+            .into(holder.imageView)
+
+        // Set name and price text views
+        holder.nameView.text = currentItem.name
+        holder.priceView.text = currentItem.price
+        holder.styleText.text = currentItem.style
     }
 }

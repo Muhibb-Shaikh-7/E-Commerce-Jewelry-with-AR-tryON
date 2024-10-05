@@ -7,5 +7,5 @@ data class item(
     val image:String,
     val name:String,
     val price:String,
-    val description:String=""
+    val style:String=""
 )
