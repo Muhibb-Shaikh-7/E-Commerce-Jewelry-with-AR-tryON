@@ -1,30 +1,21 @@
-package com.example.majorproject.description
 
-import android.content.Intent
+package com.example.majorproject
+
 import android.os.Bundle
-import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.majorproject.R
-import com.example.majorproject.TryOn
 
-class ProductDescription : AppCompatActivity() {
+class TryOn : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_product_description)
-
+        setContentView(R.layout.activity_try_on)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        findViewById<Button>(R.id.tryon).setOnClickListener{
-            startActivity(Intent(this@ProductDescription,TryOn::class.java))
-        }
-
-
     }
 }

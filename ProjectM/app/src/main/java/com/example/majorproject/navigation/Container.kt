@@ -42,7 +42,8 @@ class Container : AppCompatActivity() {
                 val selectedFragment = when (newIndex) {
                     0 -> HomeFragment()
                     1 -> ProductFragment()
-                    3 -> ProfileFragment()
+                    2 -> ContactUsFragment()
+                    3->ProfileFragment()
                     else -> HomeFragment()
                 }
 

@@ -1,15 +1,20 @@
 package com.example.majorproject.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.majorproject.R
+import com.example.majorproject.TryOn
 import com.example.majorproject.dataClass.item
+import com.example.majorproject.description.ProductDescription
 import com.google.android.material.imageview.ShapeableImageView
 
 class ItemAdapter(private val context: Context, private val list: List<item>) :
@@ -21,6 +26,7 @@ class ItemAdapter(private val context: Context, private val list: List<item>) :
         val nameView: TextView = view.findViewById(R.id.searchtitleTextView)
         val priceView: TextView = view.findViewById(R.id.priceTextView)
         val styleText: TextView = view.findViewById(R.id.product_style)
+        val card:CardView=view.findViewById((R.id.card))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemAdapterViewModel {
@@ -46,5 +52,8 @@ class ItemAdapter(private val context: Context, private val list: List<item>) :
         holder.nameView.text = currentItem.name
         holder.priceView.text = currentItem.price
         holder.styleText.text = currentItem.style
+        holder.card.setOnClickListener{
+           context.startActivity(Intent(context,ProductDescription::class.java))
+        }
     }
 }
