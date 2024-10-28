@@ -1,4 +1,7 @@
 package com.example.majorproject.dataClass
+
+import java.io.Serializable
+
 data class Product(
     val name: String = "",
     val price: String = "",
@@ -9,4 +12,4 @@ data class Product(
     val size: Map<String,String> = emptyMap(),
     val stock: String = "",
     val styling: Map<String, String> = emptyMap()
-)
+):Serializable

@@ -48,9 +48,6 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.play.services.maps)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.lottie)
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
     implementation("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
@@ -59,7 +56,8 @@ dependencies {
     implementation("com.tbuonomo:dotsindicator:5.0")
     implementation("com.github.wasabeef:blurry:3.0.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
-//    implementation("com.paulrybitskyi.persistentsearchview:persistentsearchview:1.0.0")
-
-
+    //implementation("com.paulrybitskyi.persistentsearchview:persistentsearchview:1.0.0")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 }

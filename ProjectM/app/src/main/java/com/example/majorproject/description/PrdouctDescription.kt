@@ -2,9 +2,12 @@ package com.example.majorproject.description
 
 import android.animation.ObjectAnimator
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import android.media.Image
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -25,14 +28,11 @@ import com.example.majorproject.adapters.WeightItemAdapter
 import com.example.majorproject.dataClass.Product
 import com.example.majorproject.dataClass.ProductSpecification
 import com.example.majorproject.databinding.ActivityProductDescriptionBinding
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.text.NumberFormat
+import java.io.ByteArrayOutputStream
 
 class ProductDescription : AppCompatActivity() {
 
@@ -62,6 +62,7 @@ class ProductDescription : AppCompatActivity() {
             }
 
         Log.d("ProductDescription", "Received product: ${product.name}")
+
         fetchProductData(product)
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
@@ -74,10 +75,22 @@ class ProductDescription : AppCompatActivity() {
 
         setupOnClickListeners()
     }
+    fun convertDrawableToBase64(context: Context, drawableResId: Int): String? {
+        // Step 1: Convert Drawable to Bitmap
+        val bitmap: Bitmap = BitmapFactory.decodeResource(context.resources, drawableResId)
+
+        // Step 2: Convert Bitmap to Base64 String
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream) // PNG format
+        val byteArray = byteArrayOutputStream.toByteArray()
+
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
+    }
 
     private fun setProductSpecificationRecyclerView(product: Product) {
-        Log.d("check", "setProductSpecificationRecyclerView()")
-        Log.d("check", "Product data: ${product.productSpecification}")
+
+        Log.d("ProductDescription", "setProductSpecificationRecyclerView()")
+        Log.d("ProductDescription", "Product data: ${product.productSpecification}")
 
 
         val specList = mutableListOf<ProductSpecification>()
@@ -100,16 +113,16 @@ class ProductDescription : AppCompatActivity() {
         product.productSpecification["product-type"]?.let { specList.add(ProductSpecification("Product Type", it)) }
 
         if (specList.isEmpty()) {
-            Log.e("check", "Specification list is empty!")
+            Log.e("ProductDescription", "Specification list is empty!")
             return
         }
 
-        Log.d("check", "setProductSpecificationRecyclerView() adapter setup")
+        Log.d("ProductDescription", "setProductSpecificationRecyclerView() adapter setup")
         adapter = ProductSpecificationAdapter(specList)
         binding.productSpecificationRV.layoutManager = LinearLayoutManager(this)
-        Log.d("check", "setProductSpecificationRecyclerView() recycler view setup")
+        Log.d("ProductDescription", "setProductSpecificationRecyclerView() recycler view setup")
         binding.productSpecificationRV.adapter = adapter
-        Log.d("check", "setProductSpecificationRecyclerView() adapter added to recycler view")
+        Log.d("ProductDescription", "setProductSpecificationRecyclerView() adapter added to recycler view")
     }
 
 
@@ -125,16 +138,20 @@ class ProductDescription : AppCompatActivity() {
 //        }
 
         binding.downArrowProductDes.setOnClickListener {
-            Log.d("check", "Product Description")
-            toggleExpandableLayout(
-                isProductDescExpanded,
-                binding.productDesExtandableLayout,
-                binding.downArrowProductDes,
-                binding.productDesSubtitle
-            )
-            Log.d("check", "Product Description toggleExpandableLayout called")
-            isProductDescExpanded = !isProductDescExpanded
-        }
+            try {
+                Log.d("ProductDescription", "Product Description")
+                toggleExpandableLayout(
+                    isProductDescExpanded,
+                    binding.productDesExtandableLayout,
+                    binding.downArrowProductDes,
+                    binding.productDesSubtitle
+                )
+                Log.d("ProductDescription", "Product Description toggleExpandableLayout called")
+                isProductDescExpanded = !isProductDescExpanded
+            }catch( e:Exception){
+                Log.e("ProductDescription", "Error: ${e.message}", e)
+
+            }            }
 
         binding.downArrowPriceBreak.setOnClickListener {
             toggleExpandableLayout(
@@ -228,11 +245,12 @@ class ProductDescription : AppCompatActivity() {
 
     }
     private fun setUpViewPager(product: Product) {
-        val imageUrls = product.images.values.toList()  // Extract the image URLs from the map
+        val imageUrls = product.images.values.toList()
+        val imageList = listOf( convertDrawableToBase64(this, R.drawable.necklace1),convertDrawableToBase64(this, R.drawable.necklace2),convertDrawableToBase64(this, R.drawable.necklace3),convertDrawableToBase64(this, R.drawable.necklace4),)
 
         if (imageUrls.isNotEmpty()) {
             Log.d("ProductDescription", "Image URLs: $imageUrls")
-            val imageAdapter = ProductImageAdapter(imageUrls)
+            val imageAdapter = ProductImageAdapter(imageList)
             val viewPager: ViewPager2 = binding.viewPager
             viewPager.adapter = imageAdapter  // No need for layoutManager with ViewPager2
 
@@ -353,13 +371,17 @@ class ProductDescription : AppCompatActivity() {
         titleView: View
     ) {
         if (isExpanded) {
+            Log.d("ProductDescription", "Product Description toggleExpandableLayout called arrow expanded ")
             expandableLayout.visibility = View.GONE
             arrow.rotation = 0f
             titleView.visibility=View.VISIBLE
         } else {
+            Log.d("ProductDescription", "Product Description toggleExpandableLayout called arrow expanded ")
             expandableLayout.visibility = View.VISIBLE
             arrow.rotation = 180f
             titleView.visibility=View.GONE
         }
+        Log.d("ProductDescription", "toggleExpandableLayout finished")
     }
+
 }

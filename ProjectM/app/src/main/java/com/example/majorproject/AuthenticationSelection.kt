@@ -27,9 +27,9 @@ import androidx.recyclerview.widget.RecyclerView
 import java.lang.reflect.Field
 import kotlin.math.min
 
-private class AuthenticationSelection : AppCompatActivity() {
+class AuthenticationSelection : AppCompatActivity() {
 
-    private lateinit var binding:ActivityAuthen
+    private lateinit var binding: ActivityAuthenticationSelectionBinding
     private lateinit var authViewPager: ViewPager2
     private lateinit var fragmentManager: FragmentManager
     private var autoSlidePaused: Boolean = false
@@ -94,7 +94,7 @@ private class AuthenticationSelection : AppCompatActivity() {
         }
     }
     private fun slideDownEffect(){
-        val slideDownAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_out_down_)
+        val slideDownAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_out_down)
 
         slideDownAnimation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation?) {
@@ -128,7 +128,7 @@ private class AuthenticationSelection : AppCompatActivity() {
             val backImage=binding.backgroundImageView
             backImage.setImageResource(currentImageResId)
             backImage.visibility = View.VISIBLE
-            BlurUtil.applyBlur(this, binding.backgroundImageView, 15f)
+            BlurUtil.applyBlur(this, binding.backgroundImageView, 10f)
 
 
             val slideUpAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_up)
