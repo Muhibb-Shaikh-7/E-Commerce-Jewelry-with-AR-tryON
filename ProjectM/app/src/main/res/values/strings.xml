@@ -41,4 +41,26 @@
     <string name="only_1_stock_left">Only 1 left in stock </string>
     <string name="office_wear">Office Wear</string>
     <string name="product_description">Product Description</string>
+    <string name="log_out">Log out</string>
+    <string name="profile">profile</string>
+    <string name="account">account</string>
+    <string name="todo">TODO</string>
+    <string name="account1">Account</string>
+    <string name="todo1">TODO</string>
+    <string name="order_history">Order History</string>
+
+
+
+    <string-array name="gen">
+        <item>Men</item>
+        <item>Women</item>
+        <item>Kids</item>
+    </string-array>
+
+    <string-array name="product_categories">
+        <item>Auspicious</item>
+        <item>Daily-Wear</item>
+        <item>Everyday</item>
+        <item>Special</item>
+    </string-array>
 </resources>

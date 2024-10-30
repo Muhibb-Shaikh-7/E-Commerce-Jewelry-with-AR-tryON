@@ -5,4 +5,9 @@
     <color name="text_gray">#6C6C6F</color>
     <color name="light_gray">#E2E2DF</color>
     <color name="transparent">#00E2E2DF</color>
+    <color name="background_color">#c2c5db</color>         <!-- light gray -->
+    <color name="primary_text_color">#3b3c4a</color>       <!-- dark gray -->
+    <color name="secondary_text_color">#6153b7</color>
+    <color name="button_color">#C19A6B</color>
+
 </resources>

@@ -91,11 +91,11 @@ function drawRing(landmark) {
     const { x, y } = landmark;
     const canvasWidth = canvasElement.width;
     const canvasHeight = canvasElement.height;
-  
+
     // Convert normalized coordinates to canvas coordinates
     const canvasX = (1 - x) * canvasWidth; // Flip the X coordinate
     const canvasY = y * canvasHeight;
-  
+
     // Flip the ring image horizontally by scaling the context
     const ringSize = 40; // Adjust the ring size to your liking
 

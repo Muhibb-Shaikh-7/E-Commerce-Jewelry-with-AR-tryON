@@ -5,9 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.majorproject.R
 
-class ImageSliderAdapter(private var images: MutableList<Int>) : RecyclerView.Adapter<ImageSliderAdapter.ImageViewHolder>() {
+class ProductImageAdapter(private var images: List<String?>) : RecyclerView.Adapter<ProductImageAdapter.ImageViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.slider_image_item, parent, false)
@@ -15,7 +16,10 @@ class ImageSliderAdapter(private var images: MutableList<Int>) : RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        holder.imageView.setImageResource(images[position])
+        // Use Glide to load the image from the URL
+        Glide.with(holder.itemView.context)
+            .load(images[position])
+            .into(holder.imageView)
     }
 
     override fun getItemCount(): Int = images.size
@@ -24,24 +28,9 @@ class ImageSliderAdapter(private var images: MutableList<Int>) : RecyclerView.Ad
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
     }
 
-    fun getImageAtPosition(position: Int): Int {
-        return if (position in images.indices) {
-            images[position]
-        } else {
-            R.drawable.model_img_1 // Default image in case of an invalid position
-        }
-    }
-
     // Method to update the entire list of images
-    fun updateImages(newImages: List<Int>) {
-        images.clear()
-        images.addAll(newImages)
+    fun updateImages(newImages: List<String>) {
+        images = newImages
         notifyDataSetChanged()
     }
-    fun addImages(newImages: List<Int>) {
-        val startIndex = images.size
-        images.addAll(newImages)
-        notifyItemRangeInserted(startIndex, newImages.size)
-    }
 }
-

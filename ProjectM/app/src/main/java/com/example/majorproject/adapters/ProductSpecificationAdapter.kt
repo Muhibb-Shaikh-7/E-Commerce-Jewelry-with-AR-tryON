@@ -23,7 +23,7 @@ class ProductSpecificationAdapter(private val specList: List<ProductSpecificatio
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_card, parent, false)
+            .inflate(R.layout.product_specification_item, parent, false) // Ensure item_card is the correct layout
         return ViewHolder(view)
     }
 

@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
@@ -48,9 +50,6 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.play.services.maps)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.lottie)
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
     implementation("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
@@ -59,7 +58,10 @@ dependencies {
     implementation("com.tbuonomo:dotsindicator:5.0")
     implementation("com.github.wasabeef:blurry:3.0.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
-//    implementation("com.paulrybitskyi.persistentsearchview:persistentsearchview:1.0.0")
-
-
+    //implementation("com.paulrybitskyi.persistentsearchview:persistentsearchview:1.0.0")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    implementation("pub.devrel:easypermissions:2.0.1")
+    implementation("pub.devrel:easypermissions:3.0.0")
 }
