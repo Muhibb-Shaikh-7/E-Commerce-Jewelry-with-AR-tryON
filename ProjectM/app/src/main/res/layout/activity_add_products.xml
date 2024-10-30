@@ -28,9 +28,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Category"
-            android:textSize="16sp"
-            android:layout_marginTop="8dp"
+            android:text="Categories"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
             android:textColor="@color/primary_text_color"/>
 
         <Spinner
@@ -56,6 +57,14 @@
             android:spinnerMode="dropdown" />
 
         <!-- Product Information Fields -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Product Information"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/primary_text_color"/>
         <EditText
             android:id="@+id/etProductName"
             android:layout_width="match_parent"
@@ -89,7 +98,14 @@
             android:minHeight="56dp"
             android:padding="10dp"
             android:layout_marginBottom="8dp" />
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price Breakdown"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/primary_text_color"/>
         <EditText
             android:id="@+id/etProductPrice"
             android:layout_width="match_parent"
@@ -146,6 +162,14 @@
             android:padding="10dp"
             android:layout_marginBottom="16dp" />
         <!-- Collection Field -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Product Specifications"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/primary_text_color"/>
         <EditText
             android:id="@+id/etCollection"
             android:layout_width="match_parent"
@@ -230,7 +254,14 @@
             android:padding="10dp"
             android:layout_marginBottom="8dp"
             android:textColor="@color/secondary_text_color" />
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Styling"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/primary_text_color"/>
         <!-- Karatage Field -->
         <EditText
             android:id="@+id/etKaratage"
@@ -285,8 +316,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Upload Images"
-            android:textSize="16sp"
+            android:text="Images"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:layout_marginTop="16dp"
             android:textColor="@color/primary_text_color"/>
 
