@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.majorproject.R
 import com.example.majorproject.RingSizeCalculator
+import com.example.majorproject.TryOn
 import com.example.majorproject.adapters.ProductImageAdapter
 import com.example.majorproject.adapters.ProductSpecificationAdapter
 import com.example.majorproject.adapters.SizeItemAdapter
@@ -51,9 +52,11 @@ class ProductDescription : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProductDescriptionBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+       setContentView(binding.root)
 
-
+        binding.tryOn.setOnClickListener{
+            startActivity(Intent(this@ProductDescription,TryOn::class.java))
+        }
         product = intent.getSerializableExtra("product") as? Product
             ?: run {
                 Log.e("ProductDescription", "Received null product")
