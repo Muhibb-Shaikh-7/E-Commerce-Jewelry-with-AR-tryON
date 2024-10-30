@@ -1,5 +1,7 @@
 package com.example.majorproject
 
+import android.Manifest
+import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +14,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -52,18 +55,13 @@ class TryOn : AppCompatActivity() {
                     if (resources.contains(PermissionRequest.RESOURCE_VIDEO_CAPTURE)) {
                         if (ContextCompat.checkSelfPermission(
                                 this@TryOn,
-                                android.Manifest.permission.CAMERA
+                                Manifest.permission.CAMERA
                             ) == PackageManager.PERMISSION_GRANTED
                         ) {
                             it.grant(arrayOf(PermissionRequest.RESOURCE_VIDEO_CAPTURE))
                         } else {
-                            // Store the request and ask for camera permission
-                            pendingPermissionRequest = it
-                            ActivityCompat.requestPermissions(
-                                this@TryOn,
-                                arrayOf(android.Manifest.permission.CAMERA),
-                                CAMERA_PERMISSION_REQUEST_CODE
-                            )
+                            // Show an alert dialog to explain the permission request
+                            showCameraPermissionDialog(it)
                         }
                     } else {
                         it.deny()
@@ -76,7 +74,7 @@ class TryOn : AppCompatActivity() {
             javaScriptEnabled = true
             domStorageEnabled = true
             mixedContentMode = WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE
-            mediaPlaybackRequiresUserGesture = false // Allows media playback without user gesture
+            mediaPlaybackRequiresUserGesture = false // Allow autoplay
         }
 
         loadLocalHtml()
@@ -88,6 +86,26 @@ class TryOn : AppCompatActivity() {
         webView.loadUrl("file:///android_asset/index.html")
     }
 
+    private fun showCameraPermissionDialog(permissionRequest: PermissionRequest) {
+        AlertDialog.Builder(this)
+            .setTitle("Camera Permission Needed")
+            .setMessage("This feature requires camera access. Would you like to grant permission?")
+            .setPositiveButton("Allow") { _, _ ->
+                pendingPermissionRequest = permissionRequest
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.CAMERA),
+                    CAMERA_PERMISSION_REQUEST_CODE
+                )
+            }
+            .setNegativeButton("Deny") { dialog, _ ->
+                permissionRequest.deny()
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .show()
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -95,12 +113,11 @@ class TryOn : AppCompatActivity() {
     ) {
         if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Grant the camera permission to the WebView if it was previously requested
                 pendingPermissionRequest?.grant(arrayOf(PermissionRequest.RESOURCE_VIDEO_CAPTURE))
             } else {
                 Toast.makeText(this, "Camera permission is required for this feature", Toast.LENGTH_LONG).show()
             }
-            pendingPermissionRequest = null // Clear the pending request
+            pendingPermissionRequest = null
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }

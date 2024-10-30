@@ -11,6 +11,7 @@ import android.widget.EditText
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.example.majorproject.R
+import com.example.majorproject.admin.AddProducts
 import com.example.majorproject.navigation.Container
 import com.example.majorproject.preferences.NameActivity
 import com.google.android.material.textfield.TextInputEditText
@@ -43,6 +44,10 @@ class SignInFragment : Fragment() {
         loginButton = view.findViewById(R.id.sign_in_button)
 
         loginButton.setOnClickListener {
+            if (emailEditText.text.toString()=="admin"&&passwordEditText.text.toString()=="admin"){
+                startActivity(Intent(context,AddProducts::class.java))
+            }
+            else
             loginUser()
         }
 
@@ -62,6 +67,7 @@ class SignInFragment : Fragment() {
             passwordEditText.error = "Password is required"
             return
         }
+
 
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->

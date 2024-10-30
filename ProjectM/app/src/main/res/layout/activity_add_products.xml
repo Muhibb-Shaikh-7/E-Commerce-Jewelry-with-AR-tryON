@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main"
@@ -15,6 +14,7 @@
         android:orientation="vertical"
         android:gravity="center">
 
+        <!-- Title -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,6 +24,7 @@
             android:textColor="@color/primary_text_color"
             android:paddingBottom="16dp"/>
 
+        <!-- Category Section -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,8 +37,8 @@
             android:id="@+id/spinnerProductCategoryGen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/edit_text_background"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/custom_edit_text_background"
             android:entries="@array/gen"
             android:minHeight="48dp"
             android:padding="10dp"
@@ -48,62 +49,239 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/edit_text_background"
+            android:background="@drawable/custom_edit_text_background"
             android:entries="@array/product_categories"
             android:minHeight="48dp"
             android:padding="10dp"
             android:spinnerMode="dropdown" />
 
+        <!-- Product Information Fields -->
         <EditText
             android:id="@+id/etProductName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_background"
+            android:background="@drawable/custom_edit_text_background"
             android:hint="Product Name"
-            android:minHeight="48dp"
+            android:minHeight="56dp"
             android:padding="10dp"
+            android:layout_marginBottom="8dp"
             android:textColor="@color/secondary_text_color" />
 
-        <EditText
-            android:id="@+id/etProductDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Product Description"
-            android:inputType="textMultiLine"
-            android:gravity="top"
-            android:minLines="3"
-            android:padding="10dp"
-            android:background="@drawable/edit_text_background"/>
+
 
         <EditText
             android:id="@+id/etProductSizes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_background"
+            android:background="@drawable/custom_edit_text_background"
             android:hint="Available Sizes (e.g., Small, Medium, Large)"
-            android:minHeight="48dp"
-            android:padding="10dp" />
+            android:minHeight="56dp"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp" />
 
         <EditText
             android:id="@+id/etProductStock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_background"
+            android:background="@drawable/custom_edit_text_background"
             android:hint="Stock Quantity"
             android:inputType="number"
-            android:minHeight="48dp"
-            android:padding="10dp" />
+            android:minHeight="56dp"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp" />
 
         <EditText
             android:id="@+id/etProductPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_background"
+            android:background="@drawable/custom_edit_text_background"
             android:hint="Product Price"
             android:inputType="numberDecimal"
-            android:minHeight="48dp"
-            android:padding="10dp" />
+            android:minHeight="56dp"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp" />
 
+        <!-- Fields from Image Data -->
+        <EditText
+            android:id="@+id/etDiamondPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edit_text_background"
+            android:hint="Diamond Price"
+            android:inputType="numberDecimal"
+            android:minHeight="56dp"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etMakingCharges"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edit_text_background"
+            android:hint="Making Charges"
+            android:inputType="numberDecimal"
+            android:minHeight="56dp"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etMetalPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edit_text_background"
+            android:hint="Metal Price"
+            android:inputType="numberDecimal"
+            android:minHeight="56dp"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etTaxes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edit_text_background"
+            android:hint="Taxes"
+            android:inputType="numberDecimal"
+            android:minHeight="56dp"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp" />
+        <!-- Collection Field -->
+        <EditText
+            android:id="@+id/etCollection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edit_text_background"
+            android:hint="Collection"
+            android:minHeight="56dp"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/secondary_text_color" />
+
+        <!-- Design Type Field -->
+        <EditText
+            android:id="@+id/etDesignType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edit_text_background"
+            android:hint="Design Type"
+            android:minHeight="56dp"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/secondary_text_color" />
+
+        <!-- Diamond Carat Field -->
+        <EditText
+            android:id="@+id/etDiamondCarat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edit_text_background"
+            android:hint="Diamond Carat"
+            android:inputType="numberDecimal"
+            android:minHeight="56dp"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/secondary_text_color" />
+
+        <!-- Diamond Weight Field -->
+        <EditText
+            android:id="@+id/etDiamondWeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edit_text_background"
+            android:hint="Diamond Weight"
+            android:inputType="numberDecimal"
+            android:minHeight="56dp"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/secondary_text_color" />
+
+        <!-- Gender Field -->
+        <EditText
+            android:id="@+id/etGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edit_text_background"
+            android:hint="Gender"
+            android:minHeight="56dp"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/secondary_text_color" />
+
+        <!-- Item Type Field -->
+        <EditText
+            android:id="@+id/etItemType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edit_text_background"
+            android:hint="Item Type"
+            android:minHeight="56dp"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/secondary_text_color" />
+
+        <!-- Jewellery Type Field -->
+        <EditText
+            android:id="@+id/etJewelleryType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edit_text_background"
+            android:hint="Jewellery Type"
+            android:minHeight="56dp"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/secondary_text_color" />
+
+        <!-- Karatage Field -->
+        <EditText
+            android:id="@+id/etKaratage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edit_text_background"
+            android:hint="Karatage"
+            android:inputType="number"
+            android:minHeight="56dp"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/secondary_text_color" />
+
+        <!-- Material Color Field -->
+        <EditText
+            android:id="@+id/etMaterialColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edit_text_background"
+            android:hint="Material Color"
+            android:minHeight="56dp"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/secondary_text_color" />
+
+        <!-- Metal Field -->
+        <EditText
+            android:id="@+id/etMetal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edit_text_background"
+            android:hint="Metal"
+            android:minHeight="56dp"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/secondary_text_color" />
+
+        <!-- Product Type Field -->
+        <EditText
+            android:id="@+id/etProductType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edit_text_background"
+            android:hint="Product Type"
+            android:minHeight="56dp"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/secondary_text_color" />
+
+
+        <!-- Image Upload Section -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -161,6 +339,7 @@
                 android:layout_margin="4dp" />
         </LinearLayout>
 
+        <!-- Save Button -->
         <Button
             android:id="@+id/btnSaveProduct"
             android:layout_width="match_parent"
