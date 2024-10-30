@@ -2,8 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/main"
     android:padding="16dp"
-    android:background="@android:color/white">
+    android:background="#c2c5db"> <!-- Changed background color to #c2c5db -->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +33,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:textColor="@android:color/black" />
+                android:textColor="#6153b7" /> <!-- Changed text color to #6153b7 -->
 
             <ImageView
                 android:id="@+id/helpIcon"
@@ -50,7 +51,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:paddingTop="16dp"
-            android:textColor="@android:color/black" />
+            android:textColor="#f047f3" /> <!-- Changed text color to #f047f3 -->
 
         <TextView
             android:id="@+id/orderDate"
@@ -58,7 +59,7 @@
             android:layout_height="wrap_content"
             android:text="Placed on: Sept 20, 2024"
             android:textSize="14sp"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="#3b3c4a" /> <!-- Changed text color to #3b3c4a -->
 
         <!-- Progress Tracker -->
         <LinearLayout
@@ -87,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:text="Confirmed"
                     android:textSize="12sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="#6153b7" /> <!-- Changed text color to #6153b7 -->
             </LinearLayout>
 
             <!-- Order Processed -->
@@ -108,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:text="Processed"
                     android:textSize="12sp"
-                    android:textColor="@android:color/darker_gray" />
+                    android:textColor="#e6dc6a" /> <!-- Changed text color to #e6dc6a -->
             </LinearLayout>
 
             <!-- Shipped -->
@@ -129,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:text="Shipped"
                     android:textSize="12sp"
-                    android:textColor="@android:color/darker_gray" />
+                    android:textColor="#e6dc6a" /> <!-- Changed text color to #e6dc6a -->
             </LinearLayout>
 
             <!-- Out for Delivery -->
@@ -150,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:text="Out for Delivery"
                     android:textSize="12sp"
-                    android:textColor="@android:color/darker_gray" />
+                    android:textColor="#e6dc6a" /> <!-- Changed text color to #e6dc6a -->
             </LinearLayout>
 
             <!-- Delivered -->
@@ -171,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:text="Delivered"
                     android:textSize="12sp"
-                    android:textColor="@android:color/darker_gray" />
+                    android:textColor="#e6dc6a" /> <!-- Changed text color to #e6dc6a -->
             </LinearLayout>
         </LinearLayout>
 
@@ -183,7 +184,8 @@
             android:text="Items:"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:paddingTop="16dp" />
+            android:paddingTop="16dp"
+            android:textColor="#6153b7" /> <!-- Changed text color to #6153b7 -->
 
         <!-- Sample Item (Repeat for each item) -->
         <LinearLayout
@@ -211,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:text="Product Name"
                     android:textSize="14sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="#f047f3" /> <!-- Changed text color to #f047f3 -->
 
                 <TextView
                     android:id="@+id/itemQuantity"
@@ -219,7 +221,7 @@
                     android:layout_height="wrap_content"
                     android:text="Qty: 1"
                     android:textSize="14sp"
-                    android:textColor="@android:color/darker_gray" />
+                    android:textColor="#3b3c4a" /> <!-- Changed text color to #3b3c4a -->
             </LinearLayout>
 
             <TextView
@@ -228,7 +230,7 @@
                 android:layout_height="wrap_content"
                 android:text="$50"
                 android:textSize="14sp"
-                android:textColor="@android:color/black" />
+                android:textColor="#3b3c4a" /> <!-- Changed text color to #3b3c4a -->
         </LinearLayout>
 
         <!-- Shipping Address Section -->
@@ -239,7 +241,8 @@
             android:text="Shipping Address:"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:paddingTop="16dp" />
+            android:paddingTop="16dp"
+            android:textColor="#6153b7" /> <!-- Changed text color to #6153b7 -->
 
         <TextView
             android:id="@+id/shippingAddress"
@@ -247,44 +250,25 @@
             android:layout_height="wrap_content"
             android:text="John Doe, 123 Main St, New York, NY 10001"
             android:textSize="14sp"
-            android:textColor="@android:color/black" />
+            android:textColor="#3b3c4a" /> <!-- Changed text color to #3b3c4a -->
 
         <!-- Carrier Information -->
+        <TextView
+            android:id="@+id/carrierInfoTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Carrier:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:paddingTop="16dp"
+            android:textColor="#6153b7" /> <!-- Changed text color to #6153b7 -->
+
         <TextView
             android:id="@+id/carrierInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Shipped via DHL | Tracking ID: XYZ123456"
+            android:text="UPS, Tracking #1Z9999999999999999"
             android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"
-            android:paddingTop="8dp" />
-
-        <!-- Buttons -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:paddingTop="16dp">
-
-            <Button
-                android:id="@+id/cancelOrderButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cancel Order"
-                android:textColor="@android:color/white"
-                android:backgroundTint="@android:color/holo_red_dark" />
-
-            <Button
-                android:id="@+id/contactSupportButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Contact Support"
-                android:textColor="@android:color/white"
-                android:backgroundTint="@android:color/holo_blue_dark"
-                android:layout_marginStart="16dp" />
-        </LinearLayout>
-
+            android:textColor="#3b3c4a" /> <!-- Changed text color to #3b3c4a -->
     </LinearLayout>
 </ScrollView>
-
