@@ -49,6 +49,12 @@
     <string name="todo1">TODO</string>
     <string name="order_history">Order History</string>
     <string name="log_out1">Log Out</string>
+    <string name="arrow">Arrow</string>
+    <string name="track_order1">Track Order</string>
+    <string name="arrow1">Arrow</string>
+    <string name="arrow2">Arrow</string>
+    <string name="arrow3">Arrow</string>
+    <string name="w1">Arrow</string>
 
 
     <string-array name="gen">
