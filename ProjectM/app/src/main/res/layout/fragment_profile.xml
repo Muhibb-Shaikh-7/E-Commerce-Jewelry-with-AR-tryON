@@ -5,21 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:layout_margin="15dp"
     android:background="#F5F5F5">
 
     <!-- Header with Back Arrow, Title, and Icon Button -->
     <LinearLayout
-        android:layout_width="383dp"
-        android:layout_height="56dp"
+        android:layout_width="381dp"
+        android:layout_height="70dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="8dp">
 
         <!-- Back Arrow Icon -->
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
+            android:layout_width="34dp"
+            android:layout_height="39dp"
             android:layout_marginEnd="16dp"
             android:contentDescription="Back Arrow"
             android:src="@drawable/ic_back"
@@ -27,8 +27,8 @@
 
         <!-- Title Text -->
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="36dp"
+            android:layout_width="302dp"
+            android:layout_height="45dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="Profile"
@@ -41,18 +41,22 @@
 
     <!-- Profile Header with Image and Name -->
     <LinearLayout
-        android:layout_width="391dp"
-        android:layout_height="183dp"
+        android:layout_width="395dp"
+        android:layout_height="205dp"
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingTop="30dp"
-        tools:ignore="ExtraText">
+        android:layout_margin=""
+        tools:ignore="ExtraText"><![CDATA[
         android:paddingBottom="10dp">
 
+
+
+        ]]>
+
         <ImageView
-            android:layout_width="99dp"
-            android:layout_height="95dp"
+            android:layout_width="128dp"
+            android:layout_height="146dp"
             android:layout_gravity="center"
             android:layout_marginBottom="8dp"
             android:background="@color/white"
