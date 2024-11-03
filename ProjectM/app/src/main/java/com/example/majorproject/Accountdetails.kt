@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_account_details.*
+
 
 class Accountdetails : AppCompatActivity() {
     private lateinit var firestore: FirebaseFirestore
@@ -39,10 +39,7 @@ class Accountdetails : AppCompatActivity() {
                     val email = document.getString("email")
 
                     // Update UI components
-                    username_edit_text.setText(name)
-                    address_edit_text.setText(address)
-                    phone_number_edit_text.setText(contactNumber)
-                    email_edit_text.setText(email)
+
                 } else {
                     // Document does not exist
                     println("No such document")

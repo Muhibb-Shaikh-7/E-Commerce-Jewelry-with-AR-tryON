@@ -26,23 +26,23 @@ class ProfileFragment : Fragment() {
         val userEmail = "shaikhsaniya1001@gmail.com" // Replace with dynamic email if available
 
         // Fetch username from Firestore
-        db.collection("users").document(userEmail).get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    val username = document.getString("name") ?: "User"
-                    binding.textViewUsername.text = username // Replace with your TextView ID for the username
-                } else {
-                    Toast.makeText(context, "User data not found", Toast.LENGTH_SHORT).show()
-                }
-            }
-            .addOnFailureListener { exception ->
-                Toast.makeText(context, "Failed to fetch data: ${exception.message}", Toast.LENGTH_SHORT).show()
-            }
-
-        // Other code (e.g., setting click listeners)
-        binding.btnViewCart.setOnClickListener {
-            startActivity(Intent(this.context, Cart::class.java))
-        }
+//        db.collection("users").doB                 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBcument(userEmail).get()
+//            .addOnSuccessListener { document ->
+//                if (document != null) {
+//                    val username = document.getString("name") ?: "User"
+//                    binding.textViewUsername.text = username // Replace with your TextView ID for the username
+//                } else {
+//                    Toast.makeText(context, "User data not found", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//            .addOnFailureListener { exception ->
+//                Toast.makeText(context, "Failed to fetch data: ${exception.message}", Toast.LENGTH_SHORT).show()
+//            }
+//
+//        // Other code (e.g., setting click listeners)
+//        binding.btnViewCart.setOnClickListener {
+//            startActivity(Intent(this.context, Cart::class.java))
+//        }
 
         // Inflate the layout for this fragment
         return binding.root

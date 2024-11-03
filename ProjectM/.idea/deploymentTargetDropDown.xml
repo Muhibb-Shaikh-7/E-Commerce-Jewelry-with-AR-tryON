@@ -2,10 +2,32 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="ProductDescription">
+      <entry key="APP">
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\Fahad shaik\.android\avd\test1.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-11-02T12:35:37.789530500Z" />
+        </State>
+      </entry>
+      <entry key="Accountdetails">
         <State />
       </entry>
-      <entry key="app">
+      <entry key="Container">
+        <State />
+      </entry>
+      <entry key="MainActivity">
+        <State />
+      </entry>
+      <entry key="Unnamed">
         <State />
       </entry>
     </value>
