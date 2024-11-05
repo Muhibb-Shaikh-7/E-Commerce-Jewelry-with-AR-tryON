@@ -14,7 +14,8 @@
         android:layout_height="70dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="8dp">
+        android:padding="8dp"
+        tools:ignore="UseCompoundDrawables">
 
         <!-- Back Arrow Icon -->
         <ImageView
@@ -27,7 +28,7 @@
 
         <!-- Title Text -->
         <TextView
-            android:layout_width="302dp"
+            android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_weight="1"
             android:gravity="center"
@@ -46,13 +47,10 @@
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_margin="5dp"
-        tools:ignore="ExtraText"><![CDATA[
+        android:layout_margin="15dp"
+        tools:ignore="ExtraText,VisualLintBounds"
         android:paddingBottom="10dp">
 
-
-
-        ]]>
 
         <ImageView
             android:layout_width="128dp"
@@ -150,7 +148,7 @@
                 android:id="@+id/address_frowardimg"
                 android:layout_width="24dp"
                 android:layout_height="20dp"
-                android:contentDescription="Arrow"
+                android:contentDescription="@string/arrow"
                 android:src="@drawable/forward_img"
                 android:backgroundTint="@color/white"
                />
@@ -184,7 +182,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/forward_img"
-                android:contentDescription="Arrow"
+                android:contentDescription="@string/arrow3"
                  android:backgroundTint="@color/white" />
 
         </LinearLayout>
@@ -210,7 +208,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
-                android:text="Track Order"
+                android:text="@string/track_order1"
                 android:textColor="#000000"
                 android:textSize="16sp" />
 
@@ -219,7 +217,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/forward_img"
-                android:contentDescription="Arrow"
+                android:contentDescription="@string/arrow1"
                 android:backgroundTint="@color/white"/>
         </LinearLayout>
 
@@ -252,7 +250,7 @@
                 android:layout_height="24dp"
                 android:src="@drawable/forward_img"
                 android:backgroundTint="@color/white"
-                android:contentDescription="Arrow" />
+                android:contentDescription="@string/arrow2" />
         </LinearLayout>
 
 
