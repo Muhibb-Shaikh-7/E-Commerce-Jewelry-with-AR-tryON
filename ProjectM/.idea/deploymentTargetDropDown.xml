@@ -5,6 +5,12 @@
       <entry key="APP">
         <State />
       </entry>
+      <entry key="Categories">
+        <State />
+      </entry>
+      <entry key="Container">
+        <State />
+      </entry>
     </value>
   </component>
 </project>

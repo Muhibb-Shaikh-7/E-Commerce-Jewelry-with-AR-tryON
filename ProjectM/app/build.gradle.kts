@@ -67,5 +67,5 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("pub.devrel:easypermissions:2.0.1")
     implementation("pub.devrel:easypermissions:3.0.0")
-    implementation("com.google.android.material:1.7.0")
+
 }
