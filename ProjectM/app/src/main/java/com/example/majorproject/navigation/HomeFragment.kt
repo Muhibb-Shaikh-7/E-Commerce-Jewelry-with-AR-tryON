@@ -50,20 +50,20 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
         val recyclerView = view?.findViewById<RecyclerView>(R.id.recycleview)
         viewPager=view.findViewById(R.id.viewPager2)
         progressBar=view.findViewById(R.id.progressBar8)
-        dots=view.findViewById(R.id.dotsBanner)
+
         progressBarProducts=view.findViewById(R.id.progressBarItems)
 
         recyclerView?.layoutManager = GridLayoutManager(context, 2)
 
         adapter = ItemAdapter(requireContext(), itemList, this)
         recyclerView?.adapter = adapter
-
+         fetchBannerImages(view)
 
         fetchAllAuspiciousProducts()
 
         return view
     }
-    private fun fetchBannerImages() {
+    private fun fetchBannerImages(view:View) {
         progressBar.visibility = View.VISIBLE
         val db = FirebaseFirestore.getInstance()
         val bannerRef = db.collection("banners").document("bannerImage")
@@ -73,10 +73,11 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
                 if (document != null && document.exists()) {
                     bannerImages.clear()
                     document.getString("banner1")?.let { bannerImages.add(it) }
-
+                    document.getString("banner2")?.let { bannerImages.add(it) }
                     // Set up adapter and ViewPager with loaded images
                     bannerAdapter = BannerAdapter(bannerImages)
                     viewPager.adapter = bannerAdapter
+                    dots=view.findViewById(R.id.dotsBanner)
                     dots.attachTo(viewPager)
                     Log.d("fetchBannerImages", "Successfully loaded banner images")
                 } else {
