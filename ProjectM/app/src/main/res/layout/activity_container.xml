@@ -7,27 +7,74 @@
     android:layout_height="match_parent"
     tools:context=".navigation.Container"
     android:background="@color/white" >
-    <LinearLayout
+    <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="25dp"
-        android:orientation="horizontal">
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/ic_home_back"
-            tools:ignore="SpeakableTextPresentCheck" />
+        android:padding="16dp"
+        android:background="@color/white">
 
         <TextView
+            android:id="@+id/location_text"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/poppins_bold"
-            android:layout_marginStart="25dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="App Ka Name" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:text="Mahavir Gems"
+            android:textColor="@android:color/black"
+            android:textSize="29sp"
+            android:fontFamily="@font/tenor_sans"
+            android:drawablePadding="4dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"/>
+
+        <ImageView
+            android:id="@+id/notification_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/bell_icon"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"/>
+
+        <RelativeLayout
+            android:id="@+id/search_bar_container"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/location_text"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/search_background">
+
+            <EditText
+                android:id="@+id/search_input"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Search"
+                android:paddingStart="16dp"
+                android:background="@android:color/transparent"
+                android:textColor="@android:color/black"
+                />
+
+            <ImageView
+                android:id="@+id/search_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_search"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/filter_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_filter"
+            android:background="@drawable/rounded_button_background"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/notification_icon"
+            android:layout_marginTop="8dp"/>
+    </RelativeLayout>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
