@@ -28,6 +28,7 @@
             android:gravity="center"
             android:text="App Ka Name" />
     </LinearLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
