@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation("com.squareup.picasso:picasso:2.8")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -66,5 +67,5 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("pub.devrel:easypermissions:2.0.1")
     implementation("pub.devrel:easypermissions:3.0.0")
-    implementation("com.google.android.material:1.7.0")
+
 }

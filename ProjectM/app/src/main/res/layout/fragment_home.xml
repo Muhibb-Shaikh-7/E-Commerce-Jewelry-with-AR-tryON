@@ -34,43 +34,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"/>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Welcome Back"
-                        android:textColor="#000000" /> <!-- Set text color to #6153b7 -->
-
-                    <TextView
-                        android:id="@+id/userName"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_margin="2dp"
-                        android:padding="2dp"
-                        android:text="Fahad"
-                        android:textSize="18sp"
-                        android:textColor="#A8715A"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/bell_icon" />
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/search_icon" />
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="179dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp">
 
                 <ProgressBar
@@ -133,67 +103,83 @@
                     android:textColor="#DD8560" />
             </LinearLayout>
 
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="16dp"
-                android:scrollbars="none">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <!-- Price Range Buttons -->
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="wrap_content"
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/filter_button_bg"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="8dp"
-                        android:text="Special-Occasion"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp"
-                        android:layout_marginRight="5dp"/>
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/filter_button_bg"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="8dp"
-                        android:text="everyday-Fashion"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp"
-                        android:layout_marginRight="5dp"/>
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/filter_button_bg"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="8dp"
-                        android:text="Daily-Wear"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp"
-                        android:layout_marginRight="5dp"/>
+                        android:padding="8dp"
+                        android:scrollbars="none">
 
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/filter_button_bg"
-                        android:backgroundTintMode="add"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="8dp"
-                        android:text="Auspicious"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp"
-                        android:layout_marginRight="5dp"/>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+
+                                <ImageView
+                                    android:layout_width="65dp"
+                                    android:layout_height="65dp"
+                                    android:layout_marginRight="10dp"
+                                    android:background="@drawable/circular_categories_bg"
+                                    android:padding="10dp"
+                                    android:scaleType="centerInside"
+                                    android:src="@drawable/kids" />
+
+                                <ImageView
+                                    android:layout_width="65dp"
+                                    android:layout_height="65dp"
+                                    android:layout_marginRight="10dp"
+                                    android:background="@drawable/circular_categories_bg"
+                                    android:padding="10dp"
+                                    android:scaleType="centerInside"
+                                    android:src="@drawable/male1" />
+
+                                <ImageView
+                                    android:layout_width="65dp"
+                                    android:layout_height="65dp"
+                                    android:layout_marginRight="10dp"
+                                    android:background="@drawable/circular_categories_bg"
+                                    android:padding="10dp"
+                                    android:scaleType="centerInside"
+                                    android:src="@drawable/woman1" />
+
+                                <ImageView
+                                    android:layout_width="65dp"
+                                    android:layout_height="65dp"
+                                    android:layout_marginRight="10dp"
+                                    android:background="@drawable/circular_categories_bg"
+                                    android:padding="10dp"
+                                    android:scaleType="centerInside"
+                                    android:src="@drawable/necklace" />
+
+                                <ImageView
+                                    android:layout_width="65dp"
+                                    android:layout_height="65dp"
+                                    android:layout_marginRight="10dp"
+                                    android:background="@drawable/circular_categories_bg"
+                                    android:padding="10dp"
+                                    android:scaleType="centerInside"
+                                    android:src="@drawable/ic_ring" />
+
+                                <ImageView
+                                    android:layout_width="65dp"
+                                    android:layout_height="65dp"
+                                    android:layout_marginRight="10dp"
+                                    android:background="@drawable/circular_categories_bg"
+                                    android:padding="10dp"
+                                    android:scaleType="centerInside"
+                                    android:src="@drawable/ic_bracelet" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </HorizontalScrollView>
 
 
-                </LinearLayout>
-            </HorizontalScrollView>
-
-            <LinearLayout
+                    <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="24dp"

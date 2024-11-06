@@ -27,7 +27,7 @@ class Container : AppCompatActivity() {
         // Set HomeFragment as the default fragment
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, HomeFragment())
+                .replace(R.id.frame, HomeFragment())
                 .commit()
         }
 
@@ -48,7 +48,7 @@ class Container : AppCompatActivity() {
                 }
 
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainer, selectedFragment as Fragment)
+                    .replace(R.id.frame, selectedFragment as Fragment)
                     .commit()
             }
 
