@@ -1,53 +1,73 @@
-package com.example.majorproject
-
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.example.majorproject.R
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
+class AccountDetailsActivity : AppCompatActivity() {
 
-class Accountdetails : AppCompatActivity() {
-    private lateinit var firestore: FirebaseFirestore
+    // Declare UI elements
+    private lateinit var profileImage: ImageView
+    private lateinit var usernameEditText: EditText
+    private lateinit var emailEditText: EditText
+    private lateinit var addressEditText: EditText
+    private lateinit var phoneNumberEditText: EditText
+
+    // Initialize Firestore
+    private val db: FirebaseFirestore = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_account_details)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
-        // Initialize Firestore
-        firestore = FirebaseFirestore.getInstance()
+        // Initialize UI elements
+        profileImage = findViewById(R.id.profile_image)
+        usernameEditText = findViewById(R.id.username_edit_text)
+        emailEditText = findViewById(R.id.email_edit_text)
+        addressEditText = findViewById(R.id.address_edit_text)
+        phoneNumberEditText = findViewById(R.id.phone_number_edit_text)
 
-        // Fetch user data
-        fetchUserData("shaikhsaniya1001@gmail.com") // Replace with current user's email
+        // Fetch and populate data
+        fetchAndPopulateUserData("haqueirfanul10c7@gmail.com")
     }
 
-    private fun fetchUserData(email: String) {
-        firestore.collection("users").document(email).get()
+    private fun fetchAndPopulateUserData(email: String) {
+        // Access the "users" collection and specify the document ID using the email
+        val userDocRef = db.collection("users").document(email)
+
+        userDocRef.get()
             .addOnSuccessListener { document ->
-                if (document != null) {
-                    // Extract data from document
-                    val name = document.getString("name")
-                    val address = document.getString("building")
+                if (document != null && document.exists()) {
+                    // Retrieve fields from the document
+                    val age = document.getString("age")
+                    val building = document.getString("building")
+                    val city = document.getString("city")
                     val contactNumber = document.getString("contactNumber")
                     val email = document.getString("email")
+                    val name = document.getString("name")
+                    val pincode = document.getString("pincode")
+                    val state = document.getString("state")
 
-                    // Update UI components
+                    // Populate UI elements
+                    usernameEditText.setText(name)
+                    emailEditText.setText(email)
+                    addressEditText.setText("$building, $city, $state, $pincode")
+                    phoneNumberEditText.setText(contactNumber)
 
+                    // Load profile image if you have a URL for it in the database
+                    // For example:
+                    // val profileImageUrl = document.getString("profileImageUrl")
+                    // Glide.with(this).load(profileImageUrl).into(profileImage)
                 } else {
-                    // Document does not exist
-                    println("No such document")
+                    println("No such document exists.")
                 }
             }
             .addOnFailureListener { exception ->
-                // Handle error
-                println("Error getting documents: ${exception.localizedMessage}")
+                println("Error fetching document: ${exception.message}")
             }
     }
 }
