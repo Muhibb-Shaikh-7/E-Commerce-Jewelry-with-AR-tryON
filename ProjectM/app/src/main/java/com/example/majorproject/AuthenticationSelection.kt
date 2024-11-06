@@ -163,7 +163,7 @@ class AuthenticationSelection : AppCompatActivity() {
             imagesSize += newImages.size // Update imagesSize accordingly
         }
 
-        // Set the current item to the next image
+        // Set the current com.example.majorproject.dataClass.item to the next image
         binding.viewPager.currentItem = imageIndex
     }
 
@@ -237,14 +237,14 @@ fun ViewPager2.smoothScrollWithAnimation(nextPage: Int, duration: Long = 1000L) 
         currentOutAnimator.start()
         nextInAnimator.start()
 
-        // Listener to update the ViewPager2's current item after animation completes
+        // Listener to update the ViewPager2's current com.example.majorproject.dataClass.item after animation completes
         nextInAnimator.addListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animation: Animator) {
                 // Do nothing
             }
 
             override fun onAnimationEnd(animation: Animator) {
-                currentItem = nextPage // Set next item after animation finishes
+                currentItem = nextPage // Set next com.example.majorproject.dataClass.item after animation finishes
             }
 
             override fun onAnimationCancel(animation: Animator) {

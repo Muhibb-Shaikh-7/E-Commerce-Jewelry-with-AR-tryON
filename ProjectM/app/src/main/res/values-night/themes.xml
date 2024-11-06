@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.MajorProject" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- <com.example.majorproject.dataClass.item name="colorPrimary">@color/my_dark_primary</com.example.majorproject.dataClass.item> -->
     </style>
     <style name="Theme.MajorProject" parent="Base.Theme.MajorProject"/>
 </resources>
