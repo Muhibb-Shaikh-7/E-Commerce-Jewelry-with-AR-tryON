@@ -49,7 +49,7 @@
                 android:fontFamily="@font/zen_antique"
                 android:inputType="textPassword"
                 android:hint="Password"
-                android:textColorHint="@color/text_gray"
+                android:textColorHint="@color/black"
                 android:background="@drawable/main_textview_bg"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -69,7 +69,7 @@
                 android:fontFamily="@font/zen_antique"
                 android:inputType="textPassword"
                 android:hint="Confirm Password"
-                android:textColorHint="@color/text_gray"
+                android:textColorHint="@color/black"
                 android:background="@drawable/main_textview_bg"/>
         </com.google.android.material.textfield.TextInputLayout>
 
