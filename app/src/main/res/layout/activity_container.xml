@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:text="Mahavir Gems"
             android:textColor="@android:color/black"
-            android:textSize="29sp"
+            android:textSize="22sp"
             android:fontFamily="@font/tenor_sans"
             android:drawablePadding="4dp"
             android:layout_alignParentStart="true"
@@ -30,8 +30,8 @@
 
         <ImageView
             android:id="@+id/notification_icon"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:src="@drawable/bell_icon"
             android:layout_marginEnd="8dp"
             android:layout_alignParentEnd="true"
@@ -40,7 +40,7 @@
         <RelativeLayout
             android:id="@+id/search_bar_container"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
             android:layout_below="@id/location_text"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="50dp"
@@ -58,11 +58,11 @@
 
         <ImageView
             android:id="@+id/filter_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:padding="4dp"
             android:layout_below="@id/notification_icon"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="14dp"
             android:layout_alignParentEnd="true"
             android:background="@drawable/rounded_button_background"
             android:src="@drawable/ic_filter" />
