@@ -40,7 +40,7 @@
         <RelativeLayout
             android:id="@+id/search_bar_container"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="37dp"
             android:layout_below="@id/location_text"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="50dp"
@@ -49,7 +49,7 @@
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/search_view"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="49dp"
                 android:background="@drawable/search_view_bg"
                 app:iconifiedByDefault="false"
                 app:queryHint="Search" />
@@ -58,11 +58,11 @@
 
         <ImageView
             android:id="@+id/filter_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:padding="4dp"
             android:layout_below="@id/notification_icon"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="16dp"
             android:layout_alignParentEnd="true"
             android:background="@drawable/rounded_button_background"
             android:src="@drawable/ic_filter" />
@@ -90,7 +90,7 @@
             android:layout_marginStart="7dp"
             android:background="@drawable/bottom_bar_circular_imageview2"
             android:elevation="7dp"
-            android:padding="12dp"
+            android:padding="15dp"
             android:visibility="gone"
             android:src="@drawable/baseline_filled_home_24"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -28,11 +28,11 @@ class Container : AppCompatActivity() {
     private lateinit var binding: ActivityContainerBinding
     private lateinit var bottomBar: LinearLayout
     private lateinit var outerBottomBar: RelativeLayout
-    private var fragmentNumber = 1
-    private var originalPaddingLeft = 10
-    private var originalPaddingRight = 10
-    private var originalPaddingTop = 10
-    private var originalPaddingBottom = 10
+    private var fragmentNumber = 0
+    private var originalPaddingLeft = 15
+    private var originalPaddingRight = 15
+    private var originalPaddingTop = 15
+    private var originalPaddingBottom = 15
     private var previousFragmentNumber = 0
     private var previousNormalImg: ImageView? = null
     private var previousSelectedImg: ImageView? = null
@@ -127,7 +127,7 @@ class Container : AppCompatActivity() {
 
         // Reset padding values to original for imageView (ensure the image starts with the correct padding each time)
         imageView.setPadding(originalPaddingLeft, originalPaddingTop, originalPaddingRight, originalPaddingBottom)
-        normalImg.setPadding(originalPaddingLeft, originalPaddingTop, originalPaddingRight, originalPaddingBottom)
+        normalImg.setPadding(10, 10, 10, 10)
 
         // Animation for the upward translation (without bounce effect) for the selected (current) image
         val moveUp = ObjectAnimator.ofFloat(imageView, View.TRANSLATION_Y, 0f, -20f).apply {
@@ -175,7 +175,7 @@ class Container : AppCompatActivity() {
         }
 
         // Animate the padding decrease for the current icon (to make it look like it enlarges)
-        val paddingDecrease = 4
+        val paddingDecrease = 5
         val decreasePaddingAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
             duration = 400L // Increased duration for smoother padding animation
             addUpdateListener { animator ->
@@ -196,10 +196,10 @@ class Container : AppCompatActivity() {
             duration = 300L
             addUpdateListener { animator ->
                 val progress = animator.animatedFraction
-                val newPaddingLeft = (originalPaddingLeft + (paddingDecrease * progress)).toInt()
-                val newPaddingTop = (originalPaddingTop + (paddingDecrease * progress)).toInt()
-                val newPaddingRight = (originalPaddingRight + (paddingDecrease * progress)).toInt()
-                val newPaddingBottom = (originalPaddingBottom + (paddingDecrease * progress)).toInt()
+                val newPaddingLeft = (10 + (paddingDecrease * progress)).toInt()
+                val newPaddingTop = (10 + (paddingDecrease * progress)).toInt()
+                val newPaddingRight = (10 + (paddingDecrease * progress)).toInt()
+                val newPaddingBottom = (10 + (paddingDecrease * progress)).toInt()
 
                 // Apply restored padding to previous icon
                 previousImg?.setPadding(newPaddingLeft, newPaddingTop, newPaddingRight, newPaddingBottom)
