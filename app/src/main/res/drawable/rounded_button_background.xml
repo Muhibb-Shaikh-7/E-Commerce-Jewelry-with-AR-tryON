@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="@color/cocoa_brown"/> <!-- White background (change as needed) -->
-    <corners android:radius="5dp"/> <!-- Ensures the button is fully rounded (circle) -->
+    <corners android:radius="450dp"/> <!-- Ensures the button is fully rounded (circle) -->
     <size android:width="40dp" android:height="40dp"/> <!-- Set the size for consistency -->
     <!-- Light gray border (optional) -->
 </shape>
