@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -27,7 +26,7 @@ class AddProducts : AppCompatActivity() {
     private lateinit var spinnerProductCategoryGen: Spinner
     private lateinit var spinnerProductCategory: Spinner
 
-    private var selectedGender: String = "Women"
+    private var selectedGender: String = "women"
     private var selectedCategory: String = "Auspicious"
     private lateinit var storageReference: StorageReference
 
@@ -47,45 +46,14 @@ class AddProducts : AppCompatActivity() {
         productImageView2 = findViewById(R.id.img2)
         productImageView3 = findViewById(R.id.img3)
         productImageView4 = findViewById(R.id.img4)
+
         setupPermissionAndListeners()
 
         btnSaveProduct.setOnClickListener {
             uploadAllImagesAndSaveDetails()
         }
-//        val categories = listOf("Auspicious", "Special-Occasion", "Daily-Wear", "Everyday-Fashion") // Your category options
-//        val genders = listOf("Men", "Women", "Kid") // Your gender options
-//
-//        // Initialize category spinner
-//        val categoryAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
-//        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//        spinnerProductCategory.adapter = categoryAdapter
-//
-//        // Initialize gender spinner
-//        val genderAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, genders)
-//        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//        spinnerProductCategoryGen.adapter = genderAdapter
-//
-//        spinnerProductCategoryGen.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-//                selectedGender = genders[position] // Update selected gender based on user selection
-//            }
-//
-//            override fun onNothingSelected(parent: AdapterView<*>) {
-//                // Keep default or handle no selection if needed
-//            }
-//        }
-//
-//        spinnerProductCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-//                selectedCategory = categories[position] // Update selected category based on user selection
-//            }
-//
-//            override fun onNothingSelected(parent: AdapterView<*>) {
-//                // Keep default or handle no selection if needed
-//            }
-//        }
-//    }
     }
+
     private fun setupPermissionAndListeners() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
             != PackageManager.PERMISSION_GRANTED) {
@@ -158,7 +126,6 @@ class AddProducts : AppCompatActivity() {
     }
 
     private fun saveProductDetails() {
-        // Get product details from EditTexts and other views
         val productName = findViewById<EditText>(R.id.etProductName).text.toString()?:"0"
         val productPrice = findViewById<EditText>(R.id.etProductPrice).text.toString()?: "0"
         val stockQuantity = findViewById<EditText>(R.id.etProductStock).text.toString() ?: "0"
@@ -176,8 +143,6 @@ class AddProducts : AppCompatActivity() {
 
         // Image URLs (assuming they are uploaded correctly before saving)
 
-
-        // Define the product map structure
         val product = hashMapOf(
             "productName" to productName,
             "productPrice" to productPrice, // Stored as String
@@ -187,7 +152,7 @@ class AddProducts : AppCompatActivity() {
             "images" to mapOf("0" to imageUrls.first(),"1" to imageUrls[1],"2" to imageUrls[2],"3" to imageUrls[3] ),
             "grossWeight" to mapOf(
                 "diamond-weight" to diamondWeight, // Stored as String
-             // Stored as String
+                // Stored as String
             ),
             "priceBreaking" to mapOf(
                 "Diamond" to productPrice, // Stored as String
@@ -209,8 +174,6 @@ class AddProducts : AppCompatActivity() {
             "size" to mapOf("size" to availableSizes),
             "styling" to mapOf("design-type" to findViewById<EditText>(R.id.etDesignType).text.toString())
         )
-        val itemType1= product["productSpecification"] as Map<*,*>
-        val itemType2= itemType1["item-type"]
 
         // Define the Firestore reference and save the product
         val productReference = FirebaseFirestore.getInstance()
@@ -219,7 +182,7 @@ class AddProducts : AppCompatActivity() {
             .collection("women")
             .document("Auspicious")
             .collection("Items")
-            .document()
+            .document() // Document will be created automatically with a generated ID
 
         productReference.set(product)
             .addOnSuccessListener {
@@ -231,6 +194,8 @@ class AddProducts : AppCompatActivity() {
             }
     }
 
+
+
     private fun clearFields() {
         findViewById<EditText>(R.id.etProductName).text.clear()
         findViewById<ImageView>(R.id.img1).setImageResource(R.drawable.ic_placeholder_image)
@@ -240,5 +205,4 @@ class AddProducts : AppCompatActivity() {
         imageUris.fill(null)
         imageUrls.fill(null)
     }
-
 }

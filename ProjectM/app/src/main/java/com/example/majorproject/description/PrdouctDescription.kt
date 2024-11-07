@@ -60,7 +60,7 @@ class ProductDescription : AppCompatActivity() {
         product = intent.getSerializableExtra("product") as? Product
             ?: run {
                 Log.e("ProductDescription", "Received null product")
-                Toast.makeText(this, "com.example.majorproject.dataClass.Product data is unavailable.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Product data is unavailable.", Toast.LENGTH_SHORT).show()
                 return // Exit early, but don't finish the activity
             }
 
@@ -93,7 +93,7 @@ class ProductDescription : AppCompatActivity() {
     private fun setProductSpecificationRecyclerView(product: Product) {
 
         Log.d("ProductDescription", "setProductSpecificationRecyclerView()")
-        Log.d("ProductDescription", "com.example.majorproject.dataClass.Product data: ${product.productSpecification}")
+        Log.d("ProductDescription", "Product data: ${product.productSpecification}")
 
 
         val specList = mutableListOf<ProductSpecification>()
@@ -108,12 +108,12 @@ class ProductDescription : AppCompatActivity() {
         product.productSpecification["diamond-settings"]?.let { specList.add(ProductSpecification("Diamond Settings", it)) }
         product.productSpecification["diamond-weight"]?.let { specList.add(ProductSpecification("Diamond Weight", it)) }
         product.productSpecification["gender"]?.let { specList.add(ProductSpecification("Gender", it)) }
-        product.productSpecification["com.example.majorproject.dataClass.item-type"]?.let { specList.add(ProductSpecification("Item Type", it)) }
+        product.productSpecification["item-type"]?.let { specList.add(ProductSpecification("Item Type", it)) }
         product.productSpecification["jewellery-type"]?.let { specList.add(ProductSpecification("Jewellery Type", it)) }
         product.productSpecification["karatage"]?.let { specList.add(ProductSpecification("Karatage", it)) }
         product.productSpecification["material-color"]?.let { specList.add(ProductSpecification("Material Color", it)) }
         product.productSpecification["metal"]?.let { specList.add(ProductSpecification("Metal", it)) }
-        product.productSpecification["product-type"]?.let { specList.add(ProductSpecification("com.example.majorproject.dataClass.Product Type", it)) }
+        product.productSpecification["product-type"]?.let { specList.add(ProductSpecification("Product Type", it)) }
 
         if (specList.isEmpty()) {
             Log.e("ProductDescription", "Specification list is empty!")
@@ -142,14 +142,14 @@ class ProductDescription : AppCompatActivity() {
 
         binding.downArrowProductDes.setOnClickListener {
             try {
-                Log.d("ProductDescription", "com.example.majorproject.dataClass.Product Description")
+                Log.d("ProductDescription", "Product Description")
                 toggleExpandableLayout(
                     isProductDescExpanded,
                     binding.productDesExtandableLayout,
                     binding.downArrowProductDes,
                     binding.productDesSubtitle
                 )
-                Log.d("ProductDescription", "com.example.majorproject.dataClass.Product Description toggleExpandableLayout called")
+                Log.d("ProductDescription", "Product Description toggleExpandableLayout called")
                 isProductDescExpanded = !isProductDescExpanded
             }catch( e:Exception){
                 Log.e("ProductDescription", "Error: ${e.message}", e)
@@ -249,6 +249,7 @@ class ProductDescription : AppCompatActivity() {
     }
     private fun setUpViewPager(product: Product) {
         val imageUrls = product.images.values.toList()
+       
 
         if (imageUrls.isNotEmpty()) {
             Log.d("ProductDescription", "Image URLs: $imageUrls")
@@ -318,7 +319,7 @@ class ProductDescription : AppCompatActivity() {
             }
 
             val weightMap = product.grossWeight
-            if (weightMap != null && weightMap.isNotEmpty()) {
+            if (weightMap.isNotEmpty()) {
                 val weightAdapter = WeightItemAdapter(weightMap)
                 binding.weightRecycleView.adapter = weightAdapter
                 binding.weightRecycleView.layoutManager =
@@ -356,9 +357,9 @@ class ProductDescription : AppCompatActivity() {
     }
 
     private fun fetchStockFromFirebase(product: Product) {
-        val stock = product.stock
+        val stock = product.stock.toInt()
         Log.d("Firestore", "Stock fetched: ${stock}")
-        if (stock <= "3") {
+        if (stock <= 3) {
             binding.stockAvailableLayout.visibility = View.VISIBLE
             binding.stockAvailableTxt.text = "Only ${stock} left in stock"
         } else {
@@ -373,12 +374,12 @@ class ProductDescription : AppCompatActivity() {
         titleView: View
     ) {
         if (isExpanded) {
-            Log.d("ProductDescription", "com.example.majorproject.dataClass.Product Description toggleExpandableLayout called arrow expanded ")
+            Log.d("ProductDescription", "Product Description toggleExpandableLayout called arrow expanded ")
             expandableLayout.visibility = View.GONE
             arrow.rotation = 0f
             titleView.visibility=View.VISIBLE
         } else {
-            Log.d("ProductDescription", "com.example.majorproject.dataClass.Product Description toggleExpandableLayout called arrow expanded ")
+            Log.d("ProductDescription", "Product Description toggleExpandableLayout called arrow expanded ")
             expandableLayout.visibility = View.VISIBLE
             arrow.rotation = 180f
             titleView.visibility=View.GONE

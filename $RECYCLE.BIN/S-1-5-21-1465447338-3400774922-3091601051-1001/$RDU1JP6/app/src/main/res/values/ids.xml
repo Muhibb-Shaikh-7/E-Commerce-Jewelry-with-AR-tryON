@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="search_icon" type="id">serach_icon</item>
+    <item name="frame" type="id">frame</item>
+    <item name="search_input" type="id">search_input</item>
+</resources>

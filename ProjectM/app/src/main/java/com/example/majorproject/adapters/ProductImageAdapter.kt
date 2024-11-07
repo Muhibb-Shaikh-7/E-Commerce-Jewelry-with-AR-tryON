@@ -1,5 +1,6 @@
 package com.example.majorproject.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,9 @@ class ProductImageAdapter(private var images: List<String?>) : RecyclerView.Adap
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         // Use Glide to load the image from the URL
+        Log.d("ProductDescriptions", "Image URLs: ${images.get(
+            position
+        )}")
        Picasso.get().load(images[position]).into(holder.imageView)
     }
 

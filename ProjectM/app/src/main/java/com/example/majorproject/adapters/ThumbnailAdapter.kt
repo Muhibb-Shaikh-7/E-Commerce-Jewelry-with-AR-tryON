@@ -7,6 +7,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.majorproject.R
+import com.squareup.picasso.Picasso
 
 class ThumbnailAdapter(
     private val imageUrls: List<String>
@@ -22,7 +23,7 @@ class ThumbnailAdapter(
 
     override fun onBindViewHolder(holder: ThumbnailViewHolder, position: Int) {
         // Load the thumbnail image using Glide
-        Glide.with(holder.itemView.context)
+      Picasso.get()
             .load(imageUrls[position])
             .into(holder.thumbnailImage)
 

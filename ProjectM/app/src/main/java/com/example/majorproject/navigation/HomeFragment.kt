@@ -54,11 +54,11 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
         recyclerView?.layoutManager = GridLayoutManager(context, 2)
 
         adapter = ItemAdapter(requireContext(), itemList, this)
-
+        recyclerView?.adapter = adapter
          fetchBannerImages(view)
 
-        fetchAllProducts()
-        recyclerView?.adapter = adapter
+        fetchAllAuspiciousProducts()
+
         return view
     }
     private fun fetchBannerImages(view:View) {
@@ -103,8 +103,7 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
     }
 
 
-    private fun fetchAllProducts() {
-        progressBarProducts.visibility=View.VISIBLE
+    private fun fetchAllAuspiciousProducts() {
         val db = FirebaseFirestore.getInstance()
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -121,7 +120,7 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
                 if (itemsSnapshot.isEmpty) {
                     Log.e(
                         "fetchAllProducts",
-                        "No items found in specified path:}"
+                        "No items found in specified path: "
                     )
                     return@launch
                 }
@@ -200,7 +199,6 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
                         // Add the item to the list and notify the adapter
                         if (item1 != null) {
                             itemList.add(item1)
-                            progressBarProducts.visibility=View.GONE
                         }
 
                         withContext(Dispatchers.Main) {
@@ -216,15 +214,15 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
             }
         }
     }
-        override fun onItemClick(clickedItem: item) {
-        // Access the com.example.majorproject.dataClass.Product directly from clickedItem
+    override fun onItemClick(clickedItem: item) {
+        // Access the Product directly from clickedItem
         val selectedProduct = clickedItem.product
 
         if (selectedProduct != null) {
             // Create the intent for ProductDescription activity
             val intent = Intent(requireContext(), ProductDescription::class.java)
-            intent.putExtra("product", selectedProduct) // Pass the com.example.majorproject.dataClass.Product object
-            Log.d("ProductDescription", "com.example.majorproject.dataClass.Product passed: ${selectedProduct.name}")
+            intent.putExtra("product", selectedProduct) // Pass the Product object
+            Log.d("ProductDescription", "Product passed: ${selectedProduct.name}")
             startActivity(intent)
         } else {
             Log.d("ProductDescription", "Selected product not found")
