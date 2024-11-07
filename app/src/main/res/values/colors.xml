@@ -12,6 +12,7 @@
 
     <color name="color1">#C09E79</color>
 
+    <color name="dark_gray">#FFAAAAAA</color>
     <color name="ivory">#FAFAF5</color>
     <color name="cocoa_brown">#603e25</color>
     <color name="outter_bottom">#D3CFC6</color>

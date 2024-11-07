@@ -15,7 +15,10 @@ import android.view.animation.TranslateAnimation
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.setPadding
@@ -25,6 +28,7 @@ import com.example.majorproject.databinding.ActivityContainerBinding
 
 class Container : AppCompatActivity() {
 
+    private lateinit var searchView: SearchView
     private lateinit var binding: ActivityContainerBinding
     private lateinit var bottomBar: LinearLayout
     private lateinit var outerBottomBar: RelativeLayout
@@ -52,11 +56,14 @@ class Container : AppCompatActivity() {
             insets
         }
 
+        searchView =binding.searchView
         // Initialize bottom bar views
         bottomBar = binding.bottomBar
         outerBottomBar = binding.outerBottomBar
         previousNormalImg = binding.home
         previousSelectedImg = binding.home2
+
+        setupSearchView()
 
         // Set HomeFragment as the default fragment
         if (savedInstanceState == null) {
@@ -231,8 +238,16 @@ class Container : AppCompatActivity() {
         }
     }
 
+    private fun setupSearchView() {
+        searchView.findViewById<TextView>(androidx.appcompat.R.id.search_src_text)
+            ?.setHintTextColor(ContextCompat.getColor(this, R.color.dark_gray))
+
+        val searchIconView: ImageView = searchView.findViewById(androidx.appcompat.R.id.search_mag_icon)
+        searchIconView.drawable?.let {
+            it.setTint(ContextCompat.getColor(this, R.color.cocoa_brown))
+            searchIconView.setImageDrawable(it)
+        }
 
 
-
-
+    }
 }
