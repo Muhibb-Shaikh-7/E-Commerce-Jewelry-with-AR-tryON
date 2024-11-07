@@ -1,7 +1,6 @@
 package com.example.majorproject.adapters
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,22 +10,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.majorproject.R
 import com.example.majorproject.dataClass.item
-import com.example.majorproject.description.ProductDescription
 import com.google.android.material.imageview.ShapeableImageView
+import com.squareup.picasso.Picasso
 
+// Adapter class for displaying a list of items
 class ItemAdapter(
     private val context: Context,
-    private val list: List<item>,
+    private val list: List<item>,  // Ensures compatibility with the type `List<com.example.majorproject.dataClass.item>`
     private val itemClickListener: OnItemClickListener
-) : RecyclerView.Adapter<ItemAdapter.ItemAdapterViewModel>() {
+) : RecyclerView.Adapter<ItemAdapter.ItemAdapterViewHolder>() {
 
-    // Interface for click listener
+    // Interface to handle click events
     interface OnItemClickListener {
         fun onItemClick(product: item)
     }
 
-    // ViewHolder class to hold item views
-    class ItemAdapterViewModel(view: View) : RecyclerView.ViewHolder(view) {
+    // ViewHolder class to hold com.example.majorproject.dataClass.item views
+    inner class ItemAdapterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ShapeableImageView = view.findViewById(R.id.isearchmageView)
         val nameView: TextView = view.findViewById(R.id.searchtitleTextView)
         val priceView: TextView = view.findViewById(R.id.priceTextView)
@@ -34,33 +34,40 @@ class ItemAdapter(
         val containerLayout: RelativeLayout = view.findViewById(R.id.containerLayout)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemAdapterViewModel {
-        // Inflate the layout for each item
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemAdapterViewHolder {
+        // Inflate the layout for each com.example.majorproject.dataClass.item and return the ViewHolder
         val view = LayoutInflater.from(context).inflate(R.layout.item_card, parent, false)
-        return ItemAdapterViewModel(view)
+        return ItemAdapterViewHolder(view)
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return list.size // Return the size of the com.example.majorproject.dataClass.item list
     }
 
-    override fun onBindViewHolder(holder: ItemAdapterViewModel, position: Int) {
-        // Get the current item from the list
+    override fun onBindViewHolder(holder: ItemAdapterViewHolder, position: Int) {
         val currentItem = list[position]
 
-        // Load the image using Glide
-        Glide.with(context)
-            .load(currentItem.image)   // Load image URL
-            .into(holder.imageView)
+        // Check if the image URL is empty or null
+        if (!currentItem.image.isNullOrEmpty()) {
+            // Load the image using Picasso if the URL is valid
+            Picasso.get()
+                .load(currentItem.image)
+                 // Set a placeholder image
+                .into(holder.imageView)
+        } else {
+            // Load a default placeholder image if the URL is empty or null
+            Picasso.get()
+                .load(R.drawable.ring1) // Replace with your actual placeholder resource
+                .into(holder.imageView)
+        }
 
-        // Set name, price, and style text views
+        // Set name, price, and style on text views
         holder.nameView.text = currentItem.name
         holder.priceView.text = currentItem.price
         holder.styleText.text = currentItem.style
 
         // Set the click listener for the container layout
         holder.containerLayout.setOnClickListener {
-            itemClickListener.onItemClick(currentItem) // Notify the listener
+            itemClickListener.onItemClick(currentItem)
         }
-    }
-}
+    }}

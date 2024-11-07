@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.majorproject.R
 
-class WeightItemAdapter(private val weightMap: Map<String,String>) :RecyclerView.Adapter<WeightItemAdapter.WeightViewHolder>() {
+class WeightItemAdapter(private val weightMap: Map<String, Any>) :RecyclerView.Adapter<WeightItemAdapter.WeightViewHolder>() {
 
     private var selectedPosition = RecyclerView.NO_POSITION
 
@@ -18,7 +18,7 @@ class WeightItemAdapter(private val weightMap: Map<String,String>) :RecyclerView
 
     override fun onBindViewHolder(holder: WeightViewHolder, position: Int) {
         val weightKey = weightMap.keys.elementAt(position)
-        holder.textView.text = weightMap[weightKey]
+        holder.textView.text = weightMap[weightKey].toString()
         holder.textView.isSelected = selectedPosition == position
 
         holder.itemView.setOnClickListener {

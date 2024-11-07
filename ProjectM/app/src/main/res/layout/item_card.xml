@@ -18,14 +18,14 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/isearchmageView"
-            android:layout_width="148dp"
-            android:layout_height="157dp"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
             android:background="@android:color/transparent"
             android:scaleType="centerCrop"
             android:src="@drawable/ring1"
-            app:shapeAppearanceOverlay="@style/CustomCircularImage" />
+            />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/detailsCardView"
