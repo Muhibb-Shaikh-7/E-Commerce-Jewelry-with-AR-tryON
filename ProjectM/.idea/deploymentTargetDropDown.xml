@@ -11,6 +11,9 @@
       <entry key="Container">
         <State />
       </entry>
+      <entry key="MainActivity">
+        <State />
+      </entry>
     </value>
   </component>
 </project>

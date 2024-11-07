@@ -52,40 +52,40 @@ class AddProducts : AppCompatActivity() {
         btnSaveProduct.setOnClickListener {
             uploadAllImagesAndSaveDetails()
         }
-        val categories = listOf("Auspicious", "Special-Occasion", "Daily-Wear", "Everyday-Fashion") // Your category options
-        val genders = listOf("Men", "Women", "Kid") // Your gender options
-
-        // Initialize category spinner
-        val categoryAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerProductCategory.adapter = categoryAdapter
-
-        // Initialize gender spinner
-        val genderAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, genders)
-        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerProductCategoryGen.adapter = genderAdapter
-
-        spinnerProductCategoryGen.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                selectedGender = genders[position] // Update selected gender based on user selection
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Keep default or handle no selection if needed
-            }
-        }
-
-        spinnerProductCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                selectedCategory = categories[position] // Update selected category based on user selection
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Keep default or handle no selection if needed
-            }
-        }
+//        val categories = listOf("Auspicious", "Special-Occasion", "Daily-Wear", "Everyday-Fashion") // Your category options
+//        val genders = listOf("Men", "Women", "Kid") // Your gender options
+//
+//        // Initialize category spinner
+//        val categoryAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
+//        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//        spinnerProductCategory.adapter = categoryAdapter
+//
+//        // Initialize gender spinner
+//        val genderAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, genders)
+//        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//        spinnerProductCategoryGen.adapter = genderAdapter
+//
+//        spinnerProductCategoryGen.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+//                selectedGender = genders[position] // Update selected gender based on user selection
+//            }
+//
+//            override fun onNothingSelected(parent: AdapterView<*>) {
+//                // Keep default or handle no selection if needed
+//            }
+//        }
+//
+//        spinnerProductCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+//                selectedCategory = categories[position] // Update selected category based on user selection
+//            }
+//
+//            override fun onNothingSelected(parent: AdapterView<*>) {
+//                // Keep default or handle no selection if needed
+//            }
+//        }
+//    }
     }
-
     private fun setupPermissionAndListeners() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
             != PackageManager.PERMISSION_GRANTED) {
@@ -214,10 +214,10 @@ class AddProducts : AppCompatActivity() {
 
         // Define the Firestore reference and save the product
         val productReference = FirebaseFirestore.getInstance()
-            .collection("Products")
-            .document(itemType2.toString().toLowerCase())
-            .collection(selectedGender)
-            .document(selectedCategory)
+            .collection("Product")
+            .document("Rings")
+            .collection("women")
+            .document("Auspicious")
             .collection("Items")
             .document()
 
