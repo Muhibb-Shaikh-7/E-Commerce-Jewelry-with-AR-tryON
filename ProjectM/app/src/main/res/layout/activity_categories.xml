@@ -92,7 +92,7 @@
                         android:background="@drawable/circular_categories_bg"
                         android:padding="10dp"
                         android:scaleType="centerInside"
-                        android:src="@drawable/male1" />
+                        android:src="@drawable/profile_placeholder" />
 
                     <TextView
                         android:layout_width="wrap_content"

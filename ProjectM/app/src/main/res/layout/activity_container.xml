@@ -7,11 +7,11 @@
     android:background="@color/white">
 
     <RelativeLayout
+        android:id="@+id/header_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:background="@color/white"
-        android:id="@+id/header_title">
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/location_text"
@@ -79,12 +79,10 @@
         android:layout_below="@+id/header_title"
         android:layout_above="@id/bottomBar"/>
 
-
     <nl.joery.animatedbottombar.AnimatedBottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="25dp"
@@ -102,10 +100,8 @@
         app:abb_tabColor="?attr/colorOutline"
         app:abb_tabColorDisabled="?attr/colorPrimaryContainer"
         app:abb_tabColorSelected="@color/black"
-
         app:abb_tabs="@menu/menu_for_container"
         app:abb_textAppearance="@style/NavBarText"
         tools:visibility="visible" />
-
 
 </RelativeLayout>

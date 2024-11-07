@@ -137,7 +137,7 @@
                                     android:background="@drawable/circular_categories_bg"
                                     android:padding="10dp"
                                     android:scaleType="centerInside"
-                                    android:src="@drawable/male1" />
+                                    android:src="@drawable/profile_placeholder" />
 
                                 <ImageView
                                     android:layout_width="65dp"
