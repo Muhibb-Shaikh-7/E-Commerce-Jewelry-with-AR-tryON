@@ -10,4 +10,12 @@
     <color name="secondary_text_color">#6153b7</color>
     <color name="button_color">#C19A6B</color>
 
+    <color name="color1">#C09E79</color>
+
+    <color name="ivory">#F8F0E2</color>
+    <color name="cocoa_brown">#603e25</color>
+    <color name="outter_bottom">#D3CFC6</color>
+    <color name="espresso">#160E09</color>
+    <color name="smoky_taupe">#878584</color>
+
 </resources>
