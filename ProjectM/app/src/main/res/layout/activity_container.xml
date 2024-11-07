@@ -7,30 +7,15 @@
     android:background="@color/white">
 
     <RelativeLayout
+        android:id="@+id/header_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:background="@color/white"
-        android:id="@+id/header_title">
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/location_text"
             android:layout_width="wrap_content"
-<<<<<<< HEAD
-            android:layout_height="match_parent"
-            android:fontFamily="@font/poppins_bold"
-            android:layout_marginStart="25dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="App Ka Name" />
-    </LinearLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/fragmentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true">
-=======
             android:layout_height="wrap_content"
             android:text="Mahavir Gems"
             android:textColor="@android:color/black"
@@ -39,7 +24,6 @@
             android:drawablePadding="4dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"/>
->>>>>>> 1d9cc76719e5f34303eb34597f99115da29c9ed9
 
         <ImageView
             android:id="@+id/notification_icon"
@@ -95,12 +79,10 @@
         android:layout_below="@+id/header_title"
         android:layout_above="@id/bottomBar"/>
 
-
     <nl.joery.animatedbottombar.AnimatedBottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="25dp"
@@ -118,10 +100,8 @@
         app:abb_tabColor="?attr/colorOutline"
         app:abb_tabColorDisabled="?attr/colorPrimaryContainer"
         app:abb_tabColorSelected="@color/black"
-
         app:abb_tabs="@menu/menu_for_container"
         app:abb_textAppearance="@style/NavBarText"
         tools:visibility="visible" />
-
 
 </RelativeLayout>

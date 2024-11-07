@@ -61,6 +61,7 @@ dependencies {
     implementation("com.github.wasabeef:blurry:3.0.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation(libs.firebase.storage.ktx)
+    implementation(libs.firebase.database.ktx)
     //implementation("com.paulrybitskyi.persistentsearchview:persistentsearchview:1.0.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

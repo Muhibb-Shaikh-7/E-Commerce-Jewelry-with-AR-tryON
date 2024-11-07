@@ -10,8 +10,8 @@
 
     <!-- Header with Back Arrow, Title, and Icon Button -->
     <LinearLayout
-        android:layout_width="381dp"
-        android:layout_height="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="8dp"
@@ -28,8 +28,8 @@
 
         <!-- Title Text -->
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="45dp"
+            android:layout_width="316dp"
+            android:layout_height="34dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="Profile"
@@ -41,22 +41,27 @@
     </LinearLayout>
 
     <!-- Profile Header with Image and Name -->
+
+    <!-- Profile Options -->
+
     <LinearLayout
-        android:layout_width="365dp"
-        android:layout_height="205dp"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="153dp"
+        android:layout_marginTop="10dp"
+        android:background="#FFFFFF"
+        android:elevation="4dp"
         android:orientation="vertical"
-        android:layout_margin="15dp"
-        tools:ignore="ExtraText,VisualLintBounds"
-        android:paddingBottom="10dp">
+        android:paddingBottom="10dp"
+        tools:ignore="ExtraText,VisualLintBounds">
 
 
         <ImageView
-            android:layout_width="128dp"
-            android:layout_height="146dp"
+            android:layout_width="104dp"
+            android:layout_height="89dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="8dp"
+            android:foregroundGravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/white"
             android:contentDescription="Profile Image"
             android:scaleType="centerCrop"
@@ -74,7 +79,6 @@
 
     </LinearLayout>
 
-    <!-- Profile Options -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -110,7 +114,7 @@
                 android:textSize="16sp" />
 
             <ImageView
-                android:id="@+id/profile_forwardimg"
+                android:id="@+id/profile_forwarding"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/forward_img"

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Accountdetails">
+    tools:context=".AccountDetailsActivity">
 
     <!-- Header Layout with Back Arrow and Title -->
     <LinearLayout
@@ -26,12 +26,14 @@
 
         <!-- Back Arrow Icon -->
         <ImageView
+            android:id="@+id/back_button1"
             android:layout_width="36dp"
             android:layout_height="45dp"
             android:layout_marginEnd="16dp"
             android:contentDescription="Back Arrow"
             android:src="@drawable/ic_back"
-            app:tint="#000000" />
+            app:tint="#000000"
+            tools:ignore="InvalidId" />
 
         <!-- Title Text -->
 
