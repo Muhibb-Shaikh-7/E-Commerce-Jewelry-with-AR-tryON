@@ -1,5 +1,6 @@
 package com.example.majorproject.navigation
 
+import ProfileFragment
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet

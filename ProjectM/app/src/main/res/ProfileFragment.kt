@@ -52,22 +52,22 @@ class ProfileFragment : Fragment() {
             startActivity(Intent(requireContext(), AccountDetailsActivity::class.java))
         }
 
-//        binding.addressFrowardimg.setOnClickListener {
-//            startActivity(Intent(requireContext(), TrackOrder::class.java))
-//        }
+        binding.addressFrowardimg.setOnClickListener {
+            startActivity(Intent(requireContext(), TrackOrder::class.java))
+        }
 
-//        binding.orderForwardimg.setOnClickListener {
-//            startActivity(Intent(requireContext(), TrackOrder::class.java))
-//        }
+        binding.oderForwardimg.setOnClickListener {
+            startActivity(Intent(requireContext(), TrackOrder::class.java))
+        }
 
         binding.trackOrderForwardimg.setOnClickListener {
             startActivity(Intent(requireContext(), TrackOrder::class.java))
         }
 
-//        // Navigate to SignUpFragment on logout
-//        binding.logoutForwardimg.setOnClickListener {
-//            findNavController().navigate(R.id.action_profileFragment_to_signUpFragment)
-//        }
+        // Navigate to SignUpFragment on logout
+        binding.logoutForwardimg.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_signUpFragment)
+        }
 
         return binding.root
     }
