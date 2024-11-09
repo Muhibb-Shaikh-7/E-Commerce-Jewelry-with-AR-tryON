@@ -1,74 +1,63 @@
 package com.example.majorproject
 
 import android.os.Bundle
-import android.widget.EditText
-import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.majorproject.R
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 class AccountDetailsActivity : AppCompatActivity() {
 
-    // Declare UI elements
-    private lateinit var profileImage: ImageView
-    private lateinit var usernameEditText: EditText
-    private lateinit var emailEditText: EditText
-    private lateinit var addressEditText: EditText
-    private lateinit var phoneNumberEditText: EditText
-
-    // Initialize Firestore
-    private val db: FirebaseFirestore = Firebase.firestore
+    // Declare Firebase instances
+    private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account_details)
 
-        // Initialize UI elements
-        profileImage = findViewById(R.id.profile_image)
-        usernameEditText = findViewById(R.id.username_edit_text)
-        emailEditText = findViewById(R.id.email_edit_text)
-        addressEditText = findViewById(R.id.address_edit_text)
-        phoneNumberEditText = findViewById(R.id.phone_number_edit_text)
+        // Initialize TextView fields
+        val nameTextView: TextView = findViewById(R.id.username_text_view)
+        val emailTextView: TextView = findViewById(R.id.email_text_view)
+        val addressTextView: TextView = findViewById(R.id.address_text_view)
+        val phoneNumberTextView: TextView = findViewById(R.id.phone_number_text_view)
 
-        // Fetch and populate data
-        fetchAndPopulateUserData("haqueirfanul10c7@gmail.com")
-    }
+        // Get the current authenticated user's email
+        val currentUser = auth.currentUser
+        val userEmail = currentUser?.email
 
-    private fun fetchAndPopulateUserData(email: String) {
-        // Access the "users" collection and specify the document ID using the email
-        val userDocRef = db.collection("users").document(email)
-
-        userDocRef.get()
-            .addOnSuccessListener { document ->
-                if (document != null && document.exists()) {
-                    // Retrieve fields from the document
-                    val age = document.getString("age")
-                    val building = document.getString("building")
-                    val city = document.getString("city")
-                    val contactNumber = document.getString("contactNumber")
-                    val email = document.getString("email")
-                    val name = document.getString("name")
-                    val pincode = document.getString("pincode")
-                    val state = document.getString("state")
-
-                    // Populate UI elements
-                    usernameEditText.setText(name)
-                    emailEditText.setText(email)
-                    addressEditText.setText("$building, $city, $state, $pincode")
-                    phoneNumberEditText.setText(contactNumber)
-
-                    // Load profile image if you have a URL for it in the database
-                    // For example:
-                    // val profileImageUrl = document.getString("profileImageUrl")
-                    // Glide.with(this).load(profileImageUrl).into(profileImage)
-                } else {
-                    println("No such document exists.")
+        if (userEmail != null) {
+            // Fetch data from Firestore using the user's email as the document ID
+            db.collection("users").document(userEmail).get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        // Retrieve each field and set it in the respective TextView
+                        nameTextView.text = document.getString("name") ?: "N/A"
+                        emailTextView.text = document.getString("email") ?: "N/A"
+                        addressTextView.text = "${document.getString("building") ?: ""}, ${document.getString("city") ?: ""}, ${document.getString("pincode") ?: ""}"
+                        phoneNumberTextView.text = document.getString("contactNumber") ?: "N/A"
+                    } else {
+                        // Document does not exist
+                        nameTextView.text = "No data found"
+                        emailTextView.text = "No data found"
+                        addressTextView.text = "No data found"
+                        phoneNumberTextView.text = "No data found"
+                    }
                 }
-            }
-            .addOnFailureListener { exception ->
-                println("Error fetching document: ${exception.message}")
-            }
+                .addOnFailureListener { exception ->
+                    // Handle any errors that occur during fetching
+                    nameTextView.text = "Error fetching data"
+                    emailTextView.text = "Error fetching data"
+                    addressTextView.text = "Error fetching data"
+                    phoneNumberTextView.text = "Error fetching data"
+                }
+        } else {
+            // If the user is not logged in, set default error messages
+            nameTextView.text = "User not logged in"
+            emailTextView.text = "User not logged in"
+            addressTextView.text = "User not logged in"
+            phoneNumberTextView.text = "User not logged in"
+        }
     }
 }
