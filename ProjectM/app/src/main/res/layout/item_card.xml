@@ -5,24 +5,25 @@
     android:layout_margin="8dp"
     android:background="@android:color/transparent"
     app:cardCornerRadius="16dp"
-    app:cardElevation="0dp"
+    app:cardElevation="10dp"
     android:id="@+id/card">
 
     <RelativeLayout
         android:id="@+id/containerLayout"
         android:layout_width="220dp"
         android:layout_height="match_parent"
-        android:background="#FAFAFA"
+        android:background="@drawable/all_item_card_bg"
         android:padding="6dp"
         >
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/isearchmageView"
+            android:elevation="10dp"
             android:layout_width="148dp"
             android:layout_height="157dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
-            android:background="@android:color/transparent"
+            android:background="@color/platinum"
             android:scaleType="centerCrop"
             android:src="@drawable/ring1"
             app:shapeAppearanceOverlay="@style/CustomCircularImage" />

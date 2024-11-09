@@ -149,29 +149,29 @@ class Container : AppCompatActivity() {
         }
 
         // Scaling the icon with a slight "bubble" effect (enlarging and then shrinking) for the current image
-        val scaleX = ObjectAnimator.ofFloat(imageView, View.SCALE_X, 1f, 1.2f, 1.3f).apply {
+        val scaleX = ObjectAnimator.ofFloat(imageView, View.SCALE_X, 1f, 1.2f, 1.2f).apply {
             duration = 300L // Scaling duration for smooth zoom
             interpolator = android.view.animation.OvershootInterpolator(0.5f) // Overshoot for a smooth scale effect
         }
 
-        val scaleY = ObjectAnimator.ofFloat(imageView, View.SCALE_Y, 1f, 1.2f, 1.3f).apply {
+        val scaleY = ObjectAnimator.ofFloat(imageView, View.SCALE_Y, 1f, 1.2f, 1.2f).apply {
             duration = 300L
             interpolator = android.view.animation.OvershootInterpolator(0.5f)
         }
 
         // Animate the translation and scaling of the normal image (make it shrink slightly and move up)
-        val scaleNormal = ObjectAnimator.ofFloat(normalImg, View.SCALE_X, 1f, 1.2f, 1.3f).apply {
+        val scaleNormal = ObjectAnimator.ofFloat(normalImg, View.SCALE_X, 1f, 1.2f, 1.2f).apply {
             duration = 300L
             interpolator = android.view.animation.OvershootInterpolator(0.5f)
         }
 
-        val scaleNormalY = ObjectAnimator.ofFloat(normalImg, View.SCALE_Y, 1f, 1.2f, 1.3f).apply {
+        val scaleNormalY = ObjectAnimator.ofFloat(normalImg, View.SCALE_Y, 1f, 1.2f, 1.2f).apply {
             duration = 300L
             interpolator = android.view.animation.OvershootInterpolator(0.5f)
         }
 
         // Scaling the previous image down for smooth transition
-        val scalePreviousImgX = ObjectAnimator.ofFloat(previousImg, View.SCALE_X, 1.3f, 1.2f, 1f).apply {
+        val scalePreviousImgX = ObjectAnimator.ofFloat(previousImg, View.SCALE_X, 1.2f, 1.2f, 1f).apply {
             duration = 300L
             interpolator = android.view.animation.OvershootInterpolator(0.5f)
         }
@@ -182,7 +182,7 @@ class Container : AppCompatActivity() {
         }
 
         // Animate the padding decrease for the current icon (to make it look like it enlarges)
-        val paddingDecrease = 5
+        val paddingDecrease = 3
         val decreasePaddingAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
             duration = 400L // Increased duration for smoother padding animation
             addUpdateListener { animator ->
@@ -244,7 +244,7 @@ class Container : AppCompatActivity() {
 
         val searchIconView: ImageView = searchView.findViewById(androidx.appcompat.R.id.search_mag_icon)
         searchIconView.drawable?.let {
-            it.setTint(ContextCompat.getColor(this, R.color.cocoa_brown))
+            it.setTint(ContextCompat.getColor(this, R.color.black))
             searchIconView.setImageDrawable(it)
         }
 

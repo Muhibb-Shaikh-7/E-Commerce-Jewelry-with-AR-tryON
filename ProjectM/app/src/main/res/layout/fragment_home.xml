@@ -5,13 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FCFCFC"
+    android:background="@color/platinum"
     tools:context=".navigation.HomeFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,26 +21,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="24dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"/>
-
-            </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
+                android:layout_height="280dp">
 
                 <ProgressBar
                     android:id="@+id/progressBar8"
@@ -56,9 +39,8 @@
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewPager2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingStart="24dp"
-                    android:paddingEnd="24dp"
+                    android:layout_height="250dp"
+                    android:background="@drawable/home_res_banners_background"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -67,24 +49,24 @@
                     android:id="@+id/dotsBanner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:dotsColor="#e6dc6a"
-                    app:dotsCornerRadius="8dp"
-                    app:dotsSize="6dp"
-                    app:dotsSpacing="2dp"
+                    android:layout_marginTop="20dp"
+                    app:dotsColor="@color/gray"
+                    app:dotsCornerRadius="360dp"
+                    app:dotsSize="7dp"
+                    app:dotsSpacing="3dp"
                     app:dotsWidthFactor="2.5"
+                    app:layout_constraintVertical_bias="0.600"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:selectedDotColor="#DD8560" /> <!-- Selected dot color set to #3b3c4a -->
+                    app:selectedDotColor="@color/quick_sand" /> <!-- Selected dot color set to #3b3c4a -->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -92,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Categories"
-                    android:textColor="#000000"
+                    android:textColor="@color/almost_black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -100,7 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="See all"
-                    android:textColor="#DD8560" />
+                    android:textColor="@color/text_gray" />
             </LinearLayout>
 
                     <HorizontalScrollView
@@ -117,13 +99,14 @@
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="85dp"
                                 android:orientation="horizontal"
                                 android:gravity="center_vertical">
 
                                 <ImageView
                                     android:layout_width="65dp"
                                     android:layout_height="65dp"
+                                    android:elevation="4dp"
                                     android:layout_marginRight="10dp"
                                     android:background="@drawable/circular_categories_bg"
                                     android:padding="10dp"
@@ -133,36 +116,40 @@
                                 <ImageView
                                     android:layout_width="65dp"
                                     android:layout_height="65dp"
+                                    android:elevation="4dp"
                                     android:layout_marginRight="10dp"
                                     android:background="@drawable/circular_categories_bg"
-                                    android:padding="10dp"
+                                    android:padding="15dp"
                                     android:scaleType="centerInside"
                                     android:src="@drawable/male1" />
 
                                 <ImageView
                                     android:layout_width="65dp"
                                     android:layout_height="65dp"
+                                    android:elevation="4dp"
                                     android:layout_marginRight="10dp"
                                     android:background="@drawable/circular_categories_bg"
-                                    android:padding="10dp"
+                                    android:padding="15dp"
                                     android:scaleType="centerInside"
                                     android:src="@drawable/woman1" />
 
                                 <ImageView
                                     android:layout_width="65dp"
                                     android:layout_height="65dp"
+                                    android:elevation="4dp"
                                     android:layout_marginRight="10dp"
                                     android:background="@drawable/circular_categories_bg"
-                                    android:padding="10dp"
+                                    android:padding="15dp"
                                     android:scaleType="centerInside"
                                     android:src="@drawable/necklace" />
 
                                 <ImageView
                                     android:layout_width="65dp"
                                     android:layout_height="65dp"
+                                    android:elevation="4dp"
                                     android:layout_marginRight="10dp"
                                     android:background="@drawable/circular_categories_bg"
-                                    android:padding="10dp"
+                                    android:padding="15dp"
                                     android:scaleType="centerInside"
                                     android:src="@drawable/ic_ring" />
 
@@ -170,8 +157,9 @@
                                     android:layout_width="65dp"
                                     android:layout_height="65dp"
                                     android:layout_marginRight="10dp"
+                                    android:elevation="4dp"
                                     android:background="@drawable/circular_categories_bg"
-                                    android:padding="10dp"
+                                    android:padding="15dp"
                                     android:scaleType="centerInside"
                                     android:src="@drawable/ic_bracelet" />
                             </LinearLayout>
@@ -182,9 +170,7 @@
                     <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -192,7 +178,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Recommendation"
-                    android:textColor="#000000"
+                    android:textColor="@color/almost_black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -200,7 +186,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="See all"
-                    android:textColor="#DD8560" />
+                    android:textColor="@color/text_gray" />
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -211,7 +197,6 @@
                     android:id="@+id/recycleview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

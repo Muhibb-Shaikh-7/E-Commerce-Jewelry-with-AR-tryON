@@ -10,13 +10,26 @@
     <color name="secondary_text_color">#6153b7</color>
     <color name="button_color">#C19A6B</color>
 
-    <color name="color1">#C09E79</color>
-
+    <color name="gray">#eee6db</color>
+    <color name="pale_taupe">#DBBD9E</color>
     <color name="dark_gray">#FFAAAAAA</color>
-    <color name="ivory">#FAFAF5</color>
+    <color name="ivory">#FBF9F6</color>
     <color name="cocoa_brown">#603e25</color>
     <color name="outter_bottom">#D3CFC6</color>
-    <color name="espresso">#160E09</color>
+    <color name="espresso">#2A1B11</color>
     <color name="smoky_taupe">#878584</color>
+
+    <color name="almost_black">#050505</color>
+    <color name="maroon">#610C27</color>
+    <color name="dawn_pink">#FFFFFF</color>
+    <color name="dawn_pink2">#EFECE9</color>
+    <color name="quick_sand">#AC9C8D</color>
+    <color name="quill_grey">#DDD9CE</color>
+
+    <color name="platinum">#FDFDFD</color>
+    <color name="black_eel">#1C1D09</color>
+    <color name="iron_stone">#A8632F</color>
+
+
 
 </resources>
