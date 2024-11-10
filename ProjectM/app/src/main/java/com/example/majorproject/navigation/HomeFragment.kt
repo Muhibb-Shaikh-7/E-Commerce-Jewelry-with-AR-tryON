@@ -105,6 +105,7 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
 
     private fun fetchAllAuspiciousProducts() {
         val db = FirebaseFirestore.getInstance()
+        progressBarProducts.visibility=View.VISIBLE
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -203,6 +204,7 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
 
                         withContext(Dispatchers.Main) {
                             adapter.notifyDataSetChanged()
+                            progressBarProducts.visibility=View.GONE
                         }
                         Log.d("fetchAllProducts", "Fetched item: ${product.name}")
                     } else {
