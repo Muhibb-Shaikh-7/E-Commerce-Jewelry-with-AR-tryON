@@ -63,6 +63,7 @@
             android:src="@drawable/profile_placeholder" />
 
         <TextView
+            android:id="@+id/profile_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -178,7 +179,7 @@
                 android:textColor="#000000" />
 
             <ImageView
-                android:id="@+id/oder_forwardimg"
+                android:id="@+id/order_forwardimg"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/forward_img"

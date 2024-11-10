@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
             <!-- Header Layout with Back Arrow and Title -->
             <LinearLayout
                 android:id="@+id/linearLayout2"
