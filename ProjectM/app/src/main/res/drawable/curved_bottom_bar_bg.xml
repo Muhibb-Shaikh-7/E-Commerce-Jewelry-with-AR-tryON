@@ -1,10 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item >
+<!-- gradient_stroke_background.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Outer layer for gradient stroke -->
+    <item>
         <shape android:shape="rectangle">
-            <solid android:color="#EE0D0602"/>
-            <corners android:radius="35dp"/>
+            <gradient
+                android:startColor="#F8DF5C"
+                android:centerColor="#927417"
+                android:endColor="#FDE564"
+                android:angle="45"/>
+            <corners android:radius="33dp"/>
         </shape>
     </item>
 
-</selector>
+    <!-- Inner layer for the solid background -->
+    <item android:left="2dp" android:right="2dp" android:top="2dp" android:bottom="2dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/black_olive"/>
+            <corners android:radius="33dp"/>
+        </shape>
+    </item>
+
+</layer-list>

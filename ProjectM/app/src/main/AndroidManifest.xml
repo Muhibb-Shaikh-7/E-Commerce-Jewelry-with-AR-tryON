@@ -27,6 +27,13 @@
         android:theme="@style/Theme.MajorProject"
         tools:targetApi="31">
         <activity
+            android:name=".contactus.BookAppoinment"
+            android:exported="false" />
+        <activity
+            android:name=".contactus.CallNow"
+            android:exported="false"
+            android:theme="@style/Theme.MajorProject" />
+        <activity
             android:name=".navigation.Categories"
             android:exported="true" />
         <activity

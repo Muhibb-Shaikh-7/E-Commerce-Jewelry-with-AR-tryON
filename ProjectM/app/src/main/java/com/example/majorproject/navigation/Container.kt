@@ -4,8 +4,14 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -16,7 +22,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.example.majorproject.contactus.CallNow
 import com.example.majorproject.R
+import com.example.majorproject.contactus.BookAppoinment
 import com.example.majorproject.databinding.ActivityContainerBinding
 
 class Container : AppCompatActivity() {
@@ -33,6 +41,10 @@ class Container : AppCompatActivity() {
     private var previousFragmentNumber = 0
     private var previousNormalImg: ImageView? = null
     private var previousSelectedImg: ImageView? = null
+    private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(this,R.anim.rotate_open_anim) }
+    private val rotateCLose: Animation by lazy { AnimationUtils.loadAnimation(this,R.anim.rotate_close_anim) }
+    private val fromBottom: Animation by lazy { AnimationUtils.loadAnimation(this,R.anim.from_bottom_anim) }
+    private val toBottom: Animation by lazy { AnimationUtils.loadAnimation(this,R.anim.to_bottom_anim) }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,12 +70,10 @@ class Container : AppCompatActivity() {
 
         setupSearchView()
 
-        // Set HomeFragment as the default fragment
         if (savedInstanceState == null) {
            selectFragment(1 ,HomeFragment(), binding.home, binding.home2)
         }
 
-        // Set click listeners for navigation
         binding.home.setOnClickListener {
             selectFragment(1, HomeFragment(), binding.home, binding.home2)
         }
@@ -72,112 +82,319 @@ class Container : AppCompatActivity() {
             selectFragment(2, ProductFragment(), binding.offers, binding.offers2)
         }
 
+        binding.contactUs.setOnClickListener{
+            selectFragment(3, null, binding.contactUs, binding.contactUs2)
+        }
+
         binding.you.setOnClickListener {
-            selectFragment(3, ProfileFragment(), binding.you, binding.you2)
+            selectFragment(4, ProfileFragment(), binding.you, binding.you2)
         }
     }
 
     private fun selectFragment(
         newFragmentNumber: Int,
-        fragment: Fragment,
+        fragment: Fragment?,
         normalIcon: ImageView,
         selectedIcon: ImageView
     ) {
+
         previousFragmentNumber = fragmentNumber
+        Log.d("Frgament","Previous:$previousFragmentNumber")
         fragmentNumber = newFragmentNumber
-        navigateToFragment(fragment, normalIcon, selectedIcon)
+        Log.d("Frgament","New:$fragmentNumber")
+        if (previousFragmentNumber != newFragmentNumber) {
+            navigateToFragment(fragment, normalIcon, selectedIcon)
+        }
     }
 
-    private fun navigateToFragment(fragment: Fragment, normal: ImageView, selected: ImageView) {
-        if (previousFragmentNumber != fragmentNumber) {
+    private fun navigateToFragment(fragment: Fragment?, normal: ImageView, selected: ImageView) {
+
             resetAnimation(previousSelectedImg)
             enlargeIconWithBubbleUpAnimation(selected,previousNormalImg,normal)
 
             previousNormalImg?.visibility = View.VISIBLE
             previousSelectedImg?.visibility = View.INVISIBLE
 
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, fragment)
-                .commit()
-
             previousNormalImg = normal
             normal.visibility = View.INVISIBLE
             previousSelectedImg = selected
             selected.visibility = View.VISIBLE
+
+            if(fragment!=null) {
+                replaceFragment(fragment)
+            }else{
+                openContactUsLayout()
+            }
+
+    }
+
+    private fun openContactUsLayout() {
+
+        binding.contactusLayout.visibility = View.VISIBLE
+        binding.contactusLayout.isClickable = true
+        binding.contactusLayout.isEnabled = true
+
+        disableFragmentInteraction()
+
+        // Optionally, disable other UI elements (e.g., header, footer) that shouldn't be interactive
+        binding.relativeLayout.isClickable = false
+        binding.relativeLayout.isFocusable = false
+        binding.relativeLayout.isEnabled = false
+        binding.headerTitle.isClickable = false
+        binding.headerTitle.isFocusable = false
+        binding.headerTitle.isEnabled = false
+
+        // Set up the close button to hide the "Contact Us" layout and re-enable interaction
+        binding.closeBtn.setOnClickListener {
+            // Hide the "Contact Us" layout
+
+
+            // Re-enable interaction with the fragment
+            enableFragmentInteraction()
+
+            // Optionally, re-enable other UI elements
+            binding.relativeLayout.isClickable = true
+            binding.relativeLayout.isFocusable = true
+            binding.relativeLayout.isEnabled = true
+            binding.headerTitle.isClickable = true
+            binding.headerTitle.isFocusable = true
+            binding.headerTitle.isEnabled = true
+
         }
+
+        binding.imgPhoneCall.setOnClickListener {
+            startActivity(Intent(this@Container,CallNow::class.java))
+        }
+        binding.imgBookAppointment.setOnClickListener {
+            startActivity(Intent(this@Container,BookAppoinment::class.java))
+        }
+    }
+
+
+    // Function to disable touch events for the current fragment
+    private fun disableFragmentInteraction() {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+
+        // If there's a fragment loaded, disable its root view and all of its children
+        currentFragment?.view?.let { rootView ->
+            disableViewInteraction(rootView)
+        }
+    }
+
+    // Recursively disable touch events on a view and all of its child views
+    private fun disableViewInteraction(view: View) {
+        binding.closeBtn.startAnimation(rotateOpen)
+        rotateOpen.setAnimationListener(object : Animation.AnimationListener
+        {
+            override fun onAnimationStart(animation: Animation?) {
+                binding.imgPhoneCall.visibility=View.GONE
+                binding.imgWhastapp.visibility=View.GONE
+                binding.imgBookAppointment.visibility=View.GONE
+                binding.imgChatBot.visibility=View.GONE
+                binding.txtCallNow.visibility=View.GONE
+                binding.txtWhatsapp.visibility=View.GONE
+                binding.txtAppointment.visibility=View.GONE
+                binding.txtChatBot.visibility=View.GONE
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+                binding.imgPhoneCall.startAnimation(fromBottom)
+                binding.imgWhastapp.startAnimation(fromBottom)
+                binding.imgBookAppointment.startAnimation(fromBottom)
+                binding.imgChatBot.startAnimation(fromBottom)
+                binding.txtCallNow.startAnimation(fromBottom)
+                binding.txtWhatsapp.startAnimation(fromBottom)
+                binding.txtAppointment.startAnimation(fromBottom)
+                binding.txtChatBot.startAnimation(fromBottom)
+
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {
+
+            }
+
+        })
+
+        
+        // Disable interaction for this view
+        view.isClickable = false
+        view.isFocusable = false
+        view.isEnabled = false
+        binding.home.isClickable=false
+        binding.home.isEnabled=false
+        binding.offers.isClickable=false
+        binding.offers.isEnabled=false
+        binding.you.isClickable=false
+        binding.you.isEnabled=false
+
+        // If the view is a ViewGroup (e.g., ScrollView, RecyclerView), recursively disable its children
+        if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                disableViewInteraction(view.getChildAt(i)) // Recursively disable children
+            }
+        }
+
+    }
+
+
+
+    // Function to enable touch events for the current fragment
+    private fun enableFragmentInteraction() {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+
+        // If there's a fragment loaded, enable its root view and all of its children
+        currentFragment?.view?.let { rootView ->
+            enableViewInteraction(rootView)
+        }
+    }
+
+    // Recursively enable touch events on a view and all of its child views
+    private fun enableViewInteraction(view: View) {
+        binding.closeBtn.startAnimation(rotateCLose)
+
+        rotateCLose.setAnimationListener(object : Animation.AnimationListener
+        {
+            override fun onAnimationStart(animation: Animation?) {
+
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+                binding.imgPhoneCall.startAnimation(toBottom)
+                binding.imgWhastapp.startAnimation(toBottom)
+                binding.imgBookAppointment.startAnimation(toBottom)
+                binding.imgChatBot.startAnimation(toBottom)
+                binding.txtCallNow.startAnimation(toBottom)
+                binding.txtWhatsapp.startAnimation(toBottom)
+                binding.txtAppointment.startAnimation(toBottom)
+                binding.txtChatBot.startAnimation(toBottom)
+
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {
+
+            }
+
+        })
+
+        toBottom.setAnimationListener(object : Animation.AnimationListener
+        {
+            override fun onAnimationStart(animation: Animation?) {
+
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+                View.GONE.also { binding.contactusLayout.visibility = it }
+                    checkFragmentNumber(previousFragmentNumber)
+
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {
+
+            }
+
+        })
+
+        view.isClickable = true
+        view.isFocusable = true
+        view.isEnabled = true
+        binding.home.isClickable=true
+        binding.home.isEnabled=true
+        binding.offers.isClickable=true
+        binding.offers.isEnabled=true
+        binding.you.isClickable=true
+        binding.you.isEnabled=true
+
+        // If the view is a ViewGroup, recursively enable its children
+        if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                enableViewInteraction(view.getChildAt(i)) // Recursively enable children
+            }
+        }
+    }
+
+    private fun checkFragmentNumber(i: Int) {
+        previousFragmentNumber=3
+        previousNormalImg=binding.contactUs
+        previousSelectedImg=binding.contactUs2
+        Log.d("Frgament","Fragment Number:${fragmentNumber}")
+
+        when(i){
+            1-> selectFragment(i,HomeFragment(),binding.home, binding.home2)
+            2-> selectFragment(i,ProductFragment(),binding.offers, binding.offers2)
+            4-> selectFragment(i,ProfileFragment(),binding.you, binding.you2)
+        }
+    }
+
+    private fun replaceFragment (fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+            .commit()
     }
 
     private fun resetAnimation(view: ImageView?) {
         view?.apply {
             scaleX = 1f
             scaleY = 1f
-            translationY = 0f // Reset the translation for slide-up effect
+            translationY = 0f
             previousSelectedImg?.visibility = View.INVISIBLE
         }
     }
+
     @SuppressLint("ObjectAnimatorBinding")
     private fun enlargeIconWithBubbleUpAnimation(imageView: ImageView, previousImg: ImageView?, normalImg: ImageView) {
 
-        // Store the initial position and padding of the normal image (for future animations)
         val initialNormalImgTranslationY = normalImg.translationY
         val initialNormalImgPaddingLeft = normalImg.paddingLeft
         val initialNormalImgPaddingTop = normalImg.paddingTop
         val initialNormalImgPaddingRight = normalImg.paddingRight
         val initialNormalImgPaddingBottom = normalImg.paddingBottom
 
-        // Reset padding values to original for imageView (ensure the image starts with the correct padding each time)
         imageView.setPadding(originalPaddingLeft, originalPaddingTop, originalPaddingRight, originalPaddingBottom)
         normalImg.setPadding(10, 10, 10, 10)
 
-        // Animation for the upward translation (without bounce effect) for the selected (current) image
         val moveUp = ObjectAnimator.ofFloat(imageView, View.TRANSLATION_Y, 0f, -20f).apply {
-            duration = 300L // Upward move duration for a smoother feel
-            interpolator = android.view.animation.OvershootInterpolator(0.5f) // Smooth easing with overshoot for a bouncy effect
+            duration = 300L
+            interpolator = OvershootInterpolator(0.5f)
         }
 
-        // Animation for the upward translation (without bounce effect) for the normal image (previous one)
         val moveUpNormal = ObjectAnimator.ofFloat(normalImg, View.TRANSLATION_Y, 0f, -20f).apply {
             duration = 300L
-            interpolator = android.view.animation.OvershootInterpolator(0.5f) // Same easing for consistency
+            interpolator = OvershootInterpolator(0.5f)
         }
 
-        // Scaling the icon with a slight "bubble" effect (enlarging and then shrinking) for the current image
-        val scaleX = ObjectAnimator.ofFloat(imageView, View.SCALE_X, 1f, 1.2f, 1.3f).apply {
-            duration = 300L // Scaling duration for smooth zoom
-            interpolator = android.view.animation.OvershootInterpolator(0.5f) // Overshoot for a smooth scale effect
-        }
-
-        val scaleY = ObjectAnimator.ofFloat(imageView, View.SCALE_Y, 1f, 1.2f, 1.3f).apply {
+        val scaleX = ObjectAnimator.ofFloat(imageView, View.SCALE_X, 1f, 1.2f, 1.2f).apply {
             duration = 300L
-            interpolator = android.view.animation.OvershootInterpolator(0.5f)
+            interpolator = OvershootInterpolator(0.5f)
         }
 
-        // Animate the translation and scaling of the normal image (make it shrink slightly and move up)
-        val scaleNormal = ObjectAnimator.ofFloat(normalImg, View.SCALE_X, 1f, 1.2f, 1.3f).apply {
+        val scaleY = ObjectAnimator.ofFloat(imageView, View.SCALE_Y, 1f, 1.2f, 1.2f).apply {
             duration = 300L
-            interpolator = android.view.animation.OvershootInterpolator(0.5f)
+            interpolator = OvershootInterpolator(0.5f)
         }
 
-        val scaleNormalY = ObjectAnimator.ofFloat(normalImg, View.SCALE_Y, 1f, 1.2f, 1.3f).apply {
+        val scaleNormal = ObjectAnimator.ofFloat(normalImg, View.SCALE_X, 1f, 1.2f, 1.2f).apply {
             duration = 300L
-            interpolator = android.view.animation.OvershootInterpolator(0.5f)
+            interpolator = OvershootInterpolator(0.5f)
         }
 
-        // Scaling the previous image down for smooth transition
-        val scalePreviousImgX = ObjectAnimator.ofFloat(previousImg, View.SCALE_X, 1.3f, 1.2f, 1f).apply {
+        val scaleNormalY = ObjectAnimator.ofFloat(normalImg, View.SCALE_Y, 1f, 1.2f, 1.2f).apply {
             duration = 300L
-            interpolator = android.view.animation.OvershootInterpolator(0.5f)
+            interpolator = OvershootInterpolator(0.5f)
+        }
+
+        val scalePreviousImgX = ObjectAnimator.ofFloat(previousImg, View.SCALE_X, 1.2f, 1.2f, 1f).apply {
+            duration = 300L
+            interpolator = OvershootInterpolator(0.5f)
         }
 
         val scalePreviousImgY = ObjectAnimator.ofFloat(previousImg, View.SCALE_Y, 1.4f, 2f, 1f).apply {
             duration = 300L
-            interpolator = android.view.animation.OvershootInterpolator(0.5f)
+            interpolator = OvershootInterpolator(0.5f)
         }
 
-        // Animate the padding decrease for the current icon (to make it look like it enlarges)
-        val paddingDecrease = 5
+        val paddingDecrease = 3
         val decreasePaddingAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
-            duration = 400L // Increased duration for smoother padding animation
+            duration = 400L
             addUpdateListener { animator ->
                 val progress = animator.animatedFraction
                 val newPaddingLeft = (originalPaddingLeft - (paddingDecrease * progress)).toInt()
@@ -185,13 +402,11 @@ class Container : AppCompatActivity() {
                 val newPaddingRight = (originalPaddingRight - (paddingDecrease * progress)).toInt()
                 val newPaddingBottom = (originalPaddingBottom - (paddingDecrease * progress)).toInt()
 
-                // Apply padding dynamically to imageView
                 imageView.setPadding(newPaddingLeft, newPaddingTop, newPaddingRight, newPaddingBottom)
                 normalImg.setPadding(newPaddingLeft, newPaddingTop, newPaddingRight, newPaddingBottom)
             }
         }
 
-        // Restoring padding for the previous image
         val restorePaddingAnimator = ValueAnimator.ofFloat(1f, 0f).apply {
             duration = 300L
             addUpdateListener { animator ->
@@ -201,30 +416,25 @@ class Container : AppCompatActivity() {
                 val newPaddingRight = (10 + (paddingDecrease * progress)).toInt()
                 val newPaddingBottom = (10 + (paddingDecrease * progress)).toInt()
 
-                // Apply restored padding to previous icon
                 previousImg?.setPadding(newPaddingLeft, newPaddingTop, newPaddingRight, newPaddingBottom)
             }
         }
 
-        // Moving the previous image down and restoring its padding to original (for the old icon)
         val moveDown = ObjectAnimator.ofFloat(previousImg, View.TRANSLATION_Y, -20f, 0f).apply {
             duration = 300L
-            interpolator = android.view.animation.OvershootInterpolator(0.5f) // Smooth easing
+            interpolator = OvershootInterpolator(0.5f)
         }
 
-        // Combine all animations (translation, scaling, padding decrease)
         val animatorSet = AnimatorSet().apply {
             playTogether(
                 decreasePaddingAnimator,moveUp, moveUpNormal, scaleX, scaleY, scaleNormal, scaleNormalY,  moveDown, restorePaddingAnimator,
                 scalePreviousImgX, scalePreviousImgY
             )
-            duration = 700 // Total duration for all animations with a slightly longer time for more fluid transitions
+            duration = 700
         }
 
-        // Start animation for the current image
         animatorSet.start()
 
-        // When the next image is clicked, reset the previous image back to its original position and padding
         previousImg?.apply {
             translationY = initialNormalImgTranslationY
             setPadding(initialNormalImgPaddingLeft, initialNormalImgPaddingTop, initialNormalImgPaddingRight, initialNormalImgPaddingBottom)
@@ -233,11 +443,11 @@ class Container : AppCompatActivity() {
 
     private fun setupSearchView() {
         searchView.findViewById<TextView>(androidx.appcompat.R.id.search_src_text)
-            ?.setHintTextColor(ContextCompat.getColor(this, R.color.dark_gray))
+            ?.setHintTextColor(ContextCompat.getColor(this, R.color.text_gray))
 
         val searchIconView: ImageView = searchView.findViewById(androidx.appcompat.R.id.search_mag_icon)
         searchIconView.drawable?.let {
-            it.setTint(ContextCompat.getColor(this, R.color.cocoa_brown))
+            it.setTint(ContextCompat.getColor(this, R.color.text_gray))
             searchIconView.setImageDrawable(it)
         }
 
