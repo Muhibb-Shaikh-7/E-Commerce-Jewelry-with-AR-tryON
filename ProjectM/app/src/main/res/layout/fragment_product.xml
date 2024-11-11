@@ -108,11 +108,11 @@ android:layout_marginRight="6dp"
                    >
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="100dp"
+                        android:layout_width="match_parent"
                         android:layout_height="100dp"
-                        app:shapeAppearanceOverlay="@style/CustomCircularImage"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/necklace_image"
-                        android:scaleType="centerCrop" />
+                        app:shapeAppearanceOverlay="@style/CustomCircularImage" />
 
                     <TextView
                         android:layout_width="wrap_content"
