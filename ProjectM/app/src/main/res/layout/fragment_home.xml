@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/platinum"
+    android:background="@color/offwhite"
     tools:context=".navigation.HomeFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -50,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    app:dotsColor="@color/gray"
+                    app:dotsColor="@color/light_gray"
                     app:dotsCornerRadius="360dp"
                     app:dotsSize="7dp"
                     app:dotsSpacing="3dp"
@@ -59,7 +59,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:selectedDotColor="@color/quick_sand" /> <!-- Selected dot color set to #3b3c4a -->
+                    app:selectedDotColor="@color/dark_golden" /> <!-- Selected dot color set to #3b3c4a -->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Categories"
-                    android:textColor="@color/almost_black"
+                    android:textColor="@color/brown_rust"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -100,6 +100,7 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="85dp"
+                                android:background="@color/transparent"
                                 android:orientation="horizontal"
                                 android:gravity="center_vertical">
 
@@ -178,7 +179,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Recommendation"
-                    android:textColor="@color/almost_black"
+                    android:textColor="@color/brown_rust"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 

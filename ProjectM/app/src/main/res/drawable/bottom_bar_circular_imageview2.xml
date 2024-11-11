@@ -13,7 +13,7 @@
 
     <item android:left="2dp" android:right="2dp" android:bottom="2dp" android:top="2dp" >
         <shape android:shape="rectangle">
-            <solid android:color="@color/iron_stone" /> <!-- Original color -->
+            <solid android:color="@color/brown_rust" /> <!-- Original color -->
             <corners android:radius="410dp" />
         </shape>
     </item>

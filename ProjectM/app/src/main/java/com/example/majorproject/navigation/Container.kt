@@ -1,11 +1,10 @@
 package com.example.majorproject.navigation
 
-import android.Manifest
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -19,12 +18,13 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.example.majorproject.contactus.CallNow
 import com.example.majorproject.R
+import com.example.majorproject.contactus.BookAppoinment
 import com.example.majorproject.databinding.ActivityContainerBinding
 
 class Container : AppCompatActivity() {
@@ -131,8 +131,7 @@ class Container : AppCompatActivity() {
     private fun openContactUsLayout() {
 
         binding.contactusLayout.visibility = View.VISIBLE
-
-        binding.contactusLayout.setClickable(true)
+        binding.contactusLayout.isClickable = true
         binding.contactusLayout.isEnabled = true
 
         disableFragmentInteraction()
@@ -162,7 +161,15 @@ class Container : AppCompatActivity() {
             binding.headerTitle.isEnabled = true
 
         }
+
+        binding.imgPhoneCall.setOnClickListener {
+            startActivity(Intent(this@Container,CallNow::class.java))
+        }
+        binding.imgBookAppointment.setOnClickListener {
+            startActivity(Intent(this@Container,BookAppoinment::class.java))
+        }
     }
+
 
     // Function to disable touch events for the current fragment
     private fun disableFragmentInteraction() {
@@ -199,7 +206,7 @@ class Container : AppCompatActivity() {
                 binding.txtWhatsapp.startAnimation(fromBottom)
                 binding.txtAppointment.startAnimation(fromBottom)
                 binding.txtChatBot.startAnimation(fromBottom)
-                setUpOnCLickListerener()
+
             }
 
             override fun onAnimationRepeat(animation: Animation?) {
@@ -229,17 +236,7 @@ class Container : AppCompatActivity() {
 
     }
 
-    private fun setUpOnCLickListerener() {
 
-        binding.imgPhoneCall.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CALL_PHONE), 100)
-            }else{
-
-            }
-        }
-
-    }
 
     // Function to enable touch events for the current fragment
     private fun enableFragmentInteraction() {
@@ -446,11 +443,11 @@ class Container : AppCompatActivity() {
 
     private fun setupSearchView() {
         searchView.findViewById<TextView>(androidx.appcompat.R.id.search_src_text)
-            ?.setHintTextColor(ContextCompat.getColor(this, R.color.dark_gray))
+            ?.setHintTextColor(ContextCompat.getColor(this, R.color.text_gray))
 
         val searchIconView: ImageView = searchView.findViewById(androidx.appcompat.R.id.search_mag_icon)
         searchIconView.drawable?.let {
-            it.setTint(ContextCompat.getColor(this, R.color.black))
+            it.setTint(ContextCompat.getColor(this, R.color.text_gray))
             searchIconView.setImageDrawable(it)
         }
 

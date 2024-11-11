@@ -23,7 +23,7 @@
             android:layout_height="157dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
-            android:background="@color/platinum"
+            android:background="@color/offwhite"
             android:scaleType="centerCrop"
             android:src="@drawable/ring1"
             app:shapeAppearanceOverlay="@style/CustomCircularImage" />

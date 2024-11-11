@@ -16,7 +16,7 @@
     <!-- Inner layer for the solid background -->
     <item android:left="2dp" android:right="2dp" android:top="2dp" android:bottom="2dp">
         <shape android:shape="rectangle">
-            <solid android:color="@color/black_eel"/>
+            <solid android:color="@color/black_olive"/>
             <corners android:radius="33dp"/>
         </shape>
     </item>

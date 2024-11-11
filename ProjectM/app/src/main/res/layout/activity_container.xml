@@ -4,7 +4,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/platinum">
+    android:background="@color/offwhite">
 
     <RelativeLayout
         android:id="@+id/relative_layout"
@@ -12,7 +12,7 @@
         android:paddingStart="15dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/platinum">
+        android:background="@color/offwhite">
 
         <RelativeLayout
             android:id="@+id/header_title"
@@ -31,7 +31,7 @@
                 android:drawablePadding="4dp"
                 android:fontFamily="@font/tenor_sans"
                 android:text="Mahavir Gems"
-                android:textColor="@color/black"
+                android:textColor="@color/brown_rust"
                 android:textSize="22sp" />
 
             <ImageView
@@ -121,7 +121,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Call Now"
-                android:textColor="@color/platinum"
+                android:textColor="@color/offwhite"
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:fontFamily="@font/zen_antique"
@@ -152,7 +152,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="WhatsApp"
-                android:textColor="@color/platinum"
+                android:textColor="@color/offwhite"
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:fontFamily="@font/zen_antique"
@@ -182,7 +182,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Book an Appointment"
-                android:textColor="@color/platinum"
+                android:textColor="@color/offwhite"
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:fontFamily="@font/zen_antique"
@@ -191,7 +191,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.49"
-                app:layout_constraintHorizontal_bias="0.500"/>
+                app:layout_constraintHorizontal_bias="0.670"/>
 
             <ImageView
                 android:id="@+id/imgChatBot"
@@ -212,7 +212,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Chatbot"
-                android:textColor="@color/platinum"
+                android:textColor="@color/offwhite"
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:fontFamily="@font/zen_antique"
