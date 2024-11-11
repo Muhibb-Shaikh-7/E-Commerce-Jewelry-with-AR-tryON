@@ -110,11 +110,8 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 // Convert itemType2 and selectedGender to lowercase and fetch from the specified path
-                val productTypeRef = db.collection("Product")
-                    .document("Rings")
-                    .collection("women")
-                    .document("Auspicious")
-                    .collection("Items")
+                val productTypeRef = db.collection("Items")
+
 
                 // Fetch all items within the specified "Items" collection
                 val itemsSnapshot = productTypeRef.get().await()
@@ -153,7 +150,7 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
                                     .toString() ?: ""),
                                 "Metal" to (priceBreakingMap?.get("Metal").toString() ?: ""),
                                 "Taxes" to (priceBreakingMap?.get("Taxes").toString() ?: ""),
-                                "Total" to (itemDoc.getString("price") ?: "")
+                                "Total" to (itemDoc.getString("productPrice") ?: "")
                             ),
                             productSpecification = mapOf(
                                 "Brand" to "Mahavir",
@@ -181,7 +178,7 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
                             size = mapOf("size" to "5mm"),
                             stock = itemDoc.getString("stockQuantity") ?: "",
                             styling = mapOf(
-                                "style" to (stylingMap?.get("style").toString() ?: "")
+                                "style" to (stylingMap?.get("design-type").toString() ?: "Fancy")
                             )
                         )
 

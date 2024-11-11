@@ -177,12 +177,8 @@ class AddProducts : AppCompatActivity() {
 
         // Define the Firestore reference and save the product
         val productReference = FirebaseFirestore.getInstance()
-            .collection("Product")
-            .document("Rings")
-            .collection("women")
-            .document("Auspicious")
-            .collection("Items")
-            .document() // Document will be created automatically with a generated ID
+            .collection("Items").document()
+            // Document will be created automatically with a generated ID
 
         productReference.set(product)
             .addOnSuccessListener {
