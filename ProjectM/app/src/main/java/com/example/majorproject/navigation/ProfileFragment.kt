@@ -1,4 +1,5 @@
 package com.example.majorproject.navigation
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class ProfileFragment : Fragment() {
     private val auth = FirebaseAuth.getInstance()  // Firebase Authentication instance
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,6 +40,7 @@ class ProfileFragment : Fragment() {
         val orderForwardImg = view.findViewById<ImageView>(R.id.order_forwardimg)
         val trackOrderForwardImg = view.findViewById<ImageView>(R.id.track_order_forwardimg)
         val logoutForwardImg = view.findViewById<ImageView>(R.id.logout_forwardimg)
+        val backArrow = view.findViewById<ImageView>(R.id.back_button)
 
         // Fetch user data only if the user is logged in
         if (currentUser != null) {

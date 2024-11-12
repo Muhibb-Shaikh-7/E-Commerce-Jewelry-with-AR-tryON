@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_margin="15dp"
-    android:background="#F5F5F5">
+    android:background="#F5F5F5"
+    android:id="@+id/ly1">
 
     <!-- Header with Back Arrow, Title, and Icon Button -->
     <LinearLayout
@@ -15,16 +16,18 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="8dp"
+        android:background="@color/white"
         tools:ignore="UseCompoundDrawables">
 
         <!-- Back Arrow Icon -->
         <ImageView
-            android:layout_width="34dp"
-            android:layout_height="39dp"
-            android:layout_marginEnd="16dp"
-            android:contentDescription="Back Arrow"
-            android:src="@drawable/ic_back"
-            app:tint="#000000" />
+            android:id="@+id/back_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/back"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/fav_icon_desc" />
 
         <!-- Title Text -->
         <TextView
@@ -40,21 +43,20 @@
 
     </LinearLayout>
 
-    <!-- Profile Header with Image and Name -->
+
+
     <LinearLayout
-        android:layout_width="365dp"
-        android:layout_height="205dp"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="15dp"
-        tools:ignore="ExtraText,VisualLintBounds"
-        android:paddingBottom="10dp">
-
-
+        android:background="#FFFFFF"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:elevation="4dp"
+        android:layout_marginTop="5dp">
         <ImageView
-            android:layout_width="128dp"
-            android:layout_height="146dp"
+            android:layout_width="113dp"
+            android:layout_height="111dp"
             android:layout_gravity="center"
             android:layout_marginBottom="8dp"
             android:background="@color/white"
@@ -64,27 +66,14 @@
 
         <TextView
             android:id="@+id/profile_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="115dp"
+            android:layout_height="33dp"
             android:layout_gravity="center"
             android:text="UserNAme"
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-
-    </LinearLayout>
-
-    <!-- Profile Options -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#FFFFFF"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:elevation="4dp"
-        android:layout_marginTop="30dp">
 
         <!-- My Profile -->
         <LinearLayout
@@ -95,29 +84,28 @@
             android:gravity="center_vertical">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_user"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
                 android:contentDescription="My Profile Icon"
+                android:src="@drawable/ic_user"
                 app:tint="#000000" />
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="293dp"
+                android:layout_height="35dp"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
                 android:text="My Profile"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="20sp" />
 
             <ImageView
                 android:id="@+id/profile_forwardimg"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/forward_img"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
                 android:backgroundTint="@color/white"
-                android:contentDescription="@string/w1"
-                 />
+                android:contentDescription="Arrow"
+                android:src="@drawable/forward_img" />
         </LinearLayout>
 
 
@@ -137,18 +125,18 @@
                  />
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="293dp"
+                android:layout_height="35dp"
                 android:layout_weight="1"
                 android:layout_marginStart="16dp"
                 android:text="My Address"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:textColor="#000000" />
 
             <ImageView
                 android:id="@+id/address_frowardimg"
-                android:layout_width="24dp"
-                android:layout_height="20dp"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
                 android:contentDescription="@string/arrow"
                 android:src="@drawable/forward_img"
                 android:backgroundTint="@color/white"
@@ -170,18 +158,18 @@
                 android:contentDescription="My Orders Icon" />
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="293dp"
+                android:layout_height="35dp"
                 android:layout_weight="1"
                 android:layout_marginStart="16dp"
                 android:text="My Orders"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:textColor="#000000" />
 
             <ImageView
                 android:id="@+id/order_forwardimg"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
                 android:src="@drawable/forward_img"
                 android:contentDescription="@string/arrow3"
                  android:backgroundTint="@color/white" />
@@ -205,18 +193,18 @@
                 app:tint="#000000" />
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="293dp"
+                android:layout_height="35dp"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
                 android:text="@string/track_order1"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="20sp" />
 
             <ImageView
                 android:id="@+id/track_order_forwardimg"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
                 android:src="@drawable/forward_img"
                 android:contentDescription="@string/arrow1"
                 android:backgroundTint="@color/white"/>
@@ -237,18 +225,18 @@
                 android:contentDescription="My Profile Icon" />
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="293dp"
+                android:layout_height="35dp"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
                 android:text="@string/log_out1"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="20sp" />
 
             <ImageView
                 android:id="@+id/logout_forwardimg"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
                 android:src="@drawable/forward_img"
                 android:backgroundTint="@color/white"
                 android:contentDescription="@string/arrow2" />

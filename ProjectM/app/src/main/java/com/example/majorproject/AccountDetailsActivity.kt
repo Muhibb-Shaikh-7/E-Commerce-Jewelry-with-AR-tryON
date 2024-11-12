@@ -1,9 +1,12 @@
 package com.example.majorproject
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.majorproject.R
+import com.example.majorproject.navigation.ProfileFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -13,6 +16,7 @@ class AccountDetailsActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
 
+    @SuppressLint("MissingInflatedId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account_details)
@@ -22,6 +26,19 @@ class AccountDetailsActivity : AppCompatActivity() {
         val emailTextView: TextView = findViewById(R.id.email_text_view)
         val addressTextView: TextView = findViewById(R.id.address_text_view)
         val phoneNumberTextView: TextView = findViewById(R.id.phone_number_text_view)
+        val editProfileImageView: ImageView = findViewById(R.id.editprfile_imgView)
+        val backbtn: ImageView = findViewById(R.id.back_arr)
+
+        editProfileImageView.setOnClickListener {
+            val intent = Intent(this, Editprofile::class.java)
+            startActivity(intent)
+        }
+
+        backbtn.setOnClickListener {
+            val intent = Intent(this, ProfileFragment::class.java)
+            startActivity(intent)
+        }
+
 
         // Get the current authenticated user's email
         val currentUser = auth.currentUser
