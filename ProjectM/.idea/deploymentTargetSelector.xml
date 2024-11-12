@@ -2,15 +2,20 @@
 <project version="4">
   <component name="deploymentTargetSelector">
     <selectionStates>
-      <SelectionState runConfigName="MainActivity">
+      <SelectionState runConfigName="app">
+        <option name="selectionMode" value="DROPDOWN" />
+        <DropdownSelection timestamp="2024-11-12T09:35:24.204782300Z">
+          <Target type="DEFAULT_BOOT">
+            <handle>
+              <DeviceId pluginId="PhysicalDevice" identifier="serial=10BD340TZ70001S" />
+            </handle>
+          </Target>
+        </DropdownSelection>
+        <DialogSelection />
+      </SelectionState>
+      <SelectionState runConfigName="ProfileFragment">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-<<<<<<< HEAD
-      <SelectionState runConfigName="Editprofile">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-=======
->>>>>>> 964989391b5370a6e5fd25dbc6b991390b215ec8
     </selectionStates>
   </component>
 </project>
