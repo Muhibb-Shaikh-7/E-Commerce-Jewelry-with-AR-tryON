@@ -2,6 +2,7 @@ package com.example.majorproject.navigation
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -220,10 +221,18 @@ class Categories : AppCompatActivity(), ItemAdapter.OnItemClickListener {
     }
 
     // Handle product item click event
-    override fun onItemClick(product: item) {
-        // Navigate to product description
-        val intent = Intent(this, ProductDescription::class.java)
-        intent.putExtra("product", product)
-        startActivity(intent)
+    override fun onItemClick(clickedItem: item) {
+        val selectedProduct = clickedItem.product
+
+        if (selectedProduct != null) {
+            // Create the intent for ProductDescription activity
+            val intent = Intent(baseContext, ProductDescription::class.java)
+            intent.putExtra("product", selectedProduct) // Pass the Product object
+            Log.d("ProductDescription", "Product passed: ${selectedProduct.name}")
+            startActivity(intent)
+        } else {
+            Log.d("ProductDescription", "Selected product not found")
+        }
     }
-}
+    }
+

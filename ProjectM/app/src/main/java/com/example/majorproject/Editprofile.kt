@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.majorproject.navigation.ProfileFragment
@@ -16,12 +17,12 @@ class Editprofile : AppCompatActivity() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
 
-    @SuppressLint("MissingInflatedId", "WrongViewCast")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editprofile)
 
-        val backButton = findViewById<Button>(R.id.back_btnedpro)
+        val backButton = findViewById<ImageView>(R.id.back_btnedpro)
 
         backButton.setOnClickListener {
             val intent = Intent(this, AccountDetailsActivity::class.java)
