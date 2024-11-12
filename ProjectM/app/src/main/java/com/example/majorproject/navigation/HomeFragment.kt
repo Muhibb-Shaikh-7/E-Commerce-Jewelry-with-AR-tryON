@@ -6,7 +6,9 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -52,13 +54,43 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
         progressBarProducts=view.findViewById(R.id.progressBarItems)
 
         recyclerView?.layoutManager = GridLayoutManager(context, 2)
+        view.findViewById<TextView>(R.id.seeAll).setOnClickListener{
+        startActivity(Intent(context,Categories::class.java))
+        }
 
         adapter = ItemAdapter(requireContext(), itemList, this)
         recyclerView?.adapter = adapter
          fetchBannerImages(view)
 
         fetchAllAuspiciousProducts()
+        val categoryKids = view.findViewById<ImageView>(R.id.kids)
+        val categoryMen = view.findViewById<ImageView>(R.id.men)
+        val categoryWomen = view.findViewById<ImageView>(R.id.women)
+        val categoryRing = view.findViewById<ImageView>(R.id.ring)
+        val categoryBracelet = view.findViewById<ImageView>(R.id.bracelet)
+        val categoryNecklace = view.findViewById<ImageView>(R.id.necklace)
+// Add other categories similarly
 
+        categoryKids.setOnClickListener {
+            navigateToCategoryActivity("kids")
+        }
+
+        categoryMen.setOnClickListener {
+            navigateToCategoryActivity("men")
+        }
+
+        categoryWomen.setOnClickListener {
+            navigateToCategoryActivity("women")
+        }
+        categoryRing.setOnClickListener {
+            navigateToCategoryActivity("ring")
+        }
+        categoryBracelet.setOnClickListener {
+            navigateToCategoryActivity("bracelet")
+        }
+        categoryNecklace.setOnClickListener {
+            navigateToCategoryActivity("necklace")
+        }
         return view
     }
     private fun fetchBannerImages(view:View) {
@@ -227,7 +259,11 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
             Log.d("ProductDescription", "Selected product not found")
         }
     }
-
+    private fun navigateToCategoryActivity(category: String) {
+        val intent = Intent(context, Categories::class.java)
+        intent.putExtra("selected_category", category)
+        startActivity(intent)
+    }
 
 
 }

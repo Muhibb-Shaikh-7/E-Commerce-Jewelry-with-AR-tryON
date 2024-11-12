@@ -24,6 +24,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.majorproject.contactus.CallNow
 import com.example.majorproject.R
+import com.example.majorproject.Search.SearchActivity
 import com.example.majorproject.contactus.BookAppoinment
 import com.example.majorproject.databinding.ActivityContainerBinding
 
@@ -69,7 +70,15 @@ class Container : AppCompatActivity() {
         previousSelectedImg = binding.home2
 
         setupSearchView()
-
+        searchView.setOnClickListener{
+            startActivity(Intent(baseContext,SearchActivity::class.java))
+        }
+        searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                // Start the SearchActivity when the SearchView is clicked or focused
+                startActivity(Intent(baseContext, SearchActivity::class.java))
+            }
+        }
         if (savedInstanceState == null) {
            selectFragment(1 ,HomeFragment(), binding.home, binding.home2)
         }
@@ -452,5 +461,16 @@ class Container : AppCompatActivity() {
         }
 
 
+    }
+    override fun onResume() {
+        super.onResume()
+
+        // Set up the SearchView listener every time the activity is resumed
+        searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                // Start the SearchActivity when the SearchView is clicked or focused
+                startActivity(Intent(baseContext, SearchActivity::class.java))
+            }
+        }
     }
 }
