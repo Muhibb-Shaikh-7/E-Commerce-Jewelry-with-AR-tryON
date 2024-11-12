@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.majorproject.R
+import com.squareup.picasso.Picasso
 
 class ImagePagerAdapter(
     private val imageUrls: MutableList<String>,
@@ -21,9 +22,8 @@ class ImagePagerAdapter(
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val imageUrl = imageUrls[position]
-        Glide.with(holder.imageView.context)
+        Picasso.get()
             .load(imageUrl)
-            .apply(requestOptions)
             .into(holder.imageView)
     }
 

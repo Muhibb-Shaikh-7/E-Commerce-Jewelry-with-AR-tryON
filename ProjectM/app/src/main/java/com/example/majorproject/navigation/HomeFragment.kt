@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -26,7 +25,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import java.io.Serializable
 
 class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
 
@@ -107,61 +105,114 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
 
     private fun fetchAllAuspiciousProducts() {
         val db = FirebaseFirestore.getInstance()
+        progressBarProducts.visibility=View.VISIBLE
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val auspiciousDocRef = db.collection("Products")
-                    .document("Rings")
-                    .collection("Women")
-                    .document("Auspicious")
+                // Convert itemType2 and selectedGender to lowercase and fetch from the specified path
+                val productTypeRef = db.collection("Items")
 
-                for (i in 1..10) {
-                    val subCollectionRef = auspiciousDocRef.collection("item$i")
-                    val querySnapshot = subCollectionRef.get().await()
 
-                    for (document in querySnapshot.documents) {
-                        if (document.exists()) {
-                            val fetchedProduct = document.toObject(Product::class.java)
-
-                            if (fetchedProduct != null) {
-                                // Switch to the main thread to update the UI
-                                withContext(Dispatchers.Main) {
-                                    progressBarProducts.visibility = View.GONE
-
-                                    // Create a Product object from the document
-                                    val product = Product(
-                                        name = document.getString("name") ?: "",
-                                        price = document.getString("price") ?: "",
-                                        images = document.get("images") as? Map<String, String> ?: emptyMap(),
-                                        grossWeight = document.get("gross-weight") as? Map<String, String> ?: emptyMap(),
-                                        priceBreaking = document.get("price-breaking") as? Map<String, String> ?: emptyMap(),
-                                        productSpecification = document.get("product-specification") as? Map<String, String> ?: emptyMap(),
-                                        size = document.get("size") as? Map<String, String> ?: emptyMap(),
-                                        stock = document.getString("stock") ?: "",
-                                        styling = document.get("styling") as? Map<String, String> ?: emptyMap()
-                                    )
-
-                                    val item1 = item(
-                                        image = fetchedProduct.images["0"] ?: "",
-                                        name = fetchedProduct.name,
-                                        price = fetchedProduct.price,
-                                        style = fetchedProduct.styling["style"] ?: "",
-                                        product = product // Pass the Product object here
-                                    )
-                                    itemList.add(item1)
-                                    adapter.notifyDataSetChanged()
-                                }
-                            }
-                        }
-                    }
+                // Fetch all items within the specified "Items" collection
+                val itemsSnapshot = productTypeRef.get().await()
+                if (itemsSnapshot.isEmpty) {
+                    Log.e(
+                        "fetchAllProducts",
+                        "No items found in specified path: "
+                    )
+                    return@launch
                 }
 
+                for (itemDoc in itemsSnapshot.documents) {
+                    if (itemDoc.exists()) {
+                        val grossWeightMap = itemDoc.get("grossWeight") as? Map<*, *>
+                        val imagesMap = itemDoc.get("images") as? Map<*, *>
+                        val priceBreakingMap = itemDoc.get("priceBreaking") as? Map<*, *>
+                        val specificationMap = itemDoc.get("productSpecification") as? Map<*, *>
+                        val stylingMap = itemDoc.get("styling") as? Map<*, *>
+
+                        // Construct the product object
+                        val product = Product(
+                            name = itemDoc.getString("productName") ?: "",
+                            price = itemDoc.getString("productPrice") ?: "",
+                            images = mapOf(
+                                "0" to (imagesMap?.get("0").toString() ?: ""),
+                                "1" to (imagesMap?.get("1").toString() ?: ""),
+                                "2" to (imagesMap?.get("2").toString() ?: ""),
+                                "3" to (imagesMap?.get("3").toString() ?: "")
+                            ),
+                            grossWeight = mapOf(
+                                "diamond-weight" to (grossWeightMap?.get("diamond-weight") ?: "")
+                            ),
+                            priceBreaking = mapOf(
+                                "Diamond" to (priceBreakingMap?.get("Diamond").toString() ?: ""),
+                                "Making Charges" to (priceBreakingMap?.get("Making Charges")
+                                    .toString() ?: ""),
+                                "Metal" to (priceBreakingMap?.get("Metal").toString() ?: ""),
+                                "Taxes" to (priceBreakingMap?.get("Taxes").toString() ?: ""),
+                                "Total" to (itemDoc.getString("productPrice") ?: "")
+                            ),
+                            productSpecification = mapOf(
+                                "Brand" to "Mahavir",
+                                "collection" to (priceBreakingMap?.get("collection").toString()
+                                    ?: ""),
+                                "design-type" to (priceBreakingMap?.get("design-type").toString()
+                                    ?: ""),
+                                "diamond-clarity" to "22k",
+                                "diamond-settings" to "121k",
+                                "country-of-origin" to "india",
+                                "diamond-carat" to (specificationMap?.get("diamond-carat")
+                                    .toString() ?: ""),
+                                "diamond-weight" to (specificationMap?.get("diamond-weight")
+                                    .toString() ?: ""),
+                                "gender" to (specificationMap?.get("gender").toString() ?: ""),
+                                "item-type" to (specificationMap?.get("item-type").toString()
+                                    ?: ""),
+                                "jewellery-type" to (specificationMap?.get("jewellery-type")
+                                    .toString() ?: ""),
+                                "karatage" to (specificationMap?.get("karatage").toString() ?: ""),
+                                "material-color" to (specificationMap?.get("material-color")
+                                    .toString() ?: ""),
+                                "metal" to (specificationMap?.get("metal").toString() ?: "")
+                            ),
+                            size = mapOf("size" to "5mm"),
+                            stock = itemDoc.getString("stockQuantity") ?: "",
+                            styling = mapOf(
+                                "style" to (stylingMap?.get("design-type").toString() ?: "Fancy")
+                            )
+                        )
+
+                        // Create an item for the adapter
+                        val item1 = product.images["0"]?.let {
+                            Log.d("fetchAllProducts", "Product images: ${product.images}")
+                            item(
+                                image = it,
+                                name = product.name,
+                                price = product.price,
+                                style = product.styling["style"] ?: "",
+                                product = product
+                            )
+                        }
+
+                        // Add the item to the list and notify the adapter
+                        if (item1 != null) {
+                            itemList.add(item1)
+                        }
+
+                        withContext(Dispatchers.Main) {
+                            adapter.notifyDataSetChanged()
+                            progressBarProducts.visibility=View.GONE
+                        }
+                        Log.d("fetchAllProducts", "Fetched item: ${product.name}")
+                    } else {
+                        Log.w("fetchAllProducts", "Document does not exist: ${itemDoc.id}")
+                    }
+                }
             } catch (e: Exception) {
-                Log.e("fetchAllAuspiciousProducts", "Error fetching products", e)
+                Log.e("fetchAllProducts", "Error fetching products", e)
             }
         }
     }
-
     override fun onItemClick(clickedItem: item) {
         // Access the Product directly from clickedItem
         val selectedProduct = clickedItem.product

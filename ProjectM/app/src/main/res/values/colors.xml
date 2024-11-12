@@ -9,5 +9,15 @@
     <color name="primary_text_color">#3b3c4a</color>       <!-- dark gray -->
     <color name="secondary_text_color">#6153b7</color>
     <color name="button_color">#C19A6B</color>
+    <color name="gray">#E2E2DF</color>
+
+    <color name="offwhite">#FFFEFB</color>
+    <color name="black_olive">#292A0C</color>
+    <color name="brown_rust">#A8632F</color>
+    <color name="bright_golden">#F8DF5C</color>
+    <color name="medium_golden">#FDE564</color>
+    <color name="dark_golden">#927417</color>
+
+
 
 </resources>

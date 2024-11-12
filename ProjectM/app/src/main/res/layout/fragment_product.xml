@@ -1,180 +1,311 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/offwhite">
 
-    <!-- Scrollable content -->
-    <androidx.core.widget.NestedScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="wrap_content"
+        android:padding="16dp">
 
+        <!-- Banner 1 -->
+        <ImageView
+            android:id="@+id/banner1"
+            android:layout_width="390dp"
+            android:layout_height="293dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/banner3" />
+
+        <!-- Banner 2 -->
+        <ImageView
+            android:id="@+id/banner2"
+            android:layout_width="393dp"
+            android:layout_height="219dp"
+            android:layout_below="@id/banner1"
+            android:layout_marginTop="9dp"
+
+            android:src="@drawable/banner4" />
+
+        <!-- Categories Section -->
+        <!-- Categories Section -->
         <LinearLayout
+            android:id="@+id/categories_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/banner2"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:gravity="center_horizontal"
+            android:padding="16dp"
+            android:layout_marginTop="16dp">
 
-            <!-- Title Row with Explore and Sort/View Switch Buttons -->
+            <!-- Section Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Discover Jewellery"
+                android:textSize="14sp"
+                android:textColor="#999999"
+                android:fontFamily="@font/tenor_sans"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save Up To 50%"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/tenor_sans"/>
+
+            <!-- Circular Categories -->
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
                 android:orientation="horizontal"
-                android:gravity="center_vertical">
+              >
 
-                <TextView
-                    android:id="@+id/tvExplore"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/tenor_sans"
-                    android:text="Explore"
-                    android:textColor="@color/primary_text_color"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
 
-                <!-- Sort Button to change view to List -->
-                <ImageButton
-                    android:id="@+id/btnSortList"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_list_view"
-                    android:contentDescription="List View"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="8dp"/>
 
-                <!-- Sort Button to change view to Grid -->
-                <ImageButton
-                    android:id="@+id/btnSortGrid"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_grid_view"
-                    android:contentDescription="Grid View"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="8dp"/>
-            </LinearLayout>
 
-            <!-- Horizontal Scrollable Price Filter Row -->
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="16dp"
-                android:scrollbars="none">
-
+                <!-- Rings -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+android:layout_marginRight="6dp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    >
 
-                    <!-- Price Range Buttons -->
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/filter_button_bg"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="8dp"
-                        android:text="00 - ₹25,000"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp"
-                        android:layout_marginRight="5dp"/>
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/filter_button_bg"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="8dp"
-                        android:text="₹25,000- ₹50,000"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp"
-                        android:layout_marginRight="5dp"/>
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/filter_button_bg"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="8dp"
-                        android:text="₹50,000- ₹75,000"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp"
-                        android:layout_marginRight="5dp"/>
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:background="#f7f7f7"
+                        app:shapeAppearanceOverlay="@style/CustomCircularImage"
+                        android:src="@drawable/rings_image"
+                        android:scaleType="centerCrop" />
 
-                    <androidx.appcompat.widget.AppCompatButton
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:background="@drawable/filter_button_bg"
-                        android:backgroundTintMode="add"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="8dp"
-                        android:text="₹75,000 - ₹1,00,000"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp"
-                        android:layout_marginRight="5dp"/>
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/filter_button_bg"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="8dp"
-                        android:text="₹1,00,000- ₹2,00,000"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp" />
-
-                    <!-- Add more buttons as needed -->
+                        android:text="RINGS"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/tenor_sans"/>
                 </LinearLayout>
-            </HorizontalScrollView>
 
-            <!-- RecyclerView for the product items -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:paddingTop="8dp"/>
+                <!-- Earrings -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+android:layout_marginRight="6dp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                   >
 
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/necklace_image"
+                        app:shapeAppearanceOverlay="@style/CustomCircularImage" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="NECKLACES"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/tenor_sans"/>
+                </LinearLayout>
+
+                <!-- Bracelets -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/circle_background"
+                        android:src="@drawable/bracelet2"
+                        app:shapeAppearanceOverlay="@style/CustomCircularImage"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="BRACELETS"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/tenor_sans"/>
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
 
-    <!-- Sticky Filter and Sort Buttons -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:background="@android:color/white"
-        android:elevation="8dp"
-        android:layout_alignParentBottom="true"
-        android:paddingVertical="16dp">
 
-        <!-- Filter Button -->
+        <!-- Silver Selection Banner -->
+        <ImageView
+            android:id="@+id/silver_selection_banner"
+            android:layout_width="wrap_content"
+            android:layout_height="385dp"
+            android:layout_below="@id/categories_section"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/banner5" />
+
+        <!-- Most Gifted Section -->
         <TextView
-            android:id="@+id/btnFilter"
-            android:layout_width="0dp"
+            android:id="@+id/most_gifted_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Filter"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:background="?attr/selectableItemBackgroundBorderless"/>
+            android:layout_below="@id/silver_selection_banner"
+            android:layout_marginTop="16dp"
+            android:text="Most Gifted"
+            android:textColor="#999999"
+            android:layout_centerHorizontal="true"
+            android:textSize="14sp"
+            android:textStyle="bold"
 
-        <!-- Divider -->
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#DDDDDD"/>
-
-        <!-- Sort By Button -->
+            android:fontFamily="@font/tenor_sans"/>
         <TextView
-            android:id="@+id/btnSort"
-            android:layout_width="0dp"
+
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/tenor_sans"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Sort By"
-            android:textColor="@android:color/black"
+            android:layout_below="@id/silver_selection_banner"
+            android:layout_marginTop="35dp"
+            android:text="By Our Customers"
+            android:layout_centerHorizontal="true"
             android:textSize="18sp"
-            android:background="?attr/selectableItemBackgroundBorderless"/>
+
+            android:textColor="#000" />
+
+        <!-- Discount Section -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/most_gifted_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/most_gifted_title"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            android:overScrollMode="never" />
+
+        <LinearLayout
+            android:id="@+id/offers_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/most_gifted_recycler"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="16dp">
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose Your Favourite"
+            android:textSize="14sp"
+            android:textColor="#999999"
+            android:layout_gravity="center"
+            android:fontFamily="@font/tenor_sans"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Offers On All Colours"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_gravity="center"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/tenor_sans"/>
+
+        <!-- Circular Offers -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <!-- Fine Silver Circle -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical"
+               >
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle_background"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/silver_image" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginBottom="8dp"
+                    android:text="Fine Silver"
+                    android:fontFamily="@font/tenor_sans"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000" />
+            </LinearLayout>
+
+            <!-- Rose Gold Circle -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:orientation="vertical"
+                >
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circular_button"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/gold_image" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_marginBottom="8dp"
+                    android:text="Rose Gold"
+                    android:fontFamily="@font/tenor_sans"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000" />
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
+
 </RelativeLayout>
+</ScrollView>

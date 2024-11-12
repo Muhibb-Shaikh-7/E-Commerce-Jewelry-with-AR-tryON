@@ -13,6 +13,7 @@ import com.example.majorproject.R
 import com.example.majorproject.dataClass.item
 import com.example.majorproject.description.ProductDescription
 import com.google.android.material.imageview.ShapeableImageView
+import com.squareup.picasso.Picasso
 
 class ItemAdapter(
     private val context: Context,
@@ -49,11 +50,9 @@ class ItemAdapter(
         val currentItem = list[position]
 
         // Load the image using Glide
-        Glide.with(context)
-            .load(currentItem.image)   // Load image URL
-            .into(holder.imageView)
+       Picasso.get().load(currentItem.image).into(holder.imageView)
 
-        // Set name, price, and style text views
+        // Set name, price, and style Pictext views
         holder.nameView.text = currentItem.name
         holder.priceView.text = currentItem.price
         holder.styleText.text = currentItem.style

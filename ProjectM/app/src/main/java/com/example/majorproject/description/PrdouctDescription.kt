@@ -249,11 +249,11 @@ class ProductDescription : AppCompatActivity() {
     }
     private fun setUpViewPager(product: Product) {
         val imageUrls = product.images.values.toList()
-        val imageList = listOf( convertDrawableToBase64(this, R.drawable.necklace1),convertDrawableToBase64(this, R.drawable.necklace2),convertDrawableToBase64(this, R.drawable.necklace3),convertDrawableToBase64(this, R.drawable.necklace4),)
+       
 
         if (imageUrls.isNotEmpty()) {
             Log.d("ProductDescription", "Image URLs: $imageUrls")
-            val imageAdapter = ProductImageAdapter(imageList)
+            val imageAdapter = ProductImageAdapter(imageUrls)
             val viewPager: ViewPager2 = binding.viewPager
             viewPager.adapter = imageAdapter  // No need for layoutManager with ViewPager2
 
@@ -319,7 +319,7 @@ class ProductDescription : AppCompatActivity() {
             }
 
             val weightMap = product.grossWeight
-            if (weightMap != null && weightMap.isNotEmpty()) {
+            if (weightMap.isNotEmpty()) {
                 val weightAdapter = WeightItemAdapter(weightMap)
                 binding.weightRecycleView.adapter = weightAdapter
                 binding.weightRecycleView.layoutManager =

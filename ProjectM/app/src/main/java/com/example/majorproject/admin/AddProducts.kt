@@ -26,8 +26,8 @@ class AddProducts : AppCompatActivity() {
     private lateinit var spinnerProductCategoryGen: Spinner
     private lateinit var spinnerProductCategory: Spinner
 
-    private var selectedGender: String = "DefaultGender"
-    private var selectedCategory: String = "DefaultCategory"
+    private var selectedGender: String = "women"
+    private var selectedCategory: String = "Auspicious"
     private lateinit var storageReference: StorageReference
 
     // Store each selected image URI
@@ -126,33 +126,71 @@ class AddProducts : AppCompatActivity() {
     }
 
     private fun saveProductDetails() {
-        val product = hashMapOf(
-            "productName" to findViewById<EditText>(R.id.etProductName).text.toString(),
-            "availableSizes" to findViewById<EditText>(R.id.etProductSizes).text.toString(),
-            "stockQuantity" to findViewById<EditText>(R.id.etProductStock).text.toString(),
-            "productPrice" to findViewById<EditText>(R.id.etProductPrice).text.toString(),
-            // Add other fields here...
+        val productName = findViewById<EditText>(R.id.etProductName).text.toString()?:"0"
+        val productPrice = findViewById<EditText>(R.id.etProductPrice).text.toString()?: "0"
+        val stockQuantity = findViewById<EditText>(R.id.etProductStock).text.toString() ?: "0"
 
-            // Add image URLs
-            "imageUrls" to imageUrls.filterNotNull()
+        // Assuming the other details are extracted similarly:
+        val availableSizes = "5.00mm" // You can retrieve this from a corresponding EditText if necessary
+        val diamondWeight = findViewById<EditText>(R.id.etDiamondWeight).text.toString()?: "0.0"
+        val diamondCarat = findViewById<EditText>(R.id.etDiamondCarat).text.toString()?: "0.0"
+        val gender = findViewById<EditText>(R.id.etGender).text.toString()
+        val itemType = findViewById<EditText>(R.id.etItemType).text.toString()
+        val jewelleryType = findViewById<EditText>(R.id.etJewelleryType).text.toString()
+        val karatage = findViewById<EditText>(R.id.etKaratage).text.toString()?: "0"
+        val materialColor = findViewById<EditText>(R.id.etMaterialColor).text.toString()
+        val metal = findViewById<EditText>(R.id.etMetal).text.toString()
+
+        // Image URLs (assuming they are uploaded correctly before saving)
+
+        val product = hashMapOf(
+            "productName" to productName,
+            "productPrice" to productPrice, // Stored as String
+            "stockQuantity" to stockQuantity, // Stored as String
+            "availableSizes" to availableSizes, // Stored as String
+
+            "images" to mapOf("0" to imageUrls.first(),"1" to imageUrls[1],"2" to imageUrls[2],"3" to imageUrls[3] ),
+            "grossWeight" to mapOf(
+                "diamond-weight" to diamondWeight, // Stored as String
+                // Stored as String
+            ),
+            "priceBreaking" to mapOf(
+                "Diamond" to productPrice, // Stored as String
+                "collection" to findViewById<EditText>(R.id.etCollection).text.toString(),
+                "Making Charges" to findViewById<EditText>(R.id.etMakingCharges).text.toString(),
+                "Metal" to findViewById<EditText>(R.id.etMetalPrice).text.toString(),
+                "Taxes" to findViewById<EditText>(R.id.etTaxes).text.toString()
+            ),
+            "productSpecification" to mapOf(
+                "diamond-carat" to diamondCarat,
+                "diamond-weight" to diamondWeight,
+                "gender" to gender,
+                "item-type" to itemType,
+                "jewellery-type" to jewelleryType,
+                "karatage" to karatage, // Stored as String
+                "material-color" to materialColor,
+                "metal" to metal
+            ),
+            "size" to mapOf("size" to availableSizes),
+            "styling" to mapOf("design-type" to findViewById<EditText>(R.id.etDesignType).text.toString())
         )
 
+        // Define the Firestore reference and save the product
         val productReference = FirebaseFirestore.getInstance()
-            .collection("Products")
-            .document("Rings")
-            .collection(selectedGender)
-            .document(selectedCategory)
-            .collection("Items")
+            .collection("Items").document()
+            // Document will be created automatically with a generated ID
 
-        productReference.add(product)
+        productReference.set(product)
             .addOnSuccessListener {
                 Toast.makeText(this, "Product added successfully", Toast.LENGTH_SHORT).show()
-                clearFields()
+                clearFields() // Reset fields after saving
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Failed to add product", Toast.LENGTH_SHORT).show()
             }
     }
+
+
 
     private fun clearFields() {
         findViewById<EditText>(R.id.etProductName).text.clear()

@@ -13,7 +13,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class ContactUsFragment : Fragment(), OnMapReadyCallback {
+class StoreLocation : Fragment(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
 
@@ -21,7 +21,7 @@ class ContactUsFragment : Fragment(), OnMapReadyCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_contact_us, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_store_loaction, container, false)
 
         // Use childFragmentManager to get the SupportMapFragment inside a Fragment
         val mapFragment = childFragmentManager
