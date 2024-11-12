@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.majorproject.BannerAdapter
 import com.example.majorproject.R
@@ -53,7 +54,7 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
 
         progressBarProducts=view.findViewById(R.id.progressBarItems)
 
-        recyclerView?.layoutManager = GridLayoutManager(context, 2)
+        recyclerView?.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         view.findViewById<TextView>(R.id.seeAll).setOnClickListener{
         startActivity(Intent(context,Categories::class.java))
         }
