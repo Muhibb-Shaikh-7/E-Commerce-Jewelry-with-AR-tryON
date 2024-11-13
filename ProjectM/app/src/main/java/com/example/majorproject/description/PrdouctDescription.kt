@@ -54,15 +54,19 @@ class ProductDescription : AppCompatActivity() {
         binding = ActivityProductDescriptionBinding.inflate(layoutInflater)
        setContentView(binding.root)
 
-        binding.tryOn.setOnClickListener{
-            startActivity(Intent(this@ProductDescription,TryOn::class.java))
-        }
+
         product = intent.getSerializableExtra("product") as? Product
             ?: run {
                 Log.e("ProductDescription", "Received null product")
                 Toast.makeText(this, "Product data is unavailable.", Toast.LENGTH_SHORT).show()
                 return // Exit early, but don't finish the activity
             }
+        binding.tryOn.setOnClickListener{
+
+            val intent = Intent(this@ProductDescription, TryOn::class.java)
+            intent.putExtra("product", product)
+            startActivity(intent)
+        }
 
         Log.d("ProductDescription", "Received product: ${product.name}")
 
@@ -78,17 +82,7 @@ class ProductDescription : AppCompatActivity() {
 
         setupOnClickListeners()
     }
-    fun convertDrawableToBase64(context: Context, drawableResId: Int): String? {
-        // Step 1: Convert Drawable to Bitmap
-        val bitmap: Bitmap = BitmapFactory.decodeResource(context.resources, drawableResId)
 
-        // Step 2: Convert Bitmap to Base64 String
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream) // PNG format
-        val byteArray = byteArrayOutputStream.toByteArray()
-
-        return Base64.encodeToString(byteArray, Base64.DEFAULT)
-    }
 
     private fun setProductSpecificationRecyclerView(product: Product) {
 
