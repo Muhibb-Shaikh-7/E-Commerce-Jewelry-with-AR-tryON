@@ -102,6 +102,22 @@
                 app:layout_constraintVertical_bias="0.82"
                 app:layout_constraintHorizontal_bias="0.900"/>
 
+            <TextView
+                android:id="@+id/txtClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Close"
+                android:textColor="@color/offwhite"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/zen_antique"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.80"
+                app:layout_constraintHorizontal_bias="0.680"/>
+
             <ImageView
                 android:id="@+id/imgPhoneCall"
                 android:layout_width="60dp"

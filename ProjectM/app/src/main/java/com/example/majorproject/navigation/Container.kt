@@ -106,6 +106,10 @@ class Container : AppCompatActivity() {
         normalIcon: ImageView,
         selectedIcon: ImageView
     ) {
+        if(binding.contactusLayout.visibility==View.VISIBLE){
+
+            enableFragmentInteraction(0)
+        }
 
         previousFragmentNumber = fragmentNumber
         Log.d("Frgament","Previous:$previousFragmentNumber")
@@ -145,6 +149,7 @@ class Container : AppCompatActivity() {
 
         disableFragmentInteraction()
 
+
         // Optionally, disable other UI elements (e.g., header, footer) that shouldn't be interactive
         binding.relativeLayout.isClickable = false
         binding.relativeLayout.isFocusable = false
@@ -155,11 +160,8 @@ class Container : AppCompatActivity() {
 
         // Set up the close button to hide the "Contact Us" layout and re-enable interaction
         binding.closeBtn.setOnClickListener {
-            // Hide the "Contact Us" layout
 
-
-            // Re-enable interaction with the fragment
-            enableFragmentInteraction()
+            enableFragmentInteraction(1)
 
             // Optionally, re-enable other UI elements
             binding.relativeLayout.isClickable = true
@@ -204,6 +206,7 @@ class Container : AppCompatActivity() {
                 binding.txtWhatsapp.visibility=View.GONE
                 binding.txtAppointment.visibility=View.GONE
                 binding.txtChatBot.visibility=View.GONE
+                binding.txtClose.visibility=View.GONE
             }
 
             override fun onAnimationEnd(animation: Animation?) {
@@ -215,6 +218,7 @@ class Container : AppCompatActivity() {
                 binding.txtWhatsapp.startAnimation(fromBottom)
                 binding.txtAppointment.startAnimation(fromBottom)
                 binding.txtChatBot.startAnimation(fromBottom)
+                binding.txtClose.startAnimation(fromBottom)
 
             }
 
@@ -229,12 +233,7 @@ class Container : AppCompatActivity() {
         view.isClickable = false
         view.isFocusable = false
         view.isEnabled = false
-        binding.home.isClickable=false
-        binding.home.isEnabled=false
-        binding.offers.isClickable=false
-        binding.offers.isEnabled=false
-        binding.you.isClickable=false
-        binding.you.isEnabled=false
+
 
         // If the view is a ViewGroup (e.g., ScrollView, RecyclerView), recursively disable its children
         if (view is ViewGroup) {
@@ -248,17 +247,17 @@ class Container : AppCompatActivity() {
 
 
     // Function to enable touch events for the current fragment
-    private fun enableFragmentInteraction() {
+    private fun enableFragmentInteraction(i: Int) {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
 
         // If there's a fragment loaded, enable its root view and all of its children
         currentFragment?.view?.let { rootView ->
-            enableViewInteraction(rootView)
+            enableViewInteraction(rootView,i)
         }
     }
 
     // Recursively enable touch events on a view and all of its child views
-    private fun enableViewInteraction(view: View) {
+    private fun enableViewInteraction(view: View,num: Int) {
         binding.closeBtn.startAnimation(rotateCLose)
 
         rotateCLose.setAnimationListener(object : Animation.AnimationListener
@@ -276,6 +275,7 @@ class Container : AppCompatActivity() {
                 binding.txtWhatsapp.startAnimation(toBottom)
                 binding.txtAppointment.startAnimation(toBottom)
                 binding.txtChatBot.startAnimation(toBottom)
+                binding.txtClose.startAnimation(toBottom)
 
             }
 
@@ -293,7 +293,10 @@ class Container : AppCompatActivity() {
 
             override fun onAnimationEnd(animation: Animation?) {
                 View.GONE.also { binding.contactusLayout.visibility = it }
+                if(num==1) {
+
                     checkFragmentNumber(previousFragmentNumber)
+                }
 
             }
 
@@ -306,17 +309,10 @@ class Container : AppCompatActivity() {
         view.isClickable = true
         view.isFocusable = true
         view.isEnabled = true
-        binding.home.isClickable=true
-        binding.home.isEnabled=true
-        binding.offers.isClickable=true
-        binding.offers.isEnabled=true
-        binding.you.isClickable=true
-        binding.you.isEnabled=true
-
         // If the view is a ViewGroup, recursively enable its children
         if (view is ViewGroup) {
             for (i in 0 until view.childCount) {
-                enableViewInteraction(view.getChildAt(i)) // Recursively enable children
+                enableViewInteraction(view.getChildAt(i),num) // Recursively enable children
             }
         }
     }
