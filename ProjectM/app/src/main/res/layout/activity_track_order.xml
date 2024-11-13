@@ -231,7 +231,7 @@
                 android:id="@+id/itemPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="$50"
+                android:text="RS. 50"
                 android:textSize="14sp"
                 android:textColor="@android:color/black" />
         </LinearLayout>
