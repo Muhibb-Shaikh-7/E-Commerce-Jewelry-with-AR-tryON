@@ -187,13 +187,10 @@ class Container : AppCompatActivity() {
             val message =
                 "Hello, I'm interested in your jewelry collection. Could you please provide more details on your products?"
 
-            // Construct the URL for WhatsApp chat, ensuring the message is properly encoded
             val url = "https://wa.me/$phoneNumber?text=${Uri.encode(message)}"
 
-            // Create an Intent to view the constructed URL
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
 
-            // Explicitly check if WhatsApp (either regular or business) is installed
             val whatsappInstalled =
                 isAppInstalled("com.whatsapp") || isAppInstalled("com.whatsapp.w4b")
 
@@ -237,12 +234,6 @@ class Container : AppCompatActivity() {
                 false
             }
         }
-
-
-
-
-
-
 
     // Function to disable touch events for the current fragment
     private fun disableFragmentInteraction() {
