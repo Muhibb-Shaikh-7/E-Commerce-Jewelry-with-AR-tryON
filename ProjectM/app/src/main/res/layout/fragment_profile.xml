@@ -178,7 +178,7 @@
         </LinearLayout>
 
 
-        <!-- Track Order -->
+        <!-- Track com.example.majorproject.dataClass.Order -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -12,6 +12,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.example.majorproject.R
 import com.example.majorproject.admin.AddProducts
+import com.example.majorproject.admin.AdminDashboard
 import com.example.majorproject.navigation.Container
 import com.example.majorproject.preferences.NameActivity
 import com.google.android.material.textfield.TextInputEditText
@@ -47,7 +48,7 @@ class SignInFragment : Fragment() {
 
         loginButton.setOnClickListener {
             if (emailEditText.text.toString()=="admin"&&passwordEditText.text.toString()=="admin"){
-                startActivity(Intent(context,AddProducts::class.java))
+                startActivity(Intent(context,AdminDashboard::class.java))
             }
             else
             loginUser()
