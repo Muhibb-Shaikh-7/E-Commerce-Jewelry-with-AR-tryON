@@ -20,14 +20,6 @@
         tools:ignore="UseCompoundDrawables">
 
         <!-- Back Arrow Icon -->
-        <ImageView
-            android:id="@+id/back_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/back"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="@string/fav_icon_desc" />
 
         <!-- Title Text -->
         <TextView
@@ -35,6 +27,7 @@
             android:layout_height="45dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:fontFamily="@font/tenor_sans"
             android:text="Profile"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -49,14 +42,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#FFFFFF"
+        android:fontFamily="@font/tenor_sans"
+        android:background="@color/white"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:elevation="4dp"
         android:layout_marginTop="5dp">
+
         <ImageView
-            android:layout_width="113dp"
-            android:layout_height="111dp"
+            android:layout_width="107dp"
+            android:layout_height="98dp"
             android:layout_gravity="center"
             android:layout_marginBottom="8dp"
             android:background="@color/white"
@@ -64,24 +59,27 @@
             android:scaleType="centerCrop"
             android:src="@drawable/profile_placeholder" />
 
+
+        <!-- My Profile -->
+
         <TextView
             android:id="@+id/profile_username"
-            android:layout_width="115dp"
+            android:layout_width="143dp"
             android:layout_height="33dp"
             android:layout_gravity="center"
+            android:fontFamily="@font/tenor_sans"
             android:text="UserNAme"
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-
-        <!-- My Profile -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="16dp"
             android:gravity="center_vertical">
+
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -95,6 +93,7 @@
                 android:layout_height="35dp"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/tenor_sans"
                 android:text="My Profile"
                 android:textColor="#000000"
                 android:textSize="20sp" />
@@ -129,6 +128,7 @@
                 android:layout_height="35dp"
                 android:layout_weight="1"
                 android:layout_marginStart="16dp"
+                android:fontFamily="@font/tenor_sans"
                 android:text="My Address"
                 android:textSize="20sp"
                 android:textColor="#000000" />
@@ -162,6 +162,7 @@
                 android:layout_height="35dp"
                 android:layout_weight="1"
                 android:layout_marginStart="16dp"
+                android:fontFamily="@font/tenor_sans"
                 android:text="My Orders"
                 android:textSize="20sp"
                 android:textColor="#000000" />
@@ -197,6 +198,7 @@
                 android:layout_height="35dp"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/tenor_sans"
                 android:text="@string/track_order1"
                 android:textColor="#000000"
                 android:textSize="20sp" />
@@ -229,6 +231,7 @@
                 android:layout_height="35dp"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/tenor_sans"
                 android:text="@string/log_out1"
                 android:textColor="#000000"
                 android:textSize="20sp" />

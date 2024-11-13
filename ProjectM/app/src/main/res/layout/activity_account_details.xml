@@ -40,6 +40,7 @@
             android:layout_height="44dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:fontFamily="@font/tenor_sans"
             android:text="My Profile"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -50,7 +51,8 @@
             android:layout_width="38dp"
             android:layout_height="30dp"
             android:layout_marginStart="10dp"
-            android:src="@drawable/ic_edit" />
+            android:src="@drawable/ic_edit"
+            tools:ignore="ContentDescription" />
     </LinearLayout>
 
     <!-- User Form Layout -->
@@ -67,7 +69,7 @@
             android:id="@+id/profile_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:contentDescription="Profile Image"
+            android:contentDescription="@string/profile_image"
             android:src="@drawable/profile_placeholder"
             app:shapeAppearanceOverlay="@style/cricular"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,10 +83,12 @@
             android:layout_height="31dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
-            android:text="Name"
+            android:fontFamily="@font/tenor_sans"
+            android:text="@string/name"
             android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profile_image" />
+            app:layout_constraintTop_toBottomOf="@id/profile_image"
+            tools:ignore="TextSizeCheck" />
 
         <!-- Username TextView -->
         <TextView
@@ -94,6 +98,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:minHeight="42dp"
+            android:fontFamily="@font/tenor_sans"
             android:textColor="#000000"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -109,6 +114,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/tenor_sans"
             android:text="@string/email1"
             android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -121,6 +127,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:textSize="19dp"
+            android:fontFamily="@font/tenor_sans"
             android:minHeight="42dp"
             android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="parent"
@@ -134,6 +141,7 @@
             android:layout_height="28dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/tenor_sans"
             android:text="@string/address1"
             android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -147,6 +155,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:textSize="20dp"
+            android:fontFamily="@font/tenor_sans"
             android:minHeight="42dp"
             android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="parent"
@@ -160,10 +169,12 @@
             android:layout_height="31dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/tenor_sans"
             android:text="@string/phone_number"
             android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/address_text_view" />
+            app:layout_constraintTop_toBottomOf="@id/address_text_view"
+            tools:ignore="TextSizeCheck" />
 
         <!-- Phone Number TextView -->
         <TextView
@@ -173,6 +184,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:minHeight="42dp"
+            android:fontFamily="@font/tenor_sans"
             android:textColor="#000000"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
