@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
@@ -53,7 +54,13 @@ class SignUpFragment : Fragment() {
         }
 
         signInLink.setOnClickListener {
-            (activity as AuthenticationSelection).findViewById<ViewPager2>(R.id.viewPager).currentItem = 1
+            Toast.makeText(context,"signInLink pressed",Toast.LENGTH_LONG).show()
+            // Check if the fragment is attached to its activity before accessing the ViewPager
+            activity?.let { activity ->
+                if (activity is AuthenticationSelection) {
+                    (activity as? AuthenticationSelection)?.switchFragment(0)
+                }
+            }
         }
 
         return view

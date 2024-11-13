@@ -120,7 +120,7 @@
                 android:textColor="@color/text_gray"
                 android:textSize="16sp" />
             <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/authentication_viewPager"
+                android:id="@+id/authenticationViewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/glad_to_see_you"

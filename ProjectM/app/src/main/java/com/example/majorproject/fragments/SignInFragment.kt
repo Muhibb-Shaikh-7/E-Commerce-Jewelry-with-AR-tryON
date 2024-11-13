@@ -58,7 +58,11 @@ class SignInFragment : Fragment() {
 
         signUpLink.setOnClickListener {
             // Switch to SignInFragment (ViewPager2 position 0)
-            (activity as AuthenticationSelection).findViewById<ViewPager2>(R.id.viewPager).currentItem = 0
+            activity?.let { activity ->
+                if (activity is AuthenticationSelection) {
+                    (activity as? AuthenticationSelection)?.switchFragment(1)
+                }
+            }
         }
 
         return view

@@ -10,6 +10,7 @@ import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
@@ -135,6 +136,12 @@ class AuthenticationSelection : AppCompatActivity() {
 
         // Reset user interaction flag immediately after a button click
         userHasInteracted = true
+    }
+    fun switchFragment(position: Int) {
+        Toast.makeText(this, "Switching fragment to position: $position",  Toast.LENGTH_SHORT).show()
+
+        // position 0 -> SignInFragment, position 1 -> SignUpFragment
+        authViewPager.currentItem = position
     }
 
     private fun getNextImage(imagePosition: Int) {
