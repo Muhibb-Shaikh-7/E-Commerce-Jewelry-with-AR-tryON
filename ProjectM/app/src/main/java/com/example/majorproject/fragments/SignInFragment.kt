@@ -27,6 +27,8 @@ class SignInFragment : Fragment() {
     private lateinit var passwordEditText: TextInputEditText
     private lateinit var loginButton: Button
 
+    var onSignUpLinkClickListener: (() -> Unit)? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
@@ -50,6 +52,8 @@ class SignInFragment : Fragment() {
             else
             loginUser()
         }
+
+
 
         return view
     }

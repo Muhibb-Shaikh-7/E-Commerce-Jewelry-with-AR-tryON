@@ -37,13 +37,8 @@
         android:theme="@style/Theme.MajorProject"
         tools:targetApi="31">
         <activity
-<<<<<<< HEAD
-            android:name=".AddressPopUp"
-            android:exported="true" />
-=======
             android:name=".PaymentActivity"
             android:exported="false" />
->>>>>>> 9599b2c70c26b816da8605147d0c2485da35caba
         <activity
             android:name=".CartActivity"
             android:exported="true" />
