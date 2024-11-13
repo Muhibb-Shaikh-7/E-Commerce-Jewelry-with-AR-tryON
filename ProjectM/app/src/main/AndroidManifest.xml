@@ -5,9 +5,10 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
-        tools:ignore="QueryAllPackagesPermission" />
 
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -28,6 +29,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MajorProject"
         tools:targetApi="31">
+        <activity
+            android:name=".fragments.ContainerActivity"
+            android:exported="false" />
         <activity
             android:name=".CartActivity"
             android:exported="true" />
