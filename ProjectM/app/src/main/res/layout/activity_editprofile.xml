@@ -37,6 +37,7 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:fontFamily="@font/tenor_sans"
             android:text="Edit Profile"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -71,8 +72,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="4dp"
-            android:fontFamily="@font/poppins_bold"
             android:paddingTop="7dp"
+            android:fontFamily="@font/tenor_sans"
             android:text="@string/change_photo"
             android:textColor="#616161"
             android:textSize="14sp" />
@@ -88,10 +89,12 @@
         app:layout_constraintBottom_toTopOf="@+id/save_changes_button">
 
         <!-- User Info Section -->
+
         <LinearLayout
             android:id="@+id/user_info_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/tenor_sans"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -102,6 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
+                android:fontFamily="@font/tenor_sans"
                 android:text="@string/username" />
 
             <EditText
@@ -110,6 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
+                android:fontFamily="@font/tenor_sans"
                 android:hint="@string/enter_your_username"
                 android:inputType="text"
                 android:minHeight="48dp"
@@ -122,6 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/tenor_sans"
                 android:text="@string/email1" />
 
             <EditText
@@ -131,6 +137,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:autofillHints=""
+                android:fontFamily="@font/tenor_sans"
                 android:hint="@string/enter_your_email"
                 android:inputType="textEmailAddress"
                 android:minHeight="48dp"
@@ -143,6 +150,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/tenor_sans"
                 android:text="@string/address1" />
 
             <TextView
@@ -151,6 +159,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/tenor_sans"
                 android:text="Street" />
 
             <EditText
@@ -160,6 +169,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:autofillHints=""
+                android:fontFamily="@font/tenor_sans"
                 android:hint="@string/enter_your_address"
                 android:inputType="textPostalAddress"
                 android:minHeight="48dp"
@@ -171,7 +181,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/tenor_sans"
                 android:text="Building" />
+
             <EditText
                 android:id="@+id/building_edit_text"
                 android:layout_width="match_parent"
@@ -179,6 +191,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:autofillHints=""
+                android:fontFamily="@font/tenor_sans"
                 android:hint="@string/enter_your_address"
                 android:inputType="textPostalAddress"
                 android:minHeight="48dp"
@@ -190,7 +203,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/tenor_sans"
                 android:text="City" />
+
             <EditText
                 android:id="@+id/address_edit_text"
                 android:layout_width="match_parent"
@@ -198,6 +213,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:autofillHints=""
+                android:fontFamily="@font/tenor_sans"
                 android:hint="@string/enter_your_address"
                 android:inputType="textPostalAddress"
                 android:minHeight="48dp"
@@ -209,7 +225,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/tenor_sans"
                 android:text="State" />
+
             <EditText
                 android:id="@+id/state_edit_text"
                 android:layout_width="match_parent"
@@ -217,6 +235,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:autofillHints=""
+                android:fontFamily="@font/tenor_sans"
                 android:hint="@string/enter_your_address"
                 android:inputType="textPostalAddress"
                 android:minHeight="48dp"
@@ -228,7 +247,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/tenor_sans"
                 android:text="Pincode" />
+
             <EditText
                 android:id="@+id/pincode_edit_text"
                 android:layout_width="match_parent"
@@ -236,6 +257,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:autofillHints=""
+                android:fontFamily="@font/tenor_sans"
                 android:hint="@string/enter_your_address"
                 android:inputType="textPostalAddress"
                 android:minHeight="48dp"
@@ -249,6 +271,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/tenor_sans"
                 android:text="Age" />
 
             <EditText
@@ -258,6 +281,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:autofillHints=""
+                android:fontFamily="@font/tenor_sans"
                 android:hint="Enter_Your_Age"
                 android:inputType="textVisiblePassword"
                 android:minHeight="48dp"
@@ -269,6 +293,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/tenor_sans"
                 android:text="@string/phone_number" />
 
             <EditText
@@ -278,13 +303,13 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:autofillHints=""
+                android:fontFamily="@font/tenor_sans"
                 android:hint="@string/enter_your_phone_number"
                 android:inputType="textVisiblePassword"
                 android:minHeight="48dp"
                 android:textColorHint="#546E7A" />
 
         </LinearLayout>
-
     </ScrollView>
 
     <!-- Save Changes Button -->
@@ -294,6 +319,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/tenor_sans"
         android:text="@string/save_changes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
