@@ -38,7 +38,13 @@ class AuthenticationSelection : AppCompatActivity() {
         R.drawable.model_img_1,
         R.drawable.model_img_2,
         R.drawable.model_img_3,
-        R.drawable.model_img_4
+        R.drawable.model_img_4,
+        R.drawable.model_img_5,
+        R.drawable.model_img_6,
+        R.drawable.model_img_7,
+        R.drawable.model_img_8,
+        R.drawable.model_img_9,
+        R.drawable.model_img_10
     )
     private var imagesSize=images.size
     private lateinit var imageSliderAdapter: ImageSliderAdapter
@@ -125,8 +131,9 @@ class AuthenticationSelection : AppCompatActivity() {
             backImage.visibility = View.VISIBLE
             BlurUtil.applyBlur(this, binding.backgroundImageView, 10f)
 
-            if(i==0) authViewPager.currentItem=0
-            else authViewPager.currentItem=1
+            if(i==0)
+            { switchFragment(0)}
+            else{ switchFragment(1)}
 
             val slideUpAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_up)
             binding.authCardView.visibility = View.VISIBLE
@@ -138,9 +145,6 @@ class AuthenticationSelection : AppCompatActivity() {
         userHasInteracted = true
     }
     fun switchFragment(position: Int) {
-        Toast.makeText(this, "Switching fragment to position: $position",  Toast.LENGTH_SHORT).show()
-
-        // position 0 -> SignInFragment, position 1 -> SignUpFragment
         authViewPager.currentItem = position
     }
 
@@ -154,7 +158,13 @@ class AuthenticationSelection : AppCompatActivity() {
                 R.drawable.model_img_1,
                 R.drawable.model_img_2,
                 R.drawable.model_img_3,
-                R.drawable.model_img_4
+                R.drawable.model_img_4,
+                R.drawable.model_img_5,
+                R.drawable.model_img_6,
+                R.drawable.model_img_7,
+                R.drawable.model_img_8,
+                R.drawable.model_img_9,
+                R.drawable.model_img_10
             )
             Log.d("autoslide", "ImageSize: $imagesSize")
 
