@@ -2,16 +2,9 @@
 <project version="4">
   <component name="deploymentTargetSelector">
     <selectionStates>
-<<<<<<< HEAD
-      <SelectionState runConfigName="Editprofile">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="CartActivity">
-        <option name="selectionMode" value="DROPDOWN" />
-=======
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-11-13T04:23:10.386965400Z">
+        <DropdownSelection timestamp="2024-11-13T09:05:16.944245100Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="PhysicalDevice" identifier="serial=10BD340TZ70001S" />
@@ -19,7 +12,12 @@
           </Target>
         </DropdownSelection>
         <DialogSelection />
->>>>>>> 557c1aa8e2e491542021a6364055ac5a0a19d277
+      </SelectionState>
+      <SelectionState runConfigName="Editprofile">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="AccountDetailsActivity (1)">
+        <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
   </component>

@@ -1,23 +1,19 @@
 package com.example.majorproject
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import CartAdapter
 import CartItem
 import android.content.Intent
+import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.firestore.ktx.firestore
-
 
 class CartActivity : AppCompatActivity() {
     private lateinit var firestore: FirebaseFirestore
@@ -26,7 +22,7 @@ class CartActivity : AppCompatActivity() {
     private lateinit var taxTextView: TextView
     private lateinit var deliveryTextView: TextView
     private lateinit var subTotalTextView: TextView
-    private lateinit var imgView : ImageView
+    private lateinit var imgView: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,13 +42,14 @@ class CartActivity : AppCompatActivity() {
         loadCartItems()
 
         imgView.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            // Pass the total amount to PaymentActivity
+            val totalAmount = calculateTotalAmount()
+            val intent = Intent(this, PaymentActivity::class.java)
+            intent.putExtra("TOTAL_AMOUNT", totalAmount)  // Send the dynamic total price
             startActivity(intent)
             finish() // Optional: close the current activity to remove it from the back stack
         }
-
     }
-
 
     private fun loadCartItems() {
         firestore.collection("cartItems")
@@ -70,12 +67,12 @@ class CartActivity : AppCompatActivity() {
 
                 cartRecyclerView.adapter = CartAdapter(cartItems)
 
-                val tax = total * 18 // Assuming 8% tax rate
+                val tax = total * 0.18 // 18% tax rate
                 val delivery = 10.0 // Flat delivery fee
 
-                subTotalTextView.text = "RS. ${total}"
-                taxTextView.text = "RS. ${tax}"
-                deliveryTextView.text = "RS. ${delivery}"
+                subTotalTextView.text = "RS. $total"
+                taxTextView.text = "RS. $tax"
+                deliveryTextView.text = "RS. $delivery"
                 totalTextView.text = "RS. ${total + tax + delivery}"
             }
             .addOnFailureListener { exception ->
@@ -85,6 +82,26 @@ class CartActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+    }
 
+    private fun calculateTotalAmount(): Double {
+        // Get the subtotal, tax, and delivery costs and return the total
+        val subtotal = getSubtotal()
+        val tax = subtotal * 0.18 // Assuming 18% tax rate
+        val delivery = 10.0 // Flat delivery fee
+        return subtotal + tax + delivery
+    }
+
+    private fun getSubtotal(): Double {
+        var subtotal = 0.0
+        firestore.collection("cartItems")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val item = document.toObject(CartItem::class.java)
+                    subtotal += item.subTotal ?: 0.0
+                }
+            }
+        return subtotal
     }
 }
