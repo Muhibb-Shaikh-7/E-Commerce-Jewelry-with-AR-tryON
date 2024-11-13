@@ -54,7 +54,7 @@ dependencies {
     implementation(libs.play.services.maps)
     implementation(libs.lottie)
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
-    implementation("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")d
+    implementation("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
     implementation("com.github.Spikeysanju:MotionToast:1.4")
     implementation("nl.joery.animatedbottombar:library:1.1.0")
     implementation("com.tbuonomo:dotsindicator:5.0")
