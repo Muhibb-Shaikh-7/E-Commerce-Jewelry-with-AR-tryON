@@ -79,6 +79,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/seeAll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="See all"
@@ -89,7 +90,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
-                        android:scrollbars="none">
+                        android:scrollbars="none"
+                        >
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -105,6 +107,7 @@
                                 android:gravity="center_vertical">
 
                                 <ImageView
+                                    android:id="@+id/kids"
                                     android:layout_width="65dp"
                                     android:layout_height="65dp"
                                     android:elevation="4dp"
@@ -115,6 +118,7 @@
                                     android:src="@drawable/kids" />
 
                                 <ImageView
+                                    android:id="@+id/men"
                                     android:layout_width="65dp"
                                     android:layout_height="65dp"
                                     android:elevation="4dp"
@@ -125,6 +129,7 @@
                                     android:src="@drawable/male1" />
 
                                 <ImageView
+                                    android:id="@+id/women"
                                     android:layout_width="65dp"
                                     android:layout_height="65dp"
                                     android:elevation="4dp"
@@ -135,6 +140,7 @@
                                     android:src="@drawable/woman1" />
 
                                 <ImageView
+                                    android:id="@+id/necklace"
                                     android:layout_width="65dp"
                                     android:layout_height="65dp"
                                     android:elevation="4dp"
@@ -145,6 +151,7 @@
                                     android:src="@drawable/necklace" />
 
                                 <ImageView
+                                    android:id="@+id/ring"
                                     android:layout_width="65dp"
                                     android:layout_height="65dp"
                                     android:elevation="4dp"
@@ -155,6 +162,7 @@
                                     android:src="@drawable/ic_ring" />
 
                                 <ImageView
+                                    android:id="@+id/bracelet"
                                     android:layout_width="65dp"
                                     android:layout_height="65dp"
                                     android:layout_marginRight="10dp"

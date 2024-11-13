@@ -62,4 +62,5 @@ class ItemAdapter(
             itemClickListener.onItemClick(currentItem) // Notify the listener
         }
     }
+
 }

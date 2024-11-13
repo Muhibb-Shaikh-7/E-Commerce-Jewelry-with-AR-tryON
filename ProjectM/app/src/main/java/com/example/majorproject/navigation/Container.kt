@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,6 +17,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
@@ -24,6 +26,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.majorproject.contactus.CallNow
 import com.example.majorproject.R
+import com.example.majorproject.Search.SearchActivity
 import com.example.majorproject.contactus.BookAppoinment
 import com.example.majorproject.databinding.ActivityContainerBinding
 
@@ -69,7 +72,15 @@ class Container : AppCompatActivity() {
         previousSelectedImg = binding.home2
 
         setupSearchView()
-
+        searchView.setOnClickListener{
+            startActivity(Intent(baseContext,SearchActivity::class.java))
+        }
+        searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                // Start the SearchActivity when the SearchView is clicked or focused
+                startActivity(Intent(baseContext, SearchActivity::class.java))
+            }
+        }
         if (savedInstanceState == null) {
            selectFragment(1 ,HomeFragment(), binding.home, binding.home2)
         }
@@ -97,6 +108,10 @@ class Container : AppCompatActivity() {
         normalIcon: ImageView,
         selectedIcon: ImageView
     ) {
+        if(binding.contactusLayout.visibility==View.VISIBLE){
+
+            enableFragmentInteraction(0)
+        }
 
         previousFragmentNumber = fragmentNumber
         Log.d("Frgament","Previous:$previousFragmentNumber")
@@ -136,6 +151,7 @@ class Container : AppCompatActivity() {
 
         disableFragmentInteraction()
 
+
         // Optionally, disable other UI elements (e.g., header, footer) that shouldn't be interactive
         binding.relativeLayout.isClickable = false
         binding.relativeLayout.isFocusable = false
@@ -146,11 +162,8 @@ class Container : AppCompatActivity() {
 
         // Set up the close button to hide the "Contact Us" layout and re-enable interaction
         binding.closeBtn.setOnClickListener {
-            // Hide the "Contact Us" layout
 
-
-            // Re-enable interaction with the fragment
-            enableFragmentInteraction()
+            enableFragmentInteraction(1)
 
             // Optionally, re-enable other UI elements
             binding.relativeLayout.isClickable = true
@@ -159,7 +172,6 @@ class Container : AppCompatActivity() {
             binding.headerTitle.isClickable = true
             binding.headerTitle.isFocusable = true
             binding.headerTitle.isEnabled = true
-
         }
 
         binding.imgPhoneCall.setOnClickListener {
@@ -167,6 +179,21 @@ class Container : AppCompatActivity() {
         }
         binding.imgBookAppointment.setOnClickListener {
             startActivity(Intent(this@Container,BookAppoinment::class.java))
+        }
+        binding.imgWhastapp.setOnClickListener {
+            val phoneNumber = "+919082953372"
+            val message = "Hello, I'm interested in your jewelry collection. Could you please provide more details on your products?"  // The message you want to send
+
+            val url = "https://wa.me/$phoneNumber?text=${Uri.encode(message)}"
+
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "WhatsApp is not installed.", Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 
@@ -195,6 +222,7 @@ class Container : AppCompatActivity() {
                 binding.txtWhatsapp.visibility=View.GONE
                 binding.txtAppointment.visibility=View.GONE
                 binding.txtChatBot.visibility=View.GONE
+                binding.txtClose.visibility=View.GONE
             }
 
             override fun onAnimationEnd(animation: Animation?) {
@@ -206,6 +234,7 @@ class Container : AppCompatActivity() {
                 binding.txtWhatsapp.startAnimation(fromBottom)
                 binding.txtAppointment.startAnimation(fromBottom)
                 binding.txtChatBot.startAnimation(fromBottom)
+                binding.txtClose.startAnimation(fromBottom)
 
             }
 
@@ -220,12 +249,7 @@ class Container : AppCompatActivity() {
         view.isClickable = false
         view.isFocusable = false
         view.isEnabled = false
-        binding.home.isClickable=false
-        binding.home.isEnabled=false
-        binding.offers.isClickable=false
-        binding.offers.isEnabled=false
-        binding.you.isClickable=false
-        binding.you.isEnabled=false
+
 
         // If the view is a ViewGroup (e.g., ScrollView, RecyclerView), recursively disable its children
         if (view is ViewGroup) {
@@ -239,17 +263,17 @@ class Container : AppCompatActivity() {
 
 
     // Function to enable touch events for the current fragment
-    private fun enableFragmentInteraction() {
+    private fun enableFragmentInteraction(i: Int) {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
 
         // If there's a fragment loaded, enable its root view and all of its children
         currentFragment?.view?.let { rootView ->
-            enableViewInteraction(rootView)
+            enableViewInteraction(rootView,i)
         }
     }
 
     // Recursively enable touch events on a view and all of its child views
-    private fun enableViewInteraction(view: View) {
+    private fun enableViewInteraction(view: View,num: Int) {
         binding.closeBtn.startAnimation(rotateCLose)
 
         rotateCLose.setAnimationListener(object : Animation.AnimationListener
@@ -267,6 +291,7 @@ class Container : AppCompatActivity() {
                 binding.txtWhatsapp.startAnimation(toBottom)
                 binding.txtAppointment.startAnimation(toBottom)
                 binding.txtChatBot.startAnimation(toBottom)
+                binding.txtClose.startAnimation(toBottom)
 
             }
 
@@ -284,7 +309,10 @@ class Container : AppCompatActivity() {
 
             override fun onAnimationEnd(animation: Animation?) {
                 View.GONE.also { binding.contactusLayout.visibility = it }
+                if(num==1) {
+
                     checkFragmentNumber(previousFragmentNumber)
+                }
 
             }
 
@@ -297,17 +325,10 @@ class Container : AppCompatActivity() {
         view.isClickable = true
         view.isFocusable = true
         view.isEnabled = true
-        binding.home.isClickable=true
-        binding.home.isEnabled=true
-        binding.offers.isClickable=true
-        binding.offers.isEnabled=true
-        binding.you.isClickable=true
-        binding.you.isEnabled=true
-
         // If the view is a ViewGroup, recursively enable its children
         if (view is ViewGroup) {
             for (i in 0 until view.childCount) {
-                enableViewInteraction(view.getChildAt(i)) // Recursively enable children
+                enableViewInteraction(view.getChildAt(i),num) // Recursively enable children
             }
         }
     }
@@ -352,7 +373,7 @@ class Container : AppCompatActivity() {
         imageView.setPadding(originalPaddingLeft, originalPaddingTop, originalPaddingRight, originalPaddingBottom)
         normalImg.setPadding(10, 10, 10, 10)
 
-        val moveUp = ObjectAnimator.ofFloat(imageView, View.TRANSLATION_Y, 0f, -20f).apply {
+        val moveUp = ObjectAnimator.ofFloat(imageView, View.TRANSLATION_Y, 0f, -25f).apply {
             duration = 300L
             interpolator = OvershootInterpolator(0.5f)
         }
@@ -420,7 +441,7 @@ class Container : AppCompatActivity() {
             }
         }
 
-        val moveDown = ObjectAnimator.ofFloat(previousImg, View.TRANSLATION_Y, -20f, 0f).apply {
+        val moveDown = ObjectAnimator.ofFloat(previousImg, View.TRANSLATION_Y, -25f, 0f).apply {
             duration = 300L
             interpolator = OvershootInterpolator(0.5f)
         }
@@ -452,5 +473,16 @@ class Container : AppCompatActivity() {
         }
 
 
+    }
+    override fun onResume() {
+        super.onResume()
+
+        // Set up the SearchView listener every time the activity is resumed
+        searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                // Start the SearchActivity when the SearchView is clicked or focused
+                startActivity(Intent(baseContext, SearchActivity::class.java))
+            }
+        }
     }
 }

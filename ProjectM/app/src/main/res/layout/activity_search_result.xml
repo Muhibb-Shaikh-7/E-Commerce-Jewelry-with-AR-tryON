@@ -39,11 +39,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/textViewQuery"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Showing results for 'query'"
-                    android:textColor="@color/black"
+                    android:text="Showing Results for query"
+                    android:fontFamily="@font/tenor_sans"
+                    android:textColor="@color/brown_rust"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
