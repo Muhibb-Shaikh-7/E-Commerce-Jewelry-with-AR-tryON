@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.majorproject.AccountDetailsActivity
 import com.example.majorproject.AuthenticationSelection
-import com.example.majorproject.Cart
+import com.example.majorproject.CartActivity
 import com.example.majorproject.R
 import com.example.majorproject.TrackOrder
 import com.google.firebase.auth.FirebaseAuth
@@ -72,7 +72,7 @@ class ProfileFragment : Fragment() {
 
         orderForwardImg.setOnClickListener {
             // Replace TrackOrder with the actual OrderActivity if there is one
-            startActivity(Intent(requireContext(), Cart::class.java))
+            startActivity(Intent(requireContext(), CartActivity::class.java))
         }
 
         trackOrderForwardImg.setOnClickListener {
