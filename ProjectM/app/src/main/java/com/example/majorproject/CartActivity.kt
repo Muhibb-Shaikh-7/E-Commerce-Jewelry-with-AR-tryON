@@ -2,7 +2,9 @@ package com.example.majorproject
 
 import CartAdapter
 import CartItem
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -20,6 +22,7 @@ class CartActivity : AppCompatActivity() {
     private lateinit var deliveryTextView: TextView
     private lateinit var subTotalTextView: TextView
     private lateinit var imgView: ImageView
+    private lateinit var checkOutButton : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,11 +35,16 @@ class CartActivity : AppCompatActivity() {
         deliveryTextView = findViewById(R.id.textView9)
         subTotalTextView = findViewById(R.id.textView10)
         imgView = findViewById(R.id.back)
+        checkOutButton = findViewById(R.id.checkOutButton)
 
         cartRecyclerView.layoutManager = LinearLayoutManager(this)
 
         loadCartItems()
 
+        checkOutButton.setOnClickListener {
+            val intent = Intent(this, AddressPopUp::class.java)
+            startActivity(intent)
+        }
 
     }
 

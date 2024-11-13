@@ -18,9 +18,9 @@
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
 
-    <uses-feature android:name="android.hardware.camera.autofocus"
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
         android:required="false" />
-
 
     <meta-data
         android:name="com.google.android.gms.wallet.api.enabled"
@@ -36,6 +36,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MajorProject"
         tools:targetApi="31">
+        <activity
+            android:name=".admin.AdminHome"
+            android:exported="false" />
         <activity
             android:name=".PaymentActivity"
             android:exported="false" />
