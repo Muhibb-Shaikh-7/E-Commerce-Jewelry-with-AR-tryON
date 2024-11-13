@@ -253,8 +253,8 @@
 
         <ImageView
             android:id="@+id/home2"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginStart="7dp"
             android:background="@drawable/bottom_bar_circular_imageview2"
             android:elevation="7dp"
@@ -303,13 +303,13 @@
 
         <ImageView
             android:id="@+id/offers2"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginStart="7dp"
             android:foregroundGravity="center"
             android:background="@drawable/bottom_bar_circular_imageview2"
             android:elevation="7dp"
-            android:padding="12dp"
+            android:padding="15dp"
             android:src="@drawable/bottombar_filled_diamond_ic"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -338,12 +338,12 @@
 
         <ImageView
             android:id="@+id/contactUs2"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginStart="7dp"
             android:background="@drawable/bottom_bar_circular_imageview2"
             android:elevation="7dp"
-            android:padding="12dp"
+            android:padding="15dp"
             android:src="@drawable/bottombar_filled_contactus_ic"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -371,12 +371,12 @@
 
         <ImageView
             android:id="@+id/you2"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginEnd="7dp"
             android:background="@drawable/bottom_bar_circular_imageview2"
             android:elevation="7dp"
-            android:padding="12dp"
+            android:padding="15dp"
             android:src="@drawable/bottombar_filled_you_ic"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
