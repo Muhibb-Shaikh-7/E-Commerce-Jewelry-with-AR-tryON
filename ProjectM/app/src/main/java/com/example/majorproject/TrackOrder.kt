@@ -1,21 +1,56 @@
 package com.example.majorproject
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.majorproject.R.*
+import com.google.firebase.firestore.FirebaseFirestore
 
 class TrackOrder : AppCompatActivity() {
+
+    private lateinit var orderNumberTextView: TextView
+    private lateinit var orderDateTextView: TextView
+    private lateinit var shippingAddressTextView: TextView
+    private lateinit var carrierInfoTextView: TextView
+
+    // Initialize Firestore
+    private val db = FirebaseFirestore.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(layout.activity_track_order)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        setContentView(R.layout.activity_track_order)
+
+        // Initialize Views
+        orderNumberTextView = findViewById(R.id.orderNumber)
+        orderDateTextView = findViewById(R.id.orderDate)
+        shippingAddressTextView = findViewById(R.id.shippingAddress)
+        carrierInfoTextView = findViewById(R.id.carrierInfo)
+
+        // Fetch order details
+        fetchOrderDetails("order_id_here")
+    }
+
+    private fun fetchOrderDetails(orderId: String) {
+        db.collection("orders").document(orderId)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val orderNumber = document.getString("orderNumber") ?: "N/A"
+                    val orderDate = document.getString("orderDate") ?: "N/A"
+                    val shippingAddress = document.getString("shippingAddress") ?: "N/A"
+                    val carrierInfo = document.getString("carrierInfo") ?: "N/A"
+
+                    // Update UI with fetched data
+                    orderNumberTextView.text = orderNumber
+                    orderDateTextView.text = "Placed on: $orderDate"
+                    shippingAddressTextView.text = shippingAddress
+                    carrierInfoTextView.text = carrierInfo
+                } else {
+                    Toast.makeText(this, "Order not found", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "Failed to fetch order details: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 }
