@@ -373,7 +373,7 @@ class Container : AppCompatActivity() {
         imageView.setPadding(originalPaddingLeft, originalPaddingTop, originalPaddingRight, originalPaddingBottom)
         normalImg.setPadding(10, 10, 10, 10)
 
-        val moveUp = ObjectAnimator.ofFloat(imageView, View.TRANSLATION_Y, 0f, -20f).apply {
+        val moveUp = ObjectAnimator.ofFloat(imageView, View.TRANSLATION_Y, 0f, -25f).apply {
             duration = 300L
             interpolator = OvershootInterpolator(0.5f)
         }
@@ -441,7 +441,7 @@ class Container : AppCompatActivity() {
             }
         }
 
-        val moveDown = ObjectAnimator.ofFloat(previousImg, View.TRANSLATION_Y, -20f, 0f).apply {
+        val moveDown = ObjectAnimator.ofFloat(previousImg, View.TRANSLATION_Y, -25f, 0f).apply {
             duration = 300L
             interpolator = OvershootInterpolator(0.5f)
         }
