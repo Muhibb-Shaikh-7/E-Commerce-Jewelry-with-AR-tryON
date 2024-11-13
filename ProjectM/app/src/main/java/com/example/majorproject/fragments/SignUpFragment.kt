@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
+import com.example.majorproject.AuthenticationSelection
 import com.example.majorproject.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
@@ -24,6 +27,7 @@ class SignUpFragment : Fragment() {
     private lateinit var passwordEditText: TextInputEditText
     private lateinit var confirmPasswordEditText: TextInputEditText
     private lateinit var signUpButton: Button
+    private lateinit var signInLink: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +46,14 @@ class SignUpFragment : Fragment() {
         passwordEditText = view.findViewById(R.id.password)
         confirmPasswordEditText = view.findViewById(R.id.confirmPassword)
         signUpButton = view.findViewById(R.id.signup_button)
+        signInLink = view.findViewById(R.id.signinLink)
 
         signUpButton.setOnClickListener {
             signUpUser()
+        }
+
+        signInLink.setOnClickListener {
+            (activity as AuthenticationSelection).findViewById<ViewPager2>(R.id.viewPager).currentItem = 1
         }
 
         return view

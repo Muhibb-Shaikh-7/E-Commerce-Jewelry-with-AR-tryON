@@ -2,19 +2,14 @@ package com.example.majorproject
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.view.animation.Interpolator
-import android.widget.Scroller
-import android.window.OnBackInvokedDispatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
@@ -24,8 +19,7 @@ import com.example.majorproject.databinding.ActivityAuthenticationSelectionBindi
 import com.example.majorproject.util.BlurUtil
 import java.util.*
 import androidx.recyclerview.widget.RecyclerView
-import java.lang.reflect.Field
-import kotlin.math.min
+
 
 class AuthenticationSelection : AppCompatActivity() {
 
@@ -73,8 +67,8 @@ class AuthenticationSelection : AppCompatActivity() {
             // Perform any action you want here
         }
 
-        binding.signInButton.setOnClickListener { handleButtonClick() }
-        binding.signUpButton.setOnClickListener { handleButtonClick() }
+        binding.signInButton.setOnClickListener { handleButtonClick(0) }
+        binding.signUpButton.setOnClickListener { handleButtonClick(1) }
         binding.backgroundImageView.setOnClickListener{
             if (binding.authCardView.visibility == View.VISIBLE) {
                 slideDownEffect()
@@ -117,7 +111,7 @@ class AuthenticationSelection : AppCompatActivity() {
         // Start the animation
         binding.authCardView.startAnimation(slideDownAnimation)
     }
-    private fun handleButtonClick() {
+    private fun handleButtonClick(i: Int) {
         pauseAutoSlide()
         val currentPosition = binding.viewPager.currentItem
         val adapter = binding.viewPager.adapter as? ImageSliderAdapter
@@ -130,12 +124,12 @@ class AuthenticationSelection : AppCompatActivity() {
             backImage.visibility = View.VISIBLE
             BlurUtil.applyBlur(this, binding.backgroundImageView, 10f)
 
+            if(i==0) authViewPager.currentItem=0
+            else authViewPager.currentItem=1
 
             val slideUpAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_up)
             binding.authCardView.visibility = View.VISIBLE
             binding.authCardView.startAnimation(slideUpAnimation)
-
-
         }
 
 
