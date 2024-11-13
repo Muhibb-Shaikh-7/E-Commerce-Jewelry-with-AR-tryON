@@ -193,7 +193,7 @@ class Container : AppCompatActivity() {
             // Create an Intent to view the constructed URL
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
 
-            // Explicitly check if WhatsApp (either regular or business) is installed
+            // Explicitly check if WhatsApp (e ither regular or business) is installed
             val whatsappInstalled =
                 isAppInstalled("com.whatsapp") || isAppInstalled("com.whatsapp.w4b")
 

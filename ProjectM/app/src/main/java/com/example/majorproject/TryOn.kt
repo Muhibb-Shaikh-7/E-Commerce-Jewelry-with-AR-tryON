@@ -1,10 +1,10 @@
 package com.example.majorproject
 
 import android.Manifest
-import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.webkit.ConsoleMessage
 import android.webkit.PermissionRequest
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceError
@@ -13,13 +13,13 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.majorproject.dataClass.Product
 
 class TryOn : AppCompatActivity() {
     private lateinit var webView: WebView
@@ -27,7 +27,6 @@ class TryOn : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_try_on)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -37,7 +36,27 @@ class TryOn : AppCompatActivity() {
         }
 
         webView = findViewById(R.id.webView)
+        setupWebView()
+        WebView.setWebContentsDebuggingEnabled(true)
+        // Retrieve the product and send the image URL to JavaScript
+        val product = intent.getSerializableExtra("product") as? Product
+        val imageUrl = product?.images?.get("0") ?: ""
+        Log.d("ImageUrl", "Image URL: $imageUrl")
+        if (imageUrl.isNotEmpty()) {
+            // Pass the image URL to JavaScript
+            webView.evaluateJavascript("loadImage('$imageUrl')", null)
+        } else {
+            Toast.makeText(this, "No image found for this product", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+
+
+    private fun setupWebView() {
         webView.webViewClient = object : WebViewClient() {
+
+
             override fun onReceivedError(
                 view: WebView?,
                 request: WebResourceRequest?,
@@ -46,7 +65,17 @@ class TryOn : AppCompatActivity() {
                 Log.e("WebViewError", "Error: ${error?.description}")
                 Toast.makeText(this@TryOn, "Failed to load page", Toast.LENGTH_SHORT).show()
             }
+
+
         }
+        webView.webChromeClient = object : WebChromeClient() {
+            override fun onConsoleMessage(message: ConsoleMessage): Boolean {
+                // Log the console message to Logcat
+                Log.d("WebView Console", message.message())
+                return super.onConsoleMessage(message) // Return the result of the superclass method
+            }
+        }
+
 
         webView.webChromeClient = object : WebChromeClient() {
             override fun onPermissionRequest(request: PermissionRequest?) {
