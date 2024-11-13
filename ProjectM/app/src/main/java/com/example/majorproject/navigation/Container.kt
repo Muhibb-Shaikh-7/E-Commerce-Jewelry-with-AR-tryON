@@ -4,7 +4,9 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -181,20 +183,39 @@ class Container : AppCompatActivity() {
             startActivity(Intent(this@Container,BookAppoinment::class.java))
         }
         binding.imgWhastapp.setOnClickListener {
-            val phoneNumber = "+919082953372"
-            val message = "Hello, I'm interested in your jewelry collection. Could you please provide more details on your products?"  // The message you want to send
+            val phoneNumber = "+919082953372"  // Replace with your actual WhatsApp number
+            val message = "Hello, I'm interested in your jewelry collection. Could you please provide more details on your products?"
 
-            val url = "https://wa.me/$phoneNumber?text=${Uri.encode(message)}"
+            try {
+                val url = "https://wa.me/$phoneNumber?text=${Uri.encode(message)}"
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                intent.setPackage("com.whatsapp")
 
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                val whatsappInstalled = try {
+                    packageManager.getPackageInfo("com.whatsapp", 0)
+                    true
+                } catch (e: PackageManager.NameNotFoundException) {
+                    false
+                }
 
-            if (intent.resolveActivity(packageManager) != null) {
-                startActivity(intent)
-            } else {
-                Toast.makeText(this, "WhatsApp is not installed.", Toast.LENGTH_SHORT).show()
+                if (whatsappInstalled) {
+                    startActivity(intent)
+                } else {
+
+                    Toast.makeText(this, "WhatsApp is not installed.", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: ActivityNotFoundException) {
+
+                Log.e("WhatsApp Intent", "Error opening WhatsApp: Activity not found", e)
+                Toast.makeText(this, "Error: WhatsApp app is not installed or could not be opened.", Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+
+                Log.e("WhatsApp Intent", "Unexpected error", e)
+                Toast.makeText(this, "Unexpected error occurred: ${e.message}", Toast.LENGTH_SHORT).show()
             }
-
         }
+
+
     }
 
 
