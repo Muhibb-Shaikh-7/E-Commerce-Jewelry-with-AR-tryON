@@ -746,6 +746,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_to_cart"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="match_parent"
             android:layout_height="50dp"
