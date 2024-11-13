@@ -4,7 +4,9 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -175,28 +177,63 @@ class Container : AppCompatActivity() {
         }
 
         binding.imgPhoneCall.setOnClickListener {
-            startActivity(Intent(this@Container,CallNow::class.java))
+            startActivity(Intent(this@Container, CallNow::class.java))
         }
         binding.imgBookAppointment.setOnClickListener {
-            startActivity(Intent(this@Container,BookAppoinment::class.java))
+            startActivity(Intent(this@Container, BookAppoinment::class.java))
         }
         binding.imgWhastapp.setOnClickListener {
-            val phoneNumber = "+919082953372"
-            val message = "Hello, I'm interested in your jewelry collection. Could you please provide more details on your products?"  // The message you want to send
+            val phoneNumber = "+919082953372"  // Replace with your actual WhatsApp number
+            val message =
+                "Hello, I'm interested in your jewelry collection. Could you please provide more details on your products?"
 
             val url = "https://wa.me/$phoneNumber?text=${Uri.encode(message)}"
 
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
 
-            if (intent.resolveActivity(packageManager) != null) {
-                startActivity(intent)
+            val whatsappInstalled =
+                isAppInstalled("com.whatsapp") || isAppInstalled("com.whatsapp.w4b")
+
+            if (whatsappInstalled) {
+                try {
+                    startActivity(intent)
+                } catch (e: ActivityNotFoundException) {
+                    Log.e("WhatsApp Intent", "Error opening WhatsApp: Activity not found", e)
+                    Toast.makeText(
+                        this,
+                        "Error: WhatsApp app is not installed or could not be opened.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             } else {
                 Toast.makeText(this, "WhatsApp is not installed.", Toast.LENGTH_SHORT).show()
             }
-
         }
     }
 
+        // Helper function to check if an app is installed
+        private fun isAppInstalled(packageName: String): Boolean {
+            return try {
+                packageManager.getPackageInfo(packageName, 0)
+                true
+            } catch (e: PackageManager.NameNotFoundException) {
+                // Log the error message if the app is not found
+                Log.e("App Install Check", "App not found: $packageName", e)
+
+                // Show the actual error message in the Toast
+                Toast.makeText(this, "Error: App not found for package: $packageName", Toast.LENGTH_SHORT).show()
+
+                false
+            } catch (e: Exception) {
+                // Catch any other unexpected exception
+                Log.e("App Install Check", "Unexpected error while checking for app: $packageName", e)
+
+                // Show the unexpected error message in the Toast
+                Toast.makeText(this, "Unexpected error: ${e.message}", Toast.LENGTH_SHORT).show()
+
+                false
+            }
+        }
 
     // Function to disable touch events for the current fragment
     private fun disableFragmentInteraction() {
