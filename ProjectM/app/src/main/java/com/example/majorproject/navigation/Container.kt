@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,6 +17,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
@@ -170,7 +172,6 @@ class Container : AppCompatActivity() {
             binding.headerTitle.isClickable = true
             binding.headerTitle.isFocusable = true
             binding.headerTitle.isEnabled = true
-
         }
 
         binding.imgPhoneCall.setOnClickListener {
@@ -178,6 +179,21 @@ class Container : AppCompatActivity() {
         }
         binding.imgBookAppointment.setOnClickListener {
             startActivity(Intent(this@Container,BookAppoinment::class.java))
+        }
+        binding.imgWhastapp.setOnClickListener {
+            val phoneNumber = "+919082953372"
+            val message = "Hello, I'm interested in your jewelry collection. Could you please provide more details on your products?"  // The message you want to send
+
+            val url = "https://wa.me/$phoneNumber?text=${Uri.encode(message)}"
+
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "WhatsApp is not installed.", Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 

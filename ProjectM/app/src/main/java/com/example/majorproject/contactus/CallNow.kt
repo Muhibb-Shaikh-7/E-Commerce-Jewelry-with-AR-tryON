@@ -81,16 +81,32 @@ class CallNow : AppCompatActivity() {
         )
 
         val db = FirebaseFirestore.getInstance()
-        val databaseReference = db.collection("Appointments").document(email).collection("Online").document("AppointmentDetails")
 
-        databaseReference.set(appointmentData, SetOptions.merge())
-            .addOnSuccessListener {
-                Toast.makeText(this, "You will receive a confirmation email.", Toast.LENGTH_LONG).show()
-            }
-            .addOnFailureListener { e ->
-                println("Error storing appointment: $e")
-                Toast.makeText(this, "Failed to save appointment.", Toast.LENGTH_LONG).show()
-            }
+// First, add the document with auto-generated ID
+        val databaseReference = db.collection("Appointments")
+            .document(email)
+            .collection("Online")  // The collection where the document will be added
+            .add(appointmentData)  // Firebase generates a unique ID automatically
+
+// Now, merge the data into the auto-generated document using 'SetOptions.merge()'
+        databaseReference.addOnSuccessListener { documentReference ->
+            // Merge the appointment data into the newly created document
+            documentReference.set(appointmentData, SetOptions.merge())
+                .addOnSuccessListener {
+                    Toast.makeText(this, "You will receive a confirmation email.", Toast.LENGTH_LONG).show()
+                }
+                .addOnFailureListener { e ->
+                    println("Error storing appointment: $e")
+                    Toast.makeText(this, "Failed to save appointment.", Toast.LENGTH_LONG).show()
+                }
+        }
+
+        databaseReference.addOnFailureListener { e ->
+            // Handle failure when adding the document initially
+            println("Error adding appointment: $e")
+            Toast.makeText(this, "Failed to add appointment.", Toast.LENGTH_LONG).show()
+        }
+
     }
 
     private fun showDatePicker() {
