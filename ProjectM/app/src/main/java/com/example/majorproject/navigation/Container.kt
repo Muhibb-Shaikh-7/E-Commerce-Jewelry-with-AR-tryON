@@ -220,9 +220,24 @@ class Container : AppCompatActivity() {
                 packageManager.getPackageInfo(packageName, 0)
                 true
             } catch (e: PackageManager.NameNotFoundException) {
+                // Log the error message if the app is not found
+                Log.e("App Install Check", "App not found: $packageName", e)
+
+                // Show the actual error message in the Toast
+                Toast.makeText(this, "Error: App not found for package: $packageName", Toast.LENGTH_SHORT).show()
+
+                false
+            } catch (e: Exception) {
+                // Catch any other unexpected exception
+                Log.e("App Install Check", "Unexpected error while checking for app: $packageName", e)
+
+                // Show the unexpected error message in the Toast
+                Toast.makeText(this, "Unexpected error: ${e.message}", Toast.LENGTH_SHORT).show()
+
                 false
             }
         }
+
 
 
 
