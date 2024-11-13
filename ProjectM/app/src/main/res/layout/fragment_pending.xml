@@ -7,7 +7,7 @@
     tools:context=".admin.PendingFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewCompleted"
+        android:id="@+id/recyclerViewPending"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"

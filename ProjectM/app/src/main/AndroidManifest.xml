@@ -40,7 +40,11 @@
             android:name=".admin.EditOrderStatusActivity"
             android:exported="true" />
         <activity
-            android:name=".admin.AdminHome"
+            android:name=".admin.OrdersActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".admin.AdminDashboard"
             android:exported="false" />
         <activity
             android:name=".PaymentActivity"
