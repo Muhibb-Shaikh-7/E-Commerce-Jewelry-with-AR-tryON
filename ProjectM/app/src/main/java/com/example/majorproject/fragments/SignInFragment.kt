@@ -51,7 +51,7 @@ class SignInFragment : Fragment() {
 
         loginButton.setOnClickListener {
             if (emailEditText.text.toString()=="admin"&&passwordEditText.text.toString()=="admin"){
-                startActivity(Intent(context,AdminDashboard::class.java))
+                startActivity(Intent(context,AdminDashboard ::class.java))
             }
             else
             loginUser()
