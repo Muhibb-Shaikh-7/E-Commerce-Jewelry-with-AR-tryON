@@ -26,8 +26,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import com.example.majorproject.contactus.CallNow
 import com.example.majorproject.R
+import com.example.majorproject.contactus.CallNow
 import com.example.majorproject.Search.SearchActivity
 import com.example.majorproject.contactus.BookAppoinment
 import com.example.majorproject.databinding.ActivityContainerBinding
@@ -46,7 +46,7 @@ class Container : AppCompatActivity() {
     private var previousFragmentNumber = 0
     private var previousNormalImg: ImageView? = null
     private var previousSelectedImg: ImageView? = null
-    private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(this,R.anim.rotate_open_anim) }
+    private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.rotate_open_anim) }
     private val rotateCLose: Animation by lazy { AnimationUtils.loadAnimation(this,R.anim.rotate_close_anim) }
     private val fromBottom: Animation by lazy { AnimationUtils.loadAnimation(this,R.anim.from_bottom_anim) }
     private val toBottom: Animation by lazy { AnimationUtils.loadAnimation(this,R.anim.to_bottom_anim) }
@@ -100,6 +100,7 @@ class Container : AppCompatActivity() {
         }
 
         binding.you.setOnClickListener {
+            binding.relativeLayout.removeView(binding.headerTitle)
             selectFragment(4, ProfileFragment(), binding.you, binding.you2)
         }
     }
