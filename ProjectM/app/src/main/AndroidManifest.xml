@@ -48,10 +48,13 @@
             android:exported="false" />
         <activity
             android:name=".PaymentActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".CartActivity"
             android:exported="true" />
+        <activity
+            android:name=".AddressPopUp"
+            android:exported="true"/>
         <activity
             android:name=".contactus.BookAppoinment"
             android:exported="false" />
