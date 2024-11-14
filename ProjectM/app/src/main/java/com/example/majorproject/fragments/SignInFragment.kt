@@ -101,6 +101,10 @@ class SignInFragment : Fragment() {
                                 } else {
                                     val intent = Intent(requireContext(), Container::class.java)
                                     startActivity(intent)
+                                    requireActivity().supportFragmentManager.beginTransaction()
+                                        .remove(this)
+                                        .commit()
+
                                 }
                             } else {
 
