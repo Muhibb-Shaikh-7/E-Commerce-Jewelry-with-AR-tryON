@@ -8,8 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
+import com.example.majorproject.AuthenticationSelection
 import com.example.majorproject.R
 import com.example.majorproject.admin.AddProducts
 import com.example.majorproject.admin.AdminDashboard
@@ -27,8 +30,7 @@ class SignInFragment : Fragment() {
     private lateinit var emailEditText:EditText
     private lateinit var passwordEditText: TextInputEditText
     private lateinit var loginButton: Button
-
-    var onSignUpLinkClickListener: (() -> Unit)? = null
+    private lateinit var  signUpLink: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +47,7 @@ class SignInFragment : Fragment() {
         emailEditText = view.findViewById(R.id.emailAddress)
         passwordEditText = view.findViewById(R.id.Password)
         loginButton = view.findViewById(R.id.sign_in_button)
+      signUpLink= view.findViewById(R.id.signupLink)
 
         loginButton.setOnClickListener {
             if (emailEditText.text.toString()=="admin"&&passwordEditText.text.toString()=="admin"){
@@ -54,7 +57,14 @@ class SignInFragment : Fragment() {
             loginUser()
         }
 
-
+        signUpLink.setOnClickListener {
+            // Switch to SignInFragment (ViewPager2 position 0)
+            activity?.let { activity ->
+                if (activity is AuthenticationSelection) {
+                    (activity as? AuthenticationSelection)?.switchFragment(1)
+                }
+            }
+        }
 
         return view
     }

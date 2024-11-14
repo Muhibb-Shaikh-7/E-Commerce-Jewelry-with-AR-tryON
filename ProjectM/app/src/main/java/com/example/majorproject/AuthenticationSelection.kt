@@ -2,19 +2,15 @@ package com.example.majorproject
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.view.animation.Interpolator
-import android.widget.Scroller
-import android.window.OnBackInvokedDispatcher
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.widget.ViewPager2
@@ -24,8 +20,7 @@ import com.example.majorproject.databinding.ActivityAuthenticationSelectionBindi
 import com.example.majorproject.util.BlurUtil
 import java.util.*
 import androidx.recyclerview.widget.RecyclerView
-import java.lang.reflect.Field
-import kotlin.math.min
+
 
 class AuthenticationSelection : AppCompatActivity() {
 
@@ -43,7 +38,13 @@ class AuthenticationSelection : AppCompatActivity() {
         R.drawable.model_img_1,
         R.drawable.model_img_2,
         R.drawable.model_img_3,
-        R.drawable.model_img_4
+        R.drawable.model_img_4,
+        R.drawable.model_img_5,
+        R.drawable.model_img_6,
+        R.drawable.model_img_7,
+        R.drawable.model_img_8,
+        R.drawable.model_img_9,
+        R.drawable.model_img_10
     )
     private var imagesSize=images.size
     private lateinit var imageSliderAdapter: ImageSliderAdapter
@@ -73,8 +74,8 @@ class AuthenticationSelection : AppCompatActivity() {
             // Perform any action you want here
         }
 
-        binding.signInButton.setOnClickListener { handleButtonClick() }
-        binding.signUpButton.setOnClickListener { handleButtonClick() }
+        binding.signInButton.setOnClickListener { handleButtonClick(0) }
+        binding.signUpButton.setOnClickListener { handleButtonClick(1) }
         binding.backgroundImageView.setOnClickListener{
             if (binding.authCardView.visibility == View.VISIBLE) {
                 slideDownEffect()
@@ -117,7 +118,7 @@ class AuthenticationSelection : AppCompatActivity() {
         // Start the animation
         binding.authCardView.startAnimation(slideDownAnimation)
     }
-    private fun handleButtonClick() {
+    private fun handleButtonClick(i: Int) {
         pauseAutoSlide()
         val currentPosition = binding.viewPager.currentItem
         val adapter = binding.viewPager.adapter as? ImageSliderAdapter
@@ -130,17 +131,21 @@ class AuthenticationSelection : AppCompatActivity() {
             backImage.visibility = View.VISIBLE
             BlurUtil.applyBlur(this, binding.backgroundImageView, 10f)
 
+            if(i==0)
+            { switchFragment(0)}
+            else{ switchFragment(1)}
 
             val slideUpAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_up)
             binding.authCardView.visibility = View.VISIBLE
             binding.authCardView.startAnimation(slideUpAnimation)
-
-
         }
 
 
         // Reset user interaction flag immediately after a button click
         userHasInteracted = true
+    }
+    fun switchFragment(position: Int) {
+        authViewPager.currentItem = position
     }
 
     private fun getNextImage(imagePosition: Int) {
@@ -153,7 +158,13 @@ class AuthenticationSelection : AppCompatActivity() {
                 R.drawable.model_img_1,
                 R.drawable.model_img_2,
                 R.drawable.model_img_3,
-                R.drawable.model_img_4
+                R.drawable.model_img_4,
+                R.drawable.model_img_5,
+                R.drawable.model_img_6,
+                R.drawable.model_img_7,
+                R.drawable.model_img_8,
+                R.drawable.model_img_9,
+                R.drawable.model_img_10
             )
             Log.d("autoslide", "ImageSize: $imagesSize")
 

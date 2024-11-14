@@ -78,46 +78,46 @@
             android:textSize="18dp"
             android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="40dp"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="horizontal">-->
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1"
-                android:background="@color/text_gray" />
+<!--            <View-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@color/text_gray" />-->
 
-            <!-- "Or Login with" Text -->
-            <TextView
-                android:id="@+id/orLoginWithText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Or Sign In with"
-                android:textColor="@color/text_gray"
-                android:textSize="14sp" />
+<!--            &lt;!&ndash; "Or Login with" Text &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:id="@+id/orLoginWithText"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_marginEnd="16dp"-->
+<!--                android:text="Or Sign In with"-->
+<!--                android:textColor="@color/text_gray"-->
+<!--                android:textSize="14sp" />-->
 
-            <!-- Right Divider -->
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1"
-                android:background="@color/text_gray" />
-        </LinearLayout>
+<!--            &lt;!&ndash; Right Divider &ndash;&gt;-->
+<!--            <View-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@color/text_gray" />-->
+<!--        </LinearLayout>-->
 
-        <ImageView
-            android:id="@+id/google_sign_in"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/white"
-            android:padding="8dp"
-            android:src="@drawable/google1" />
+<!--        <ImageView-->
+<!--            android:id="@+id/google_sign_in"-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:background="@color/white"-->
+<!--            android:padding="8dp"-->
+<!--            android:src="@drawable/google1" />-->
 
         <TextView
             android:id="@+id/signupLink"
