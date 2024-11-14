@@ -84,6 +84,7 @@ class ProfileFragment : Fragment() {
 
         logoutForwardImg.setOnClickListener {
             // Navigate to SignUpFragment on logout
+            auth.signOut()
             startActivity(Intent(context,AuthenticationSelection::class.java))
         }
 
