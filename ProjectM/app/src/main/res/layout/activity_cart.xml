@@ -162,7 +162,7 @@
         <Button
             android:id="@+id/checkOutButton"
             android:layout_width="173dp"
-            android:layout_height="41dp"
+            android:layout_height="48dp"
             android:text="Check Out"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

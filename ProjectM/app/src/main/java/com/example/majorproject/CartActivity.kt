@@ -49,11 +49,13 @@ class CartActivity : AppCompatActivity() {
             finish()
         }
 
+
         checkOutButton.setOnClickListener {
             val intent = Intent(this, AddressPopUp::class.java)
             startActivity(intent)
             finish()
         }
+
 
         imgView.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
