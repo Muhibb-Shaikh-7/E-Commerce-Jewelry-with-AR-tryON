@@ -24,31 +24,34 @@
             android:layout_width="330dp"
             android:layout_height="55dp"
             android:layout_marginTop="30dp"
+            android:textColor="@color/white"
             android:background="@drawable/main_textview_bg"
             android:fontFamily="@font/zen_antique"
             android:gravity="center_vertical"
             android:hint="Email Address"
             android:inputType="textEmailAddress"
-            android:textColorHint="@color/text_gray" />
+            android:textColorHint="@color/white" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="330dp"
             android:layout_height="55dp"
+            android:textColor="@color/white"
             android:layout_marginTop="15dp"
             android:background="@color/transparent"
             app:endIconMode="password_toggle"
-            app:endIconTint="@color/text_gray"
+            app:endIconTint="@color/white"
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/Password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textColor="@color/white"
                 android:background="@drawable/main_textview_bg"
                 android:fontFamily="@font/zen_antique"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:textColorHint="@color/text_gray" />
+                android:textColorHint="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -60,7 +63,7 @@
             android:layout_marginEnd="13dp"
             android:fontFamily="@font/zen_antique"
             android:text="Forgot Password ?"
-            android:textColor="@color/text_gray"
+            android:textColor="@color/brown_rust"
             android:textSize="14sp" />
 
 
@@ -125,7 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Don't have an account? Sign up now"
-            android:textColor="@color/text_gray"
+            android:textColor="@color/brown_rust"
             android:textSize="14sp" />
     </LinearLayout>
 
