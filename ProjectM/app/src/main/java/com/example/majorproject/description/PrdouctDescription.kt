@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -18,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import com.example.majorproject.CartActivity
 import com.example.majorproject.R
 import com.example.majorproject.RingSizeCalculator
 import com.example.majorproject.TryOn
@@ -29,7 +31,9 @@ import com.example.majorproject.adapters.WeightItemAdapter
 import com.example.majorproject.dataClass.Product
 import com.example.majorproject.dataClass.ProductSpecification
 import com.example.majorproject.databinding.ActivityProductDescriptionBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -54,20 +58,28 @@ class ProductDescription : AppCompatActivity() {
         binding = ActivityProductDescriptionBinding.inflate(layoutInflater)
        setContentView(binding.root)
 
-        binding.tryOn.setOnClickListener{
-            startActivity(Intent(this@ProductDescription,TryOn::class.java))
-        }
+
         product = intent.getSerializableExtra("product") as? Product
             ?: run {
                 Log.e("ProductDescription", "Received null product")
                 Toast.makeText(this, "Product data is unavailable.", Toast.LENGTH_SHORT).show()
                 return // Exit early, but don't finish the activity
             }
+        binding.tryOn.setOnClickListener{
+
+            val intent = Intent(this@ProductDescription, TryOn::class.java)
+            intent.putExtra("product", product)
+            startActivity(intent)
+        }
+       findViewById<Button>(R.id.add_to_cart).setOnClickListener{
+           addToCart()
+       }
+
 
         Log.d("ProductDescription", "Received product: ${product.name}")
 
         fetchProductData(product)
-
+        setCurrentlySeeingProduct(product.name)
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -78,18 +90,33 @@ class ProductDescription : AppCompatActivity() {
 
         setupOnClickListeners()
     }
-    fun convertDrawableToBase64(context: Context, drawableResId: Int): String? {
-        // Step 1: Convert Drawable to Bitmap
-        val bitmap: Bitmap = BitmapFactory.decodeResource(context.resources, drawableResId)
 
-        // Step 2: Convert Bitmap to Base64 String
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream) // PNG format
-        val byteArray = byteArrayOutputStream.toByteArray()
+    private fun addToCart() {
+        val userEmail = FirebaseAuth.getInstance().currentUser?.email
+        if (userEmail == null) {
+            Toast.makeText(this, "User is not logged in", Toast.LENGTH_SHORT).show()
+            return
+        }
 
-        return Base64.encodeToString(byteArray, Base64.DEFAULT)
+        val cartItem = hashMapOf(
+            "productName" to product.name,
+            "price" to product.price,
+            "quantity" to 1  // Default quantity is set to 1; update logic as needed
+        )
+
+        val userDocRef = firestore.collection("users").document(userEmail)
+        userDocRef.collection("cart").document(product.name)  // Using product name as document ID for uniqueness
+            .set(cartItem, SetOptions.merge())  // Merge to prevent overwriting existing fields
+            .addOnSuccessListener {
+                Toast.makeText(this, "Added to cart", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, CartActivity::class.java))
+                Log.d("ProductDescription", "Successfully added product to cart")
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Failed to add to cart: ${e.message}", Toast.LENGTH_SHORT).show()
+                Log.e("ProductDescription", "Error adding product to cart: ${e.message}", e)
+            }
     }
-
     private fun setProductSpecificationRecyclerView(product: Product) {
 
         Log.d("ProductDescription", "setProductSpecificationRecyclerView()")
@@ -386,5 +413,16 @@ class ProductDescription : AppCompatActivity() {
         }
         Log.d("ProductDescription", "toggleExpandableLayout finished")
     }
+    private fun setCurrentlySeeingProduct(productName: String) {
+        val userDocRef = firestore.collection("users").document(FirebaseAuth.getInstance().currentUser?.email!!) // replace "YourUserID" with the actual user ID or retrieve it dynamically
 
+        val updateData = mapOf("currentlySeeing" to productName)
+        userDocRef.update(updateData)
+            .addOnSuccessListener {
+                Log.d("ProductDescription", "Successfully updated currentlySeeing with product: $productName")
+            }
+            .addOnFailureListener { e ->
+                Log.e("ProductDescription", "Error updating currentlySeeing field: ${e.message}", e)
+            }
+    }
 }

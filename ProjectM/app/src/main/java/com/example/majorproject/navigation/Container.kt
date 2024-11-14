@@ -84,7 +84,7 @@ class Container : AppCompatActivity() {
             }
         }
         if (savedInstanceState == null) {
-           selectFragment(1 ,HomeFragment(), binding.home, binding.home2)
+            selectFragment(1 ,HomeFragment(), binding.home, binding.home2)
         }
 
         binding.home.setOnClickListener {
@@ -126,22 +126,22 @@ class Container : AppCompatActivity() {
 
     private fun navigateToFragment(fragment: Fragment?, normal: ImageView, selected: ImageView) {
 
-            resetAnimation(previousSelectedImg)
-            enlargeIconWithBubbleUpAnimation(selected,previousNormalImg,normal)
+        resetAnimation(previousSelectedImg)
+        enlargeIconWithBubbleUpAnimation(selected,previousNormalImg,normal)
 
-            previousNormalImg?.visibility = View.VISIBLE
-            previousSelectedImg?.visibility = View.INVISIBLE
+        previousNormalImg?.visibility = View.VISIBLE
+        previousSelectedImg?.visibility = View.INVISIBLE
 
-            previousNormalImg = normal
-            normal.visibility = View.INVISIBLE
-            previousSelectedImg = selected
-            selected.visibility = View.VISIBLE
+        previousNormalImg = normal
+        normal.visibility = View.INVISIBLE
+        previousSelectedImg = selected
+        selected.visibility = View.VISIBLE
 
-            if(fragment!=null) {
-                replaceFragment(fragment)
-            }else{
-                openContactUsLayout()
-            }
+        if(fragment!=null) {
+            replaceFragment(fragment)
+        }else{
+            openContactUsLayout()
+        }
 
     }
 
@@ -211,29 +211,29 @@ class Container : AppCompatActivity() {
         }
     }
 
-        // Helper function to check if an app is installed
-        private fun isAppInstalled(packageName: String): Boolean {
-            return try {
-                packageManager.getPackageInfo(packageName, 0)
-                true
-            } catch (e: PackageManager.NameNotFoundException) {
-                // Log the error message if the app is not found
-                Log.e("App Install Check", "App not found: $packageName", e)
+    // Helper function to check if an app is installed
+    private fun isAppInstalled(packageName: String): Boolean {
+        return try {
+            packageManager.getPackageInfo(packageName, 0)
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            // Log the error message if the app is not found
+            Log.e("App Install Check", "App not found: $packageName", e)
 
-                // Show the actual error message in the Toast
-                Toast.makeText(this, "Error: App not found for package: $packageName", Toast.LENGTH_SHORT).show()
+            // Show the actual error message in the Toast
+            Toast.makeText(this, "Error: App not found for package: $packageName", Toast.LENGTH_SHORT).show()
 
-                false
-            } catch (e: Exception) {
-                // Catch any other unexpected exception
-                Log.e("App Install Check", "Unexpected error while checking for app: $packageName", e)
+            false
+        } catch (e: Exception) {
+            // Catch any other unexpected exception
+            Log.e("App Install Check", "Unexpected error while checking for app: $packageName", e)
 
-                // Show the unexpected error message in the Toast
-                Toast.makeText(this, "Unexpected error: ${e.message}", Toast.LENGTH_SHORT).show()
+            // Show the unexpected error message in the Toast
+            Toast.makeText(this, "Unexpected error: ${e.message}", Toast.LENGTH_SHORT).show()
 
-                false
-            }
+            false
         }
+    }
 
     // Function to disable touch events for the current fragment
     private fun disableFragmentInteraction() {
@@ -281,7 +281,7 @@ class Container : AppCompatActivity() {
 
         })
 
-        
+
         // Disable interaction for this view
         view.isClickable = false
         view.isFocusable = false

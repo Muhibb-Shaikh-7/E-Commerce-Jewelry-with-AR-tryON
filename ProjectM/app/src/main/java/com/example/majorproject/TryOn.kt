@@ -1,10 +1,10 @@
 package com.example.majorproject
 
 import android.Manifest
-import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.webkit.JavascriptInterface
 import android.webkit.PermissionRequest
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceError
@@ -51,21 +51,7 @@ class TryOn : AppCompatActivity() {
         webView.webChromeClient = object : WebChromeClient() {
             override fun onPermissionRequest(request: PermissionRequest?) {
                 request?.let {
-                    val resources = it.resources
-                    if (resources.contains(PermissionRequest.RESOURCE_VIDEO_CAPTURE)) {
-                        if (ContextCompat.checkSelfPermission(
-                                this@TryOn,
-                                Manifest.permission.CAMERA
-                            ) == PackageManager.PERMISSION_GRANTED
-                        ) {
-                            it.grant(arrayOf(PermissionRequest.RESOURCE_VIDEO_CAPTURE))
-                        } else {
-                            // Show an alert dialog to explain the permission request
-                            showCameraPermissionDialog(it)
-                        }
-                    } else {
-                        it.deny()
-                    }
+                    handlePermissionRequest(it)
                 }
             }
         }
@@ -77,6 +63,9 @@ class TryOn : AppCompatActivity() {
             mediaPlaybackRequiresUserGesture = false // Allow autoplay
         }
 
+        // Adding JavaScript Interface for communication with WebView
+        webView.addJavascriptInterface(WebAppInterface(), "AndroidInterface")
+
         loadLocalHtml()
     }
 
@@ -86,16 +75,38 @@ class TryOn : AppCompatActivity() {
         webView.loadUrl("file:///android_asset/index.html")
     }
 
+    private fun handlePermissionRequest(permissionRequest: PermissionRequest) {
+        val resources = permissionRequest.resources
+        val permissionsToRequest = mutableListOf<String>()
+
+        if (resources.contains(PermissionRequest.RESOURCE_VIDEO_CAPTURE) &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            permissionsToRequest.add(Manifest.permission.CAMERA)
+        }
+
+        if (resources.contains(PermissionRequest.RESOURCE_AUDIO_CAPTURE) &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            permissionsToRequest.add(Manifest.permission.RECORD_AUDIO)
+        }
+
+        if (permissionsToRequest.isNotEmpty()) {
+            pendingPermissionRequest = permissionRequest
+            ActivityCompat.requestPermissions(this, permissionsToRequest.toTypedArray(), PERMISSION_REQUEST_CODE)
+        } else {
+            permissionRequest.grant(resources)
+        }
+    }
+
     private fun showCameraPermissionDialog(permissionRequest: PermissionRequest) {
         AlertDialog.Builder(this)
-            .setTitle("Camera Permission Needed")
-            .setMessage("This feature requires camera access. Would you like to grant permission?")
+            .setTitle("Permission Needed")
+            .setMessage("This feature requires camera and/or microphone access. Would you like to grant permission?")
             .setPositiveButton("Allow") { _, _ ->
                 pendingPermissionRequest = permissionRequest
                 ActivityCompat.requestPermissions(
                     this,
-                    arrayOf(Manifest.permission.CAMERA),
-                    CAMERA_PERMISSION_REQUEST_CODE
+                    arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO),
+                    PERMISSION_REQUEST_CODE
                 )
             }
             .setNegativeButton("Deny") { dialog, _ ->
@@ -111,18 +122,40 @@ class TryOn : AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                pendingPermissionRequest?.grant(arrayOf(PermissionRequest.RESOURCE_VIDEO_CAPTURE))
-            } else {
-                Toast.makeText(this, "Camera permission is required for this feature", Toast.LENGTH_LONG).show()
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            val grantedResources = mutableListOf<String>()
+            for (i in permissions.indices) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    if (permissions[i] == Manifest.permission.CAMERA) {
+                        grantedResources.add(PermissionRequest.RESOURCE_VIDEO_CAPTURE)
+                    } else if (permissions[i] == Manifest.permission.RECORD_AUDIO) {
+                        grantedResources.add(PermissionRequest.RESOURCE_AUDIO_CAPTURE)
+                    }
+                }
             }
+            pendingPermissionRequest?.grant(grantedResources.toTypedArray())
             pendingPermissionRequest = null
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     companion object {
-        private const val CAMERA_PERMISSION_REQUEST_CODE = 100
+        private const val PERMISSION_REQUEST_CODE = 100
+    }
+
+    // JavaScript Interface class for communication with the WebView
+    inner class WebAppInterface {
+        @JavascriptInterface
+        fun getUserUid(): String {
+            // Return a user ID or any required data from Android to WebView
+            return "example_user_id"
+        }
+
+        @JavascriptInterface
+        fun showToast(message: String) {
+            runOnUiThread {
+                Toast.makeText(this@TryOn, message, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

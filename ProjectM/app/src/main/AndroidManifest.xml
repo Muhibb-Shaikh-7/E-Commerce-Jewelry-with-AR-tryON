@@ -37,6 +37,16 @@
         android:theme="@style/Theme.MajorProject"
         tools:targetApi="31">
         <activity
+            android:name=".admin.EditOrderStatusActivity"
+            android:exported="true" />
+        <activity
+            android:name=".admin.OrdersActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".admin.AdminDashboard"
+            android:exported="false" />
+        <activity
             android:name=".PaymentActivity"
             android:exported="false" />
         <activity

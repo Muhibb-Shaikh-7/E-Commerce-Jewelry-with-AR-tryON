@@ -33,16 +33,29 @@
         <button>Add to Cart</button>
     </div>
 </div>
-
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/vision_bundle.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
 <script type="module" >
+
     import {
     HandLandmarker,
     FilesetResolver
 } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0";
-
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+import { getFirestore, doc, getDoc, collection, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
+const firebaseConfig = {
+            apiKey: "AIzaSyBAQSHVrSed5EXwziX8d9PxvWJXOvJXU10",
+            authDomain: "krishna-jewelry-app.firebaseapp.com",
+            projectId: "krishna-jewelry-app",
+            storageBucket: "krishna-jewelry-app.appspot.com",
+            messagingSenderId: "815449214948",
+            appId: "1:815449214948:android:97ec3686ee429aef1541f1",  // Replace with your app's ID
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 const video = document.getElementById("webcam");
 const canvasElement = document.getElementById("output_canvas");
 const canvasCtx = canvasElement.getContext("2d");
@@ -56,13 +69,60 @@ let lastPosition = null;
 let ringImage = new Image();
 ringImage.src = 'ring1.png'; // Default ring
 
+
 // Switch ring based on slider selection
 document.querySelectorAll('.ring-option').forEach(option => {
     option.addEventListener('click', () => {
         ringImage.src = option.getAttribute('data-ring');
     });
 });
+async function fetchRingImage() {
+            try {
+                // Fetch the user's document using their email (shaikhsaniya1001@gmail.com)
+                const userDoc = await getDoc(doc(db, 'users', 'shaikhsaniya1001@gmail.com'));
+                if (!userDoc.exists()) {
+                    console.error("No user found!");
+                    return;
+                }
 
+                // Get the 'currently_viewing' product name from the user's document
+                const productName = userDoc.data().currentlySeeing;
+                if (!productName) {
+                    console.error("No product found in 'currently_viewing' field!");
+                    return;
+                }
+
+                console.log("Fetching product with name:", productName);  // Add this to log the productName
+
+                // Query the Items collection for the product with the matching name
+                const q = query(collection(db, 'Items'), where('productName', '==', productName));
+                const productSnapshot = await getDocs(q);
+
+                if (productSnapshot.empty) {
+                    console.error("No product found with name:", productName);  // Log if no product found
+                    return;
+                }
+
+                console.log("Found product:", productSnapshot.docs[0].data());  // Log the product data
+
+                // Get the image URL from the images map (0 index) in the product document
+                const productData = productSnapshot.docs[0].data();
+                const productImages = productData.images;
+                if (productImages && productImages[0]) {
+                    // Set the image URL to the ringImage src
+                    const imageUrl = productImages[0];
+                    ringImage.src = imageUrl; // Update ring image source
+                    console.log("Ring image updated to:", imageUrl);
+                } else {
+                    console.error("No image found for the product!");
+                }
+            } catch (error) {
+                console.error("Error fetching data from Firebase:", error);
+            }
+        }
+
+        // Call the fetchRingImage function on page load
+        fetchRingImage();
 navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
     video.srcObject = stream;
     video.addEventListener("loadeddata", predictWebcam);
@@ -142,7 +202,7 @@ function drawRing(landmark) {
     const canvasHeight = canvasElement.height;
     const canvasX = (1 - x) * canvasWidth;
     const canvasY = y * canvasHeight;
-    const ringSize = 40;
+    const ringSize = 100;
 
     canvasCtx.save();
     canvasCtx.translate(canvasX, canvasY);

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="orderStatusSpinner" type="id" />
+    <item name="trackingDetailsLabel" type="id" />
+    <item name="trackingDetailsInput" type="id" />
+    <item name="saveButton" type="id" />
+    <item name="orderStatusLabel" type="id" />
+    <item name="orderNumberInput" type="id" />
+    <item name="orderNumberLabel" type="id" />
+    <item name="headerTitle" type="id" />
+</resources>

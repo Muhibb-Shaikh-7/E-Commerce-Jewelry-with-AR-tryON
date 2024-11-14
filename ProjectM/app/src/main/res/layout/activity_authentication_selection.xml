@@ -77,7 +77,6 @@
         android:layout_height="match_parent"
         android:layout_marginTop="70dp"
         android:background="@color/offwhite"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,47 +85,65 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/transparent"
-            >
-            <FrameLayout
-                android:id="@+id/fragmentContainer"
+            android:layout_height="wrap_content"
+            android:background="@drawable/authentication_selection_frame_bg">
+            <TextView
+                android:id="@+id/mahavir"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/offwhite" />
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="100dp"
+                android:drawablePadding="4dp"
+                android:fontFamily="@font/tenor_sans"
+                android:text="Mahavir"
+                android:textSize="40dp"
+                android:letterSpacing="0.2"
+                android:textColor="#927417"/>
+
+            <TextView
+                android:id="@+id/brand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:layout_below="@id/mahavir"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="9dp"
+                android:fontFamily="@font/castoro_titling"
+                android:gravity="center"
+                android:letterSpacing="0.5"
+                android:lineSpacingExtra="10dp"
+                android:text="A Luxury\nJewellery Brand"
+                android:textColor="#927417"
+                android:textSize="15dp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/welocme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="250dp"
                 android:fontFamily="@font/zen_antique"
                 android:gravity="center"
-                android:text="Welcome,"
-                android:textColor="@color/text_gray"
-                android:textSize="25sp"
+                android:text="Welcome, Glad to see you!"
+                android:textColor="@color/brown_rust"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/glad_to_see_you"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/zen_antique"
-                android:gravity="center"
-                android:text="Glad to see you!"
-                android:layout_below="@id/welocme"
-                android:textColor="@color/text_gray"
-                android:textSize="16sp" />
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/authenticationViewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/glad_to_see_you"
+                android:layout_below="@id/welocme"
                 android:background="@color/transparent"/>
 
-        </RelativeLayout>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

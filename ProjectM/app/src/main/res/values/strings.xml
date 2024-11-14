@@ -75,6 +75,15 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+    <string-array name="order_status_options">
+        <item>Confirmed</item>
+        <item>Processed</item>
+        <item>Shipped</item>
+        <item>Out for Delivery</item>
+        <item>Delivered</item>
+        <item>Cancelled</item>
+    </string-array>
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
