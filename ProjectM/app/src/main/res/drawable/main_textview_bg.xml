@@ -3,10 +3,10 @@
     android:shape="rectangle">
 
     <!-- A semi-transparent gray color to give a glass-like effect with a graying tint -->
-    <solid android:color="#56CCCCCC" /> <!-- Adjust the alpha and RGB values for desired transparency and tint -->
+    <solid android:color="#7EA8632F" /> <!-- Adjust the alpha and RGB values for desired transparency and tint -->
 
     <!-- Light gray stroke with slight transparency -->
-    <stroke android:width="2dp" android:color="#99CCCCCC" />
+    <stroke android:width="2dp" android:color="@color/brown_rust" />
 
     <!-- Rounded corners -->
     <corners android:radius="16dp" />

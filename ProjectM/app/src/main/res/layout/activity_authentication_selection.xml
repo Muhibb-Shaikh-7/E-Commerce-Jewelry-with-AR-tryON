@@ -75,6 +75,7 @@
         android:id="@+id/authCardView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:layout_marginTop="70dp"
         android:background="@color/offwhite"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -92,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="50dp"
                 android:drawablePadding="4dp"
                 android:fontFamily="@font/tenor_sans"
                 android:text="Mahavir"
@@ -128,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="250dp"
+                android:layout_marginTop="200dp"
                 android:fontFamily="@font/zen_antique"
                 android:gravity="center"
                 android:text="Welcome, Glad to see you!"
@@ -136,12 +137,17 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/authenticationViewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/welocme"
                 android:background="@color/transparent"/>
+            </ScrollView>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
