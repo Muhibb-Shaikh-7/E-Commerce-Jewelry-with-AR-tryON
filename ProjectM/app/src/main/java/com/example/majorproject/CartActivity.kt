@@ -23,6 +23,7 @@ class CartActivity : AppCompatActivity() {
     private lateinit var subTotalTextView: TextView
     private lateinit var imgView: ImageView
     private lateinit var checkOutButton : Button
+    private lateinit var changeAdress : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,14 +37,28 @@ class CartActivity : AppCompatActivity() {
         subTotalTextView = findViewById(R.id.textView10)
         imgView = findViewById(R.id.back)
         checkOutButton = findViewById(R.id.checkOutButton)
+        changeAdress = findViewById(R.id.changeAddress)
 
         cartRecyclerView.layoutManager = LinearLayoutManager(this)
 
         loadCartItems()
 
+        changeAdress.setOnClickListener{
+            val intent = Intent(this, AddressPopUp::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         checkOutButton.setOnClickListener {
             val intent = Intent(this, AddressPopUp::class.java)
             startActivity(intent)
+            finish()
+        }
+
+        imgView.setOnClickListener{
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
     }
