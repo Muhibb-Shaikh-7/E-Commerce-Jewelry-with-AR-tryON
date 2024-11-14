@@ -10,58 +10,38 @@
     <RelativeLayout
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
-        android:layout_height="103dp"
+        android:layout_height="wrap_content"
         android:background="@color/offwhite"
         android:paddingStart="15dp"
         android:paddingEnd="15dp">
 
-        <RelativeLayout
-            android:id="@+id/header_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:paddingTop="16dp"
-            android:paddingBottom="10dp">
 
-            <TextView
-                android:id="@+id/location_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:drawablePadding="4dp"
-                android:fontFamily="@font/tenor_sans"
-                android:text="Mahavir Gems"
-                android:textColor="@color/brown_rust"
-                android:textSize="22sp" />
-
-            <ImageView
-                android:id="@+id/notification_icon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/bell_icon" />
-        </RelativeLayout>
-
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/search_bar_container"
             android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:layout_below="@id/header_title"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="50dp">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:src="@drawable/all_arrow_back_black_eel" />
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/search_view"
                 android:layout_width="match_parent"
-                android:layout_height="49dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:background="@drawable/search_view_bg"
                 app:iconifiedByDefault="false"
                 app:queryHint="Search" />
+        </LinearLayout>
 
-        </RelativeLayout>
     </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
