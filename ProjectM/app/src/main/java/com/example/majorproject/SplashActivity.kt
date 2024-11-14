@@ -63,7 +63,8 @@ class SplashActivity : AppCompatActivity() {
 
                         if (document != null && name!=null) {
                             // Name exists, proceed to Container activity
-                            startActivity(Intent(this@SplashActivity, AuthenticationSelection::class.java))
+                            startActivity(Intent(this@SplashActivity, Container::class.java))
+                            finish()
                         } else {
                             // Name doesn't exist, redirect to Name activity
                             startActivity(Intent(this@SplashActivity,AuthenticationSelection::class.java))
