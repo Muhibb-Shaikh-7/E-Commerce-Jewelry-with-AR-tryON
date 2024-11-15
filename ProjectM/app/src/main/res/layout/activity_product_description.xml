@@ -386,7 +386,7 @@
                     android:id="@+id/product_des_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/product_description"
+                    android:text="Product Specification"
                     android:fontFamily="@font/zen_antique"
                     android:textColor="@color/black_olive"
                     android:textSize="17sp"
@@ -740,9 +740,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
             android:textColor="@color/black_olive"
             android:text="Description"
-            android:textSize="20dp"
+            android:textSize="23dp"
             android:fontFamily="@font/zen_antique"/>
 
         <View
