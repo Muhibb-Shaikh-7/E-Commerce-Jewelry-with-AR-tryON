@@ -434,13 +434,33 @@ class ProductDescription : AppCompatActivity() {
                         calculateAverageRating(updatedRatingsMap)
 
                         Toast.makeText(this, "Rating posted successfully!", Toast.LENGTH_SHORT).show()
-                    }.addOnFailureListener { exception ->
+                    }.addOnFailureListener {
 
-                        Toast.makeText(this, "Failed to post rating: ${exception.message}", Toast.LENGTH_SHORT).show()
+                        val ratingMap= hashMapOf(
+                            userEmail to rating
+                        )
+                        val productMap= hashMapOf(
+                            "averageRating" to 0,
+                            "rating" to ratingMap
+                        )
+                        productReference.set(productMap).addOnSuccessListener {
+                            Toast.makeText(this, "Rating posted successfully!", Toast.LENGTH_SHORT).show()
+                        }
+
+                        calculateAverageRating(ratingMap)
                     }
-                }.addOnFailureListener { exception ->
+                }.addOnFailureListener {
+                    val ratingMap= hashMapOf(
+                        userEmail to rating
+                    )
+                    val productMap= hashMapOf(
+                        "averageRating" to 0,
+                        "rating" to ratingMap
+                    )
+                    productReference.set(productMap)
 
-                    Toast.makeText(this, "Failed to fetch ratings: ${exception.message}", Toast.LENGTH_SHORT).show()
+                    calculateAverageRating(ratingMap)
+
                 }
             } else {
 
@@ -490,7 +510,7 @@ class ProductDescription : AppCompatActivity() {
             binding.avgRatingBar.rating=averageRating
             Log.d("Average Rating", "Product average rating updated successfully")
         }.addOnFailureListener { exception ->
-            Log.e("Error", "Failed to update average rating: ${exception.message}")
+
         }
     }
 

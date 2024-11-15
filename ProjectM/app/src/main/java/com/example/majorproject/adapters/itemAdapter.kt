@@ -2,6 +2,7 @@ package com.example.majorproject.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import com.example.majorproject.R
 import com.example.majorproject.dataClass.item
 import com.example.majorproject.description.ProductDescription
 import com.google.android.material.imageview.ShapeableImageView
+import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 
 class ItemAdapter(
@@ -28,6 +30,7 @@ class ItemAdapter(
 
     // ViewHolder class to hold item views
     class ItemAdapterViewModel(view: View) : RecyclerView.ViewHolder(view) {
+        val avgRating:TextView=view.findViewById(R.id.avg_rating)
         val imageView: ShapeableImageView = view.findViewById(R.id.isearchmageView)
         val nameView: TextView = view.findViewById(R.id.searchtitleTextView)
         val priceView: TextView = view.findViewById(R.id.priceTextView)
@@ -53,9 +56,19 @@ class ItemAdapter(
        Picasso.get().load(currentItem.image).into(holder.imageView)
 
         // Set name, price, and style Pictext views
+
         holder.nameView.text = currentItem.name
         holder.priceView.text = currentItem.price
         holder.styleText.text = currentItem.style
+
+        val productReference=FirebaseFirestore.getInstance().collection("ratings").document(holder.nameView.text.toString())
+        productReference.get().addOnSuccessListener { document->
+            if(document.exists()){
+            holder.avgRating.text=document.get("averageRating").toString()
+            }else{
+                Log.d("Firestore","document does not exist")
+            }
+        }
 
         // Set the click listener for the container layout
         holder.containerLayout.setOnClickListener {
