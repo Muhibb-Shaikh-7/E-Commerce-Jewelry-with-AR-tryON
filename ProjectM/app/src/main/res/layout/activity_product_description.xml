@@ -665,7 +665,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:gravity="center"
-                    android:text="Go on a live video call with our design experts or visit your nearest Tanishq store to get a closer look and know more about the product."
+                    android:text="Go on a live video call with our design experts or visit your nearest Mahavir store to get a closer look and know more about the product."
                     android:textColor="@color/text_gray"
                     android:textSize="14sp" />
 
@@ -692,7 +692,7 @@
                         android:textColor="@color/black_olive" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/store_location_button"
+                        android:id="@+id/appointment_booking_button"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_alignParentEnd="true"
@@ -701,7 +701,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/product_description_filled_button"
                         android:gravity="center"
-                        android:text="Store Location"
+                        android:text="Book an Appointment"
                         android:textAllCaps="false"
                         android:textColor="@color/offwhite" />
                 </LinearLayout>
