@@ -31,6 +31,7 @@ import com.example.majorproject.adapters.ProductSpecificationAdapter
 import com.example.majorproject.adapters.SizeItemAdapter
 import com.example.majorproject.adapters.ThumbnailAdapter
 import com.example.majorproject.adapters.WeightItemAdapter
+import com.example.majorproject.admin.AddProducts
 import com.example.majorproject.contactus.BookAppoinment
 import com.example.majorproject.dataClass.Product
 import com.example.majorproject.dataClass.ProductSpecification
@@ -56,6 +57,7 @@ class ProductDescription : AppCompatActivity() {
     private var isStylingExpanded = false
     private lateinit var adapter: ProductSpecificationAdapter
     private lateinit var product: Product
+    private var proRatings:Int=0
     private var productExtra: Product? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -361,9 +363,52 @@ class ProductDescription : AppCompatActivity() {
             startActivityForResult(intent, RING_SIZE_CALCULATOR_REQUEST_CODE)
         }
 
+
+        binding.postButton.setOnClickListener {
+            // Get the rating from the RatingBar
+            val rating = binding.ratingBar.rating.toInt() // Save the selected rating
+
+            // Get the current user's email to store as part of the rating data
+            val userEmail = FirebaseAuth.getInstance().currentUser?.email ?: ""
+
+            // Check if the user is logged in
+            if (userEmail.isNotEmpty()) {
+                // Create a map with the user's email as the key and the rating as the value
+                val ratingsMap = hashMapOf(
+                    userEmail to rating // Store the rating with the user's email as key
+                )
+
+                // Create a reference to the Firestore product document (adjust path as needed)
+                val productReference = FirebaseFirestore.getInstance()
+                    .collection("ratings")
+                    .document(binding.productName.text.toString())  // Adjust the document path as necessary
+                // Using product name as the subcollection
+
+                // Use set() to store the map in the Firestore document
+                productReference.set(
+                    hashMapOf(
+                        "ratings" to ratingsMap // Store the ratings map in the 'ratings' field
+                    )
+                ).addOnSuccessListener {
+                    // Optionally handle success (e.g., show a Toast or update UI)
+                    Toast.makeText(this, "Rating posted successfully!", Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener { exception ->
+                    // Optionally handle failure (e.g., show error message)
+                    Toast.makeText(this, "Failed to post rating: ${exception.message}", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                // Handle the case when the user is not logged in
+                Toast.makeText(this, "Please log in to post a rating", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+
         binding.backButton.setOnClickListener {
             finish()
         }
+
+
     }
 
     private fun isAppInstalled(packageName: String): Boolean {

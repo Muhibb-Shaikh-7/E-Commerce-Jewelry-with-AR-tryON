@@ -714,7 +714,7 @@
                 android:background="@drawable/product_description_divider_bg" />
 
             <LinearLayout
-                android:id="@+id/review_layout"
+                android:id="@+id/rating_layout"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -738,6 +738,7 @@
 
             <!-- RatingBar placed below the TextView -->
             <RatingBar
+                android:id="@+id/rating_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:numStars="5"
