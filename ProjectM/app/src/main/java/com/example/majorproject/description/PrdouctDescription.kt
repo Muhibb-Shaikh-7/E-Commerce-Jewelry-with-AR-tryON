@@ -66,6 +66,11 @@ class ProductDescription : AppCompatActivity() {
         setContentView(binding.root)
 
 
+
+
+
+
+
         product = intent.getSerializableExtra("product") as? Product
             ?: run {
                 Log.e("ProductDescription", "Received null product")
@@ -93,6 +98,48 @@ class ProductDescription : AppCompatActivity() {
             insets
         }
         Log.d("ProductDescription", "Activity initialized")
+
+        val productReference = FirebaseFirestore.getInstance()
+            .collection("ratings")
+            .document(binding.productName.text.toString())
+
+        Log.d("Firestore", "Fetching document for product: ${binding.productName.text.toString()}")
+
+        productReference.get().addOnSuccessListener { document ->
+            if (document.exists()) {
+                // Log the entire document's fields
+                Log.d("Firestore", "Document data: ${document.data}")  // Logs all fields of the document
+
+                // If you want to log each field individually:
+                document.data?.forEach { (key, value) ->
+                    Log.d("Firestore", "Field: $key, Value: $value")
+                }
+
+                // Fetch the average rating as before
+                val averageRating = document.get("averageRating") as? Number ?: 0
+                Log.d("Firestore", "Fetched average rating: $averageRating")
+
+                val averageRatingAsFloat = averageRating.toFloat()  // Convert it to Float if needed
+                Log.d("Firestore", "Converted average rating to Float: $averageRatingAsFloat")
+
+                // Set the rating on the RatingBar
+                binding.avgRatingBar.rating = averageRatingAsFloat
+
+                // Make the RatingBar read-only (non-interactive)
+                binding.avgRatingBar.setIsIndicator(true)  // This will disable user interaction
+                Log.d("Firestore", "RatingBar updated to: ${binding.avgRatingBar.rating}")
+            } else {
+                Log.w("Firestore", "Document does not exist.")
+                binding.avgRatingBar.rating = 0f
+                binding.avgRatingBar.setIsIndicator(true)  // Make sure the RatingBar is read-only
+            }
+        }.addOnFailureListener { exception ->
+            // If there is an error fetching the document, log it and set the RatingBar to default
+            Log.e("Firestore", "Error getting document", exception)
+            binding.avgRatingBar.rating = 0f  // Default to 0 if failed to fetch
+            binding.avgRatingBar.setIsIndicator(true)  // Make sure the RatingBar is read-only
+        }
+
 
 
         setupOnClickListeners()
@@ -365,64 +412,86 @@ class ProductDescription : AppCompatActivity() {
 
 
         binding.postButton.setOnClickListener {
-            // Get the rating from the RatingBar
-            val rating = binding.ratingBar.rating.toInt() // Save the selected rating
+            val rating = binding.ratingBar.rating.toInt()
 
-            // Get the current user's email to store as part of the rating data
             val userEmail = FirebaseAuth.getInstance().currentUser?.email ?: ""
 
-            // Check if the user is logged in
             if (userEmail.isNotEmpty()) {
-                // Create a reference to the Firestore product document (using product name)
+
                 val productReference = FirebaseFirestore.getInstance()
                     .collection("ratings")
-                    .document(binding.productName.text.toString())  // Using product name as the document identifier
+                    .document(binding.productName.text.toString())
 
-                // Fetch the existing ratings map from Firestore
                 productReference.get().addOnSuccessListener { document ->
-                    // Retrieve the existing ratings map from Firestore, if it exists
                     val existingRatingsMap = document.get("ratings") as? Map<String, Int> ?: hashMapOf()
 
-                    // Check if the user has already rated this product
                     val updatedRatingsMap = existingRatingsMap.toMutableMap()
-                    if (updatedRatingsMap.containsKey(userEmail)) {
-                        // If the user already exists in the map, update their rating
-                        updatedRatingsMap[userEmail] = rating
-                    } else {
-                        // If the user doesn't exist, add a new entry
-                        updatedRatingsMap[userEmail] = rating
-                    }
 
-                    // Use update() to update the ratings map in the Firestore document
+                        updatedRatingsMap[userEmail] = rating
                     productReference.update(
-                        "ratings", updatedRatingsMap  // Update only the ratings field
+                        "ratings", updatedRatingsMap
                     ).addOnSuccessListener {
-                        // Optionally handle success (e.g., show a Toast or update UI)
+                        calculateAverageRating(updatedRatingsMap)
+
                         Toast.makeText(this, "Rating posted successfully!", Toast.LENGTH_SHORT).show()
                     }.addOnFailureListener { exception ->
-                        // Optionally handle failure (e.g., show error message)
+
                         Toast.makeText(this, "Failed to post rating: ${exception.message}", Toast.LENGTH_SHORT).show()
                     }
                 }.addOnFailureListener { exception ->
-                    // Handle any error that occurs while fetching the document
+
                     Toast.makeText(this, "Failed to fetch ratings: ${exception.message}", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                // Handle the case when the user is not logged in
+
                 Toast.makeText(this, "Please log in to post a rating", Toast.LENGTH_SHORT).show()
             }
 
 
     }
 
-
-
-
         binding.backButton.setOnClickListener {
             finish()
         }
 
 
+    }
+
+    private fun calculateAverageRating(ratingsMap: Map<String, Int>) {
+        val totalRatings = ratingsMap.values.sum()  // Sum all ratings
+        val ratingCount = ratingsMap.size  // Number of ratings
+
+        // Calculate the average rating
+        val averageRating = if (ratingCount > 0) {
+            totalRatings.toDouble() / ratingCount
+        } else {
+            0.0
+        }
+
+        // Store the average rating in a variable (e.g., proRatings)
+        val proRatings = averageRating.toFloat()
+
+        // Optionally, update the UI or store the average rating somewhere
+        Log.d("Average Rating", "The average rating is: $proRatings")
+        // You can also save the average rating back to Firestore if needed
+        // Example: update the document with the average rating
+        updateProductWithAverageRating(proRatings)
+    }
+
+    // Optionally, update Firestore with the calculated average rating
+    private fun updateProductWithAverageRating(averageRating: Float) {
+        val productReference = FirebaseFirestore.getInstance()
+            .collection("ratings")
+            .document(binding.productName.text.toString())
+
+        productReference.update(
+            "averageRating", averageRating  // Store the average rating in the "averageRating" field
+        ).addOnSuccessListener {
+            binding.avgRatingBar.rating=averageRating
+            Log.d("Average Rating", "Product average rating updated successfully")
+        }.addOnFailureListener { exception ->
+            Log.e("Error", "Failed to update average rating: ${exception.message}")
+        }
     }
 
     private fun isAppInstalled(packageName: String): Boolean {
