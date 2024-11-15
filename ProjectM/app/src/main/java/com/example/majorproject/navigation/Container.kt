@@ -88,10 +88,12 @@ class Container : AppCompatActivity() {
         }
 
         binding.home.setOnClickListener {
+            headerViewController()
             selectFragment(1, HomeFragment(), binding.home, binding.home2)
         }
 
         binding.offers.setOnClickListener {
+            headerViewController()
             selectFragment(2, ProductFragment(), binding.offers, binding.offers2)
         }
 
@@ -103,6 +105,16 @@ class Container : AppCompatActivity() {
             binding.relativeLayout.removeView(binding.headerTitle)
             selectFragment(4, ProfileFragment(), binding.you, binding.you2)
         }
+    }
+
+    private fun headerViewController(){
+        if (binding.relativeLayout.indexOfChild(binding.headerTitle) == -1) {
+            binding.relativeLayout.addView(binding.headerTitle)
+        } else {
+
+            Log.d("ViewStatus", "View is already added")
+        }
+
     }
 
     private fun selectFragment(
