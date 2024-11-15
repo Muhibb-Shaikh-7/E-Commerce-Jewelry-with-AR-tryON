@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/golden_star"
-            android:layout_marginEnd="4dp"
+            android:layout_marginEnd="2dp"
             android:fontFamily="@font/zen_antique"
             android:textColor="@color/brown_rust"
             android:textSize="16dp"
