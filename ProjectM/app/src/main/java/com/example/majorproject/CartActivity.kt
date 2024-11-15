@@ -1,7 +1,7 @@
 package com.example.majorproject
 
 import CartAdapter
-import CartItem
+import com.example.majorproject.dataClass.CartItem
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -51,6 +51,7 @@ class CartActivity : AppCompatActivity() {
 
         checkOutButton.setOnClickListener {
             val intent = Intent(this, PaymentActivity::class.java)
+            intent.putExtra("TOTAL_AMOUNT", totalTextView.text.toString().substring(3).toDouble())
             startActivity(intent)
         }
 
@@ -84,7 +85,7 @@ class CartActivity : AppCompatActivity() {
                     val quantity = (itemData["quantity"] as? Long)?.toInt() ?: 1
                     val subTotal = (itemData["subTotal"] as? String)?.toDoubleOrNull() ?: price * quantity
 
-                    // Create CartItem object and add to list
+                    // Create com.example.majorproject.dataClass.CartItem object and add to list
                     val item = CartItem(
                         name = name,
                         price = price,
