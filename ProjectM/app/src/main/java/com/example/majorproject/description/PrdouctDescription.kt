@@ -373,34 +373,42 @@ class ProductDescription : AppCompatActivity() {
 
             // Check if the user is logged in
             if (userEmail.isNotEmpty()) {
-                // Create a map with the user's email as the key and the rating as the value
-                val ratingsMap = hashMapOf(
-                    userEmail to rating // Store the rating with the user's email as key
-                )
-
-                // Create a reference to the Firestore product document (adjust path as needed)
+                // Create a reference to the Firestore product document (using product name)
                 val productReference = FirebaseFirestore.getInstance()
                     .collection("ratings")
-                    .document(binding.productName.text.toString())  // Adjust the document path as necessary
-                // Using product name as the subcollection
+                    .document(binding.productName.text.toString())  // Using product name as the document identifier
 
-                // Use set() to store the map in the Firestore document
-                productReference.set(
-                    hashMapOf(
-                        "ratings" to ratingsMap // Store the ratings map in the 'ratings' field
-                    )
-                ).addOnSuccessListener {
-                    // Optionally handle success (e.g., show a Toast or update UI)
-                    Toast.makeText(this, "Rating posted successfully!", Toast.LENGTH_SHORT).show()
+                // Fetch the existing ratings map from Firestore
+                productReference.get().addOnSuccessListener { document ->
+                    // Retrieve the existing ratings map from Firestore, if it exists
+                    val existingRatingsMap = document.get("ratings") as? Map<String, Int> ?: hashMapOf()
+
+                    // Update the ratings map with the new user's rating
+                    val updatedRatingsMap = existingRatingsMap.toMutableMap()
+                    updatedRatingsMap[userEmail] = rating // Add or update the rating for this user
+
+                    // Use set() to store the updated ratings map in the Firestore document
+                    productReference.set(
+                        hashMapOf(
+                            "ratings" to updatedRatingsMap // Store the updated ratings map in the 'ratings' field
+                        )
+                    ).addOnSuccessListener {
+                        // Optionally handle success (e.g., show a Toast or update UI)
+                        Toast.makeText(this, "Rating posted successfully!", Toast.LENGTH_SHORT).show()
+                    }.addOnFailureListener { exception ->
+                        // Optionally handle failure (e.g., show error message)
+                        Toast.makeText(this, "Failed to post rating: ${exception.message}", Toast.LENGTH_SHORT).show()
+                    }
                 }.addOnFailureListener { exception ->
-                    // Optionally handle failure (e.g., show error message)
-                    Toast.makeText(this, "Failed to post rating: ${exception.message}", Toast.LENGTH_SHORT).show()
+                    // Handle any error that occurs while fetching the document
+                    Toast.makeText(this, "Failed to fetch ratings: ${exception.message}", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 // Handle the case when the user is not logged in
                 Toast.makeText(this, "Please log in to post a rating", Toast.LENGTH_SHORT).show()
             }
         }
+
 
 
 
