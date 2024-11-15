@@ -383,15 +383,19 @@ class ProductDescription : AppCompatActivity() {
                     // Retrieve the existing ratings map from Firestore, if it exists
                     val existingRatingsMap = document.get("ratings") as? Map<String, Int> ?: hashMapOf()
 
-                    // Update the ratings map with the new user's rating
+                    // Check if the user has already rated this product
                     val updatedRatingsMap = existingRatingsMap.toMutableMap()
-                    updatedRatingsMap[userEmail] = rating // Add or update the rating for this user
+                    if (updatedRatingsMap.containsKey(userEmail)) {
+                        // If the user already exists in the map, update their rating
+                        updatedRatingsMap[userEmail] = rating
+                    } else {
+                        // If the user doesn't exist, add a new entry
+                        updatedRatingsMap[userEmail] = rating
+                    }
 
-                    // Use set() to store the updated ratings map in the Firestore document
-                    productReference.set(
-                        hashMapOf(
-                            "ratings" to updatedRatingsMap // Store the updated ratings map in the 'ratings' field
-                        )
+                    // Use update() to update the ratings map in the Firestore document
+                    productReference.update(
+                        "ratings", updatedRatingsMap  // Update only the ratings field
                     ).addOnSuccessListener {
                         // Optionally handle success (e.g., show a Toast or update UI)
                         Toast.makeText(this, "Rating posted successfully!", Toast.LENGTH_SHORT).show()
@@ -407,7 +411,9 @@ class ProductDescription : AppCompatActivity() {
                 // Handle the case when the user is not logged in
                 Toast.makeText(this, "Please log in to post a rating", Toast.LENGTH_SHORT).show()
             }
-        }
+
+
+    }
 
 
 
