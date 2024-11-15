@@ -44,17 +44,23 @@ class SearchResult : AppCompatActivity(), ItemAdapter.OnItemClickListener {
 
     // Fetch products based on the query
     private fun fetchProductsBasedOnQuery(query: String) {
-        // Start with the base query that checks the product name with a range query for prefix match
+        val lowerCaseQuery = query.lowercase()
+
+        // Start with the base query that checks for lowercase product name
         firestore.collection("Items")
-            .whereGreaterThanOrEqualTo("productName", query)  // Fetch products with name starting with query
-            .whereLessThanOrEqualTo("productName", query + "\uf8ff")  // Ensure the productName starts with query
             .get()
             .addOnSuccessListener { documents ->
-                if (documents.isEmpty) {
-                    // If no results, fallback to checking for item type
+                val filteredDocuments = documents.filter { doc ->
+                    // Convert product name to lowercase for case-insensitive comparison
+                    val productName = doc.getString("productName") ?: ""
+                    productName.lowercase().contains(lowerCaseQuery)
+                }
+
+                if (filteredDocuments.isEmpty()) {
+                    // If no name matches, fallback to checking for item type
                     fallbackToItemTypeQuery(query)
                 } else {
-                    parseAndDisplayProducts(documents.documents)
+                    parseAndDisplayProducts(filteredDocuments)
                 }
             }
             .addOnFailureListener { e ->
