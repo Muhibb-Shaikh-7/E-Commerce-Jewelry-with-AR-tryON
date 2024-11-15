@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fontFamily="@font/zen_antique"
+        android:textColor="@color/black_olive"
         android:textSize="14sp"
         android:gravity="center"
         android:background="@drawable/product_description_xml_txtview_bg"

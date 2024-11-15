@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main"
-    android:background="@color/white"
+    android:background="@color/offwhite"
     tools:context=".description.ProductDescription">
 
     <ScrollView
@@ -22,30 +22,48 @@
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/product_des_viewpager_bg">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardElevation="7dp"
+                    app:cardCornerRadius="16dp"
+                    android:layout_marginTop="26dp"
+                    android:layout_marginEnd="26dp"
+                    android:layout_marginStart="26dp"
+                    android:layout_marginBottom="26dp">
+
             <!-- ViewPager2 with responsive height -->
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
-                android:layout_height="450dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
             android:scaleType="centerCrop"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/product_des_viewpager_bg"
-            android:padding="16dp" />
+
+           android:background="@color/white" />
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
 
             <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
                 android:id="@+id/dotsIndicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center"
-                app:dotsColor="#c4c4c4"
+                app:dotsColor="#F6F3F3"
                 app:dotsCornerRadius="21dp"
                 app:dotsSize="6dp"
                 app:dotsSpacing="2dp"
                 app:dotsWidthFactor="2.5"
-                app:selectedDotColor="@color/black" />
+                app:selectedDotColor="@color/dark_golden" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
@@ -72,7 +90,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/zen_antique"
                     android:text="@string/mahavir"
-                    android:textColor="@color/black"
+                    android:textColor="@color/black_olive"
                     android:textSize="18sp" />
 
                 <TextView
@@ -82,7 +100,7 @@
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/zen_antique"
                     android:text="@string/_18k_real_gold_and_diamond_ring"
-                    android:textColor="@color/black"
+                    android:textColor="@color/black_olive"
                     android:textSize="18sp" />
 
                 <TextView
@@ -92,7 +110,7 @@
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/zen_antique"
                     android:text="@string/_40_580"
-                    android:textColor="@color/black"
+                    android:textColor="@color/black_olive"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -129,7 +147,7 @@
                     android:fontFamily="@font/zen_antique"
                     android:gravity="center_vertical"
                     android:text="@string/store_location"
-                    android:textColor="@color/black"
+                    android:textColor="@color/black_olive"
                     android:textSize="16sp" />
 
                 <ImageView
@@ -161,7 +179,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/zen_antique"
                     android:text="@string/size_mm_and_gross_weight_gms"
-                    android:textColor="@color/black"
+                    android:textColor="@color/black_olive"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -200,7 +218,7 @@
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/zen_antique"
                         android:text="@string/size_mm"
-                        android:textColor="@color/black"
+                        android:textColor="@color/black_olive"
                         android:textSize="15sp" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -241,7 +259,7 @@
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/zen_antique"
                         android:text="@string/gross_weight_gms"
-                        android:textColor="@color/black"
+                        android:textColor="@color/black_olive"
                         android:textSize="15sp" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -320,7 +338,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Styling"
-                    android:textColor="@color/black"
+                    android:textColor="@color/black_olive"
                     android:textSize="17sp"
                     android:textStyle="bold" />
 
@@ -331,7 +349,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/office_wear"
-                    android:textColor="@color/black"
+                    android:textColor="@color/black_olive"
                     android:layout_below="@id/styling_title"
                     android:textSize="14sp"
                     android:layout_marginTop="8dp" />
@@ -370,7 +388,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/product_description"
                     android:fontFamily="@font/zen_antique"
-                    android:textColor="@color/black"
+                    android:textColor="@color/black_olive"
                     android:textSize="17sp"
                     android:textStyle="bold" />
 
@@ -428,7 +446,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Price Breaking "
-                    android:textColor="@color/black"
+                    android:textColor="@color/black_olive"
                     android:fontFamily="@font/zen_antique"
                     android:textSize="17sp"
                     android:textStyle="bold" />
@@ -465,7 +483,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_gray"
                         android:fontFamily="@font/zen_antique"
                         android:layout_marginTop="10dp"
                         android:textSize="15sp"
@@ -475,7 +493,7 @@
                         android:id="@+id/product_diamond_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_gray"
                         android:fontFamily="@font/zen_antique"
                         android:layout_marginStart="170dp"
                         android:layout_marginTop="10dp"
@@ -494,7 +512,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_gray"
                         android:fontFamily="@font/zen_antique"
                         android:layout_below="@id/divider16"
                         android:layout_marginTop="10dp"
@@ -505,7 +523,7 @@
                         android:id="@+id/product_making_charges"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_gray"
                         android:fontFamily="@font/zen_antique"
                         android:layout_marginStart="170dp"
                         android:layout_below="@id/divider16"
@@ -525,7 +543,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_gray"
                         android:fontFamily="@font/zen_antique"
                         android:layout_below="@id/divider19"
                         android:layout_marginTop="10dp"
@@ -536,7 +554,7 @@
                         android:id="@+id/product_metal_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_gray"
                         android:fontFamily="@font/zen_antique"
                         android:layout_marginStart="170dp"
                         android:layout_below="@id/divider19"
@@ -556,7 +574,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_gray"
                         android:fontFamily="@font/zen_antique"
                         android:layout_below="@id/divider20"
                         android:layout_marginTop="10dp"
@@ -567,7 +585,7 @@
                         android:id="@+id/price_taxes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_gray"
                         android:fontFamily="@font/zen_antique"
                         android:layout_marginStart="170dp"
                         android:layout_below="@id/divider20"
@@ -587,7 +605,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_gray"
                         android:fontFamily="@font/zen_antique"
                         android:layout_below="@id/divider21"
                         android:layout_marginTop="10dp"
@@ -598,7 +616,7 @@
                         android:id="@+id/price_total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_gray"
                         android:fontFamily="@font/zen_antique"
                         android:layout_marginStart="170dp"
                         android:layout_below="@id/divider21"
@@ -637,7 +655,7 @@
                     android:fontFamily="@font/zen_antique"
                     android:gravity="center"
                     android:text="Still Confused what to Buy?"
-                    android:textColor="@color/black"
+                    android:textColor="@color/black_olive"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -668,10 +686,10 @@
                         android:layout_weight="1"
                         android:background="@drawable/product_description_curved_button"
                         android:gravity="center"
-                        android:paddingStart="20dp"
                         android:text="Talk to an Expert"
+                        android:textStyle="bold"
                         android:textAllCaps="false"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black_olive" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/store_location_button"
@@ -683,10 +701,9 @@
                         android:layout_weight="1"
                         android:background="@drawable/product_description_filled_button"
                         android:gravity="center"
-                        android:paddingEnd="20dp"
                         android:text="Store Location"
                         android:textAllCaps="false"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/offwhite" />
                 </LinearLayout>
 
 
@@ -695,45 +712,37 @@
         </LinearLayout>
     </ScrollView>
 
+
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="61dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
         android:padding="5dp"
+        android:paddingStart="20dp"
         android:paddingTop="20dp"
-        android:layout_marginTop="10dp"
         android:paddingEnd="20dp"
         android:paddingBottom="20dp"
-        android:paddingStart="20dp"
-        android:background="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:id="@+id/back_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/back"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/fav_icon_desc"
+            android:src="@drawable/all_arrow_back_black_eel"
             app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="@string/fav_icon_desc" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_weight="1" />
 
-        <ImageView
-            android:id="@+id/fav_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/fav_icon"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:contentDescription="@string/back_icon_desc" />
 
     </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/linearLayoutBottom"
@@ -747,14 +756,15 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/add_to_cart"
-            style="@style/Widget.AppCompat.Button"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@drawable/product_description_filled_button"
-            android:text="Add to CArt"
+            android:text="Add to Cart"
             android:textSize="18sp" />
 
         <ImageView
@@ -791,7 +801,7 @@
             android:fontFamily="@font/zen_antique"
             android:text="Try On"
             android:textSize="8sp"
-            android:textColor="@android:color/black"
+            android:textColor="@color/black_olive"
             android:textAllCaps="false"
             android:gravity="top"
             android:paddingTop="5dp" />
