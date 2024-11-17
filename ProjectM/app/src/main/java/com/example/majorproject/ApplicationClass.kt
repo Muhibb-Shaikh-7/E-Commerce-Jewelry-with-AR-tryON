@@ -1,6 +1,7 @@
 package com.example.majorproject
 
 import android.app.Application
+import android.util.Log
 import com.example.majorproject.notification.NotificationHelper
 
 class ApplicationClass : Application() {
@@ -8,27 +9,26 @@ class ApplicationClass : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        // Initialize the NotificationHelper
-        // Inside your ApplicationClass or any other activity/fragment
-
         val notificationHelper = NotificationHelper()
+        notificationHelper.createChannel(this) // Ensure the channel is created before sending notifications
 
-// Send a general notification with a specific image
-        notificationHelper.sendNotification(
-            applicationContext,
-            "New Message",
-            "You have a new message waiting!",
-            R.drawable.banner4 // Image for the notification
-        )
+        // Try sending a notification
+        try {
+            notificationHelper.sendNotification(
+                applicationContext,
+                "New Message",
+                "You have a new message waiting!",
+                R.drawable.banner4
+            )
 
-// Send a promotional notification with a different image
-        notificationHelper.sendNotification(
-            applicationContext,
-            "Special Offer",
-            "Get 20% off your next purchase!",
-            R.drawable.banner3 // Different image for this notification
-        )
-
-
+            notificationHelper.sendNotification(
+                applicationContext,
+                "Special Offer",
+                "Get 20% off your next purchase!",
+                R.drawable.banner3
+            )
+        } catch (e: Exception) {
+            Log.e("ApplicationClass", "Error sending notification", e)
+        }
     }
 }
