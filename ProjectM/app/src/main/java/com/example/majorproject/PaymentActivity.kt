@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class PaymentActivity : AppCompatActivity() {
 
+
     companion object {
         const val UPI_PAYMENT_REQUEST_CODE = 123
         const val UPI_ID = "mohdirfanulhaque23106@okicici"
@@ -20,9 +21,10 @@ class PaymentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
 
+       val totalAmount:Double = intent.getDoubleExtra("TOTAL_AMOUNT",1.00)
         val payButton: Button = findViewById(R.id.pay_button)
         payButton.setOnClickListener {
-            initiateUpiPayment(1.0) // Replace with your dynamic amount
+            initiateUpiPayment(totalAmount) // Replace with your dynamic amount
         }
     }
 
