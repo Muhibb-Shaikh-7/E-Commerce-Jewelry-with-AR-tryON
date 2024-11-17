@@ -4,6 +4,7 @@ import CartAdapter
 import com.example.majorproject.dataClass.CartItem
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -19,6 +20,7 @@ class CartActivity : AppCompatActivity() {
     private lateinit var cartRecyclerView: RecyclerView
     private lateinit var totalTextView: TextView
     private lateinit var taxTextView: TextView
+    private lateinit var cartTextView: TextView
     private lateinit var deliveryTextView: TextView
     private lateinit var subTotalTextView: TextView
     private lateinit var imgView: ImageView
@@ -38,6 +40,7 @@ class CartActivity : AppCompatActivity() {
         imgView = findViewById(R.id.back)
         checkOutButton = findViewById(R.id.checkOutButton)
         changeAdress = findViewById(R.id.changeAddress)
+        cartTextView=findViewById(R.id.textViewcart)
 
         cartRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -78,7 +81,7 @@ class CartActivity : AppCompatActivity() {
 
                 for (document in result) {
                     val itemData = document.data
-
+                     cartTextView.visibility= View.GONE
                     // Safely retrieve and convert fields from Firestore
                     val name = itemData["productName"] as? String ?: "Unknown"
                     val price = (itemData["price"] as? String)?.toDoubleOrNull() ?: 0.0
