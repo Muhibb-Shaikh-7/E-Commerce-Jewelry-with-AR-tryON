@@ -18,9 +18,9 @@
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
 
-    <uses-feature android:name="android.hardware.camera.autofocus"
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
         android:required="false" />
-
 
     <meta-data
         android:name="com.google.android.gms.wallet.api.enabled"
@@ -37,12 +37,14 @@
         android:theme="@style/Theme.MajorProject"
         tools:targetApi="31">
         <activity
+            android:name=".OrderConfirmationActivity"
+            android:exported="true" />
+        <activity
             android:name=".admin.EditOrderStatusActivity"
             android:exported="true" />
         <activity
             android:name=".admin.OrdersActivity"
             android:exported="false" />
-
         <activity
             android:name=".admin.AdminDashboard"
             android:exported="false" />
@@ -54,7 +56,7 @@
             android:exported="true" />
         <activity
             android:name=".AddressPopUp"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".contactus.BookAppoinment"
             android:exported="false" />
@@ -125,7 +127,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
 
         <meta-data
             android:name="preloaded_fonts"
