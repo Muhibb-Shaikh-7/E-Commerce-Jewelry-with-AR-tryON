@@ -21,7 +21,7 @@ class PaymentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
 
-       val totalAmount:Double = intent.getDoubleExtra("TOTAL_AMOUNT",1.00)
+        val totalAmount:Double = intent.getDoubleExtra("TOTAL_AMOUNT",1.00)
         val payButton: Button = findViewById(R.id.pay_button)
         payButton.setOnClickListener {
             initiateUpiPayment(totalAmount) // Replace with your dynamic amount
