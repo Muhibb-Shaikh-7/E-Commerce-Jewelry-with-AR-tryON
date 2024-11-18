@@ -1,91 +1,90 @@
+package com.example.majorproject
+
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.majorproject.R
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlin.random.Random
+import java.util.UUID
 
 class OrderConfirmationActivity : AppCompatActivity() {
-
-    private lateinit var db: FirebaseFirestore
-    private lateinit var orderId: String
-    private lateinit var trackingId: String
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var orderIdTextView: TextView
+    private lateinit var trackIdTextView: TextView
+    private lateinit var orderDetailsTextView: TextView
+    private lateinit var totalAmountTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_confirmation)
+        firestore = FirebaseFirestore.getInstance()
 
-        db = FirebaseFirestore.getInstance()
-        orderId = db.collection("orders").document().id // Auto-generate a unique orderId
-        trackingId = generateTrackingId() // Generate tracking ID
+        orderIdTextView = findViewById(R.id.orderIdTextView)
+        trackIdTextView = findViewById(R.id.trackIdTextView)
+        orderDetailsTextView = findViewById(R.id.orderDetailsTextView)
+        totalAmountTextView = findViewById(R.id.totalAmountTextView)
 
-        val btnSaveTrackingId = findViewById<Button>(R.id.btnSaveTrackingId)
-        val etTrackingId = findViewById<EditText>(R.id.etTrackingId)
-        val tvOrderId = findViewById<TextView>(R.id.tvOrderId)
-        val tvOrderDetails = findViewById<TextView>(R.id.tvOrderDetailsHeader)
+        processOrder()
+    }
 
-        // Display generated order ID
-        tvOrderId.text = "Order ID: #$orderId"
-        etTrackingId.setText(trackingId)
-
-        // Fetch order details from Firestore and display them
-        fetchOrderDetails(orderId, tvOrderDetails)
-
-        // Save Tracking ID to Firestore
-        btnSaveTrackingId.setOnClickListener {
-            val inputTrackingId = etTrackingId.text.toString()
-            if (inputTrackingId.isNotEmpty()) {
-                saveTrackingIdToFirestore(inputTrackingId)
-            } else {
-                Toast.makeText(this, "Please enter a tracking ID", Toast.LENGTH_SHORT).show()
-            }
+    private fun processOrder() {
+        val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email
+        if (currentUserEmail == null) {
+            orderDetailsTextView.text = "User not authenticated"
+            return
         }
-    }
 
-    private fun generateTrackingId(): String {
-        val chars = ('A'..'Z') + ('0'..'9')
-        return (1..8).map { chars.random() }.joinToString("")
-    }
+        firestore.collection("users").document(currentUserEmail).collection("cart")
+            .get()
+            .addOnSuccessListener { result ->
+                val orderId = UUID.randomUUID().toString()
+                val trackId = UUID.randomUUID().toString()
+                var total = 0.0
+                val orderDetails = StringBuilder("Order Details:\n\n")
 
-    private fun saveTrackingIdToFirestore(trackingId: String) {
-        val orderData = hashMapOf(
-            "orderId" to orderId,
-            "trackingId" to trackingId,
-            "status" to "Processing",
-            "totalPrice" to 550.0
-        )
+                val orderItems = mutableListOf<Map<String, Any>>()
+                for (document in result) {
+                    val itemData = document.data
 
-        db.collection("orders").document(orderId)
-            .set(orderData)
-            .addOnSuccessListener {
-                Toast.makeText(this, "Tracking ID saved successfully!", Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "Failed to save: ${e.message}", Toast.LENGTH_SHORT).show()
-                Log.e("OrderConfirmation", "Error saving tracking ID", e)
-            }
-    }
+                    val name = itemData["productName"] as? String ?: "Unknown"
+                    val price = (itemData["price"] as? String)?.toDoubleOrNull() ?: 0.0
+                    val quantity = (itemData["quantity"] as? Long)?.toInt() ?: 1
+                    val subTotal = price * quantity
 
-    private fun fetchOrderDetails(orderId: String, tvOrderDetails: TextView) {
-        db.collection("orders").document(orderId).get()
-            .addOnSuccessListener { document ->
-                if (document != null && document.exists()) {
-                    val details = StringBuilder()
-                    details.append("Item: ").append(document.getString("itemName")).append("\n")
-                    details.append("Quantity: ").append(document.getLong("quantity")).append("\n")
-                    details.append("Price: $").append(document.getDouble("totalPrice")).append("\n")
-                    tvOrderDetails.text = details.toString()
-                } else {
-                    tvOrderDetails.text = "Order details not found."
+                    orderDetails.append("• $name (x$quantity): RS. ${"%.2f".format(subTotal)}\n")
+                    orderItems.add(mapOf("productName" to name, "price" to price, "quantity" to quantity))
+                    total += subTotal
                 }
+
+                val tax = total * 0.18 // Assuming 18% tax
+                val deliveryFee = 500.0 // Flat delivery fee
+                val totalAmount = total + tax + deliveryFee
+
+                val orderData = mapOf(
+                    "orderId" to orderId,
+                    "trackId" to trackId,
+                    "userEmail" to currentUserEmail,
+                    "items" to orderItems,
+                    "subTotal" to total,
+                    "tax" to tax,
+                    "deliveryFee" to deliveryFee,
+                    "totalAmount" to totalAmount
+                )
+
+                firestore.collection("orders").document(orderId)
+                    .set(orderData)
+                    .addOnSuccessListener {
+                        orderIdTextView.text = "Order ID: $orderId"
+                        trackIdTextView.text = "Track ID: $trackId"
+                        orderDetailsTextView.text = orderDetails.toString()
+                        totalAmountTextView.text = "Total Amount: RS. ${"%.2f".format(totalAmount)}"
+                    }
+                    .addOnFailureListener { e ->
+                        orderDetailsTextView.text = "Failed to save order: ${e.message}"
+                    }
             }
             .addOnFailureListener { e ->
-                Log.e("OrderConfirmation", "Error fetching order details", e)
-                Toast.makeText(this, "Failed to load order details", Toast.LENGTH_SHORT).show()
+                orderDetailsTextView.text = "Failed to fetch cart items: ${e.message}"
             }
     }
 }

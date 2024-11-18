@@ -1,5 +1,6 @@
 package com.example.majorproject
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -50,6 +51,8 @@ class PaymentActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val paymentData = task.result
                     handlePaymentSuccess(paymentData)
+                    val intent = Intent(this, OrderConfirmationActivity::class.java)
+                    startActivity(intent)
                 } else {
                     val exception = task.exception
                     if (exception is ApiException) {

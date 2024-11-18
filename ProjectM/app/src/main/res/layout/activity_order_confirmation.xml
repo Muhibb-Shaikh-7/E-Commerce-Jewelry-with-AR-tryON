@@ -1,163 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#F9F9F9">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/orderIdTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="8dp">
+        android:text="Order ID:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="8dp" />
 
-        <!-- Header -->
-        <TextView
-            android:id="@+id/tvThankYouMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Thank you for your purchase!"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:paddingBottom="16dp" />
+    <TextView
+        android:id="@+id/trackIdTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Track ID:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="8dp" />
 
-        <TextView
-            android:id="@+id/tvOrderId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Order ID: #123456"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/orderDetailsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Order Details:"
+        android:textSize="16sp"
+        android:padding="8dp" />
 
-        <!-- Order Details -->
-        <TextView
-            android:id="@+id/tvOrderDetailsHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Order Details"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:paddingTop="16dp" />
+    <TextView
+        android:id="@+id/totalAmountTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total Amount:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="8dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp"
-            android:background="@android:color/darker_gray"
-            android:paddingVertical="12dp">
-
-            <!-- Item Information -->
-            <TextView
-                android:id="@+id/tvProductName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Item: Gold Necklace"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tvProductQuantity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Quantity: 1"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tvProductPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Price: $500.00"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <!-- Total Price -->
-        <TextView
-            android:id="@+id/tvTotalPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total Price: $550.00 (incl. tax)"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:paddingTop="8dp" />
-
-        <!-- Customer Info -->
-        <TextView
-            android:id="@+id/tvCustomerInfoHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Customer Information"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:paddingTop="16dp" />
-
-        <TextView
-            android:id="@+id/tvCustomerName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Name: John Doe"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tvCustomerEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email: john.doe@example.com"
-            android:textSize="16sp" />
-
-        <!-- Shipping Address -->
-        <TextView
-            android:id="@+id/tvShippingAddressHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Shipping Address"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:paddingTop="16dp" />
-
-        <TextView
-            android:id="@+id/tvShippingAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="123 Main Street, City, State, ZIP"
-            android:textSize="16sp" />
-
-        <!-- Order Status -->
-        <TextView
-            android:id="@+id/tvOrderStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Order Status: Processing"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:paddingTop="16dp" />
-
-        <!-- Save Tracking ID -->
-        <TextView
-            android:id="@+id/tvTrackingIdHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enter Tracking ID"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:paddingTop="16dp" />
-
-        <EditText
-            android:id="@+id/etTrackingId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter tracking ID"
-            android:padding="8dp"
-            android:background="@android:drawable/edit_text"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/btnSaveTrackingId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Save Tracking ID"
-            android:backgroundTint="@android:color/holo_blue_light"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="12dp" />
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>
