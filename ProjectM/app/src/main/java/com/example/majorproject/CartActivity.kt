@@ -104,8 +104,8 @@ class CartActivity : AppCompatActivity() {
                 cartRecyclerView.adapter = CartAdapter(cartItems)
 
                 // Calculate and display tax, delivery fee, and total amount
-                val tax = total * 18 // Assuming 18% tax rate
-                val delivery = 500.0 // Flat delivery fee
+                val tax = 0 // Assuming 18% tax rate
+                val delivery = 0// Flat delivery fee
 
                 subTotalTextView.text = "RS. ${"%.2f".format(total)}"
                 taxTextView.text = "RS. ${"%.2f".format(tax)}"
