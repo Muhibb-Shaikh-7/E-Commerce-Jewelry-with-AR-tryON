@@ -16,6 +16,23 @@
         android:layout_height="match_parent"
         android:background="@drawable/all_item_card_bg"
         android:padding="6dp">
+        <TextView
+            android:id="@+id/avg_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/golden_star"
+            android:layout_marginEnd="2dp"
+            android:fontFamily="@font/zen_antique"
+            android:textColor="@color/brown_rust"
+            android:textSize="16dp"
+            android:text="4.5"/>
+
+        <ImageView
+            android:id="@+id/golden_star"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/rating_golden_star"
+            android:layout_alignParentEnd="true" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/isearchmageView"

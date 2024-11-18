@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.majorproject.R
 
@@ -20,6 +21,10 @@ class WeightItemAdapter(private val weightMap: Map<String, Any>) :RecyclerView.A
         val weightKey = weightMap.keys.elementAt(position)
         holder.textView.text = weightMap[weightKey].toString()
         holder.textView.isSelected = selectedPosition == position
+
+        val colorRes = if (holder.textView.isSelected) R.color.offwhite else R.color.black_olive
+
+        holder.textView.setTextColor(ContextCompat.getColor(holder.textView.context, colorRes))
 
         holder.itemView.setOnClickListener {
             val previousPosition = selectedPosition

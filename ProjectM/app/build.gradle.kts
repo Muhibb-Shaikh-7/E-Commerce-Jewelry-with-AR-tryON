@@ -71,6 +71,8 @@ dependencies {
     implementation("pub.devrel:easypermissions:3.0.0")
     implementation("com.google.android.gms:play-services-wallet:19.4.0")
     implementation ("com.google.android.gms:play-services-ads-identifier:17.0.0")
+    implementation ("com.onesignal:OneSignal:[5.0.0, 5.99.99]")
+
 
 
 }

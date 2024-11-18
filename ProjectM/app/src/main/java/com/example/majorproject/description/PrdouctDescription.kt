@@ -2,10 +2,13 @@ package com.example.majorproject.description
 
 import android.animation.ObjectAnimator
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
@@ -28,9 +31,12 @@ import com.example.majorproject.adapters.ProductSpecificationAdapter
 import com.example.majorproject.adapters.SizeItemAdapter
 import com.example.majorproject.adapters.ThumbnailAdapter
 import com.example.majorproject.adapters.WeightItemAdapter
+import com.example.majorproject.admin.AddProducts
+import com.example.majorproject.contactus.BookAppoinment
 import com.example.majorproject.dataClass.Product
 import com.example.majorproject.dataClass.ProductSpecification
 import com.example.majorproject.databinding.ActivityProductDescriptionBinding
+import com.example.majorproject.navigation.StoreLocation
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -51,12 +57,18 @@ class ProductDescription : AppCompatActivity() {
     private var isStylingExpanded = false
     private lateinit var adapter: ProductSpecificationAdapter
     private lateinit var product: Product
-    private var productExtra:Product?=null
+    private var proRatings:Int=0
+    private var productExtra: Product? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProductDescriptionBinding.inflate(layoutInflater)
-       setContentView(binding.root)
+        setContentView(binding.root)
+
+
+
+
+
 
 
         product = intent.getSerializableExtra("product") as? Product
@@ -65,15 +77,15 @@ class ProductDescription : AppCompatActivity() {
                 Toast.makeText(this, "Product data is unavailable.", Toast.LENGTH_SHORT).show()
                 return // Exit early, but don't finish the activity
             }
-        binding.tryOn.setOnClickListener{
+        binding.tryOn.setOnClickListener {
 
             val intent = Intent(this@ProductDescription, TryOn::class.java)
             intent.putExtra("product", product)
             startActivity(intent)
         }
-       findViewById<Button>(R.id.add_to_cart).setOnClickListener{
-           addToCart()
-       }
+        findViewById<Button>(R.id.add_to_cart).setOnClickListener {
+            addToCart()
+        }
 
 
         Log.d("ProductDescription", "Received product: ${product.name}")
@@ -86,6 +98,48 @@ class ProductDescription : AppCompatActivity() {
             insets
         }
         Log.d("ProductDescription", "Activity initialized")
+
+        val productReference = FirebaseFirestore.getInstance()
+            .collection("ratings")
+            .document(binding.productName.text.toString())
+
+        Log.d("Firestore", "Fetching document for product: ${binding.productName.text.toString()}")
+
+        productReference.get().addOnSuccessListener { document ->
+            if (document.exists()) {
+                // Log the entire document's fields
+                Log.d("Firestore", "Document data: ${document.data}")  // Logs all fields of the document
+
+                // If you want to log each field individually:
+                document.data?.forEach { (key, value) ->
+                    Log.d("Firestore", "Field: $key, Value: $value")
+                }
+
+                // Fetch the average rating as before
+                val averageRating = document.get("averageRating") as? Number ?: 0
+                Log.d("Firestore", "Fetched average rating: $averageRating")
+
+                val averageRatingAsFloat = averageRating.toFloat()  // Convert it to Float if needed
+                Log.d("Firestore", "Converted average rating to Float: $averageRatingAsFloat")
+
+                // Set the rating on the RatingBar
+                binding.avgRatingBar.rating = averageRatingAsFloat
+
+                // Make the RatingBar read-only (non-interactive)
+                binding.avgRatingBar.setIsIndicator(true)  // This will disable user interaction
+                Log.d("Firestore", "RatingBar updated to: ${binding.avgRatingBar.rating}")
+            } else {
+                Log.w("Firestore", "Document does not exist.")
+                binding.avgRatingBar.rating = 0f
+                binding.avgRatingBar.setIsIndicator(true)  // Make sure the RatingBar is read-only
+            }
+        }.addOnFailureListener { exception ->
+            // If there is an error fetching the document, log it and set the RatingBar to default
+            Log.e("Firestore", "Error getting document", exception)
+            binding.avgRatingBar.rating = 0f  // Default to 0 if failed to fetch
+            binding.avgRatingBar.setIsIndicator(true)  // Make sure the RatingBar is read-only
+        }
+
 
 
         setupOnClickListeners()
@@ -105,7 +159,8 @@ class ProductDescription : AppCompatActivity() {
         )
 
         val userDocRef = firestore.collection("users").document(userEmail)
-        userDocRef.collection("cart").document(product.name)  // Using product name as document ID for uniqueness
+        userDocRef.collection("cart")
+            .document(product.name)  // Using product name as document ID for uniqueness
             .set(cartItem, SetOptions.merge())  // Merge to prevent overwriting existing fields
             .addOnSuccessListener {
                 Toast.makeText(this, "Added to cart", Toast.LENGTH_SHORT).show()
@@ -113,10 +168,12 @@ class ProductDescription : AppCompatActivity() {
                 Log.d("ProductDescription", "Successfully added product to cart")
             }
             .addOnFailureListener { e ->
-                Toast.makeText(this, "Failed to add to cart: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Failed to add to cart: ${e.message}", Toast.LENGTH_SHORT)
+                    .show()
                 Log.e("ProductDescription", "Error adding product to cart: ${e.message}", e)
             }
     }
+
     private fun setProductSpecificationRecyclerView(product: Product) {
 
         Log.d("ProductDescription", "setProductSpecificationRecyclerView()")
@@ -126,21 +183,126 @@ class ProductDescription : AppCompatActivity() {
         val specList = mutableListOf<ProductSpecification>()
 
         // Safely add product specifications, checking for nulls
-        product.productSpecification["Brand"]?.let { specList.add(ProductSpecification("Brand", it)) }
-        product.productSpecification["collection"]?.let { specList.add(ProductSpecification("Collection", it)) }
-        product.productSpecification["country-of-origin"]?.let { specList.add(ProductSpecification("Country of Origin", it)) }
-        product.productSpecification["design-type"]?.let { specList.add(ProductSpecification("Design Type", it)) }
-        product.productSpecification["diamond-carat"]?.let { specList.add(ProductSpecification("Diamond Carat", it)) }
-        product.productSpecification["diamond-clarity"]?.let { specList.add(ProductSpecification("Diamond Clarity", it)) }
-        product.productSpecification["diamond-settings"]?.let { specList.add(ProductSpecification("Diamond Settings", it)) }
-        product.productSpecification["diamond-weight"]?.let { specList.add(ProductSpecification("Diamond Weight", it)) }
-        product.productSpecification["gender"]?.let { specList.add(ProductSpecification("Gender", it)) }
-        product.productSpecification["item-type"]?.let { specList.add(ProductSpecification("Item Type", it)) }
-        product.productSpecification["jewellery-type"]?.let { specList.add(ProductSpecification("Jewellery Type", it)) }
-        product.productSpecification["karatage"]?.let { specList.add(ProductSpecification("Karatage", it)) }
-        product.productSpecification["material-color"]?.let { specList.add(ProductSpecification("Material Color", it)) }
-        product.productSpecification["metal"]?.let { specList.add(ProductSpecification("Metal", it)) }
-        product.productSpecification["product-type"]?.let { specList.add(ProductSpecification("Product Type", it)) }
+        product.productSpecification["Brand"]?.let {
+            specList.add(
+                ProductSpecification(
+                    "Brand",
+                    it
+                )
+            )
+        }
+        product.productSpecification["collection"]?.let {
+            specList.add(
+                ProductSpecification(
+                    "Collection",
+                    it
+                )
+            )
+        }
+        product.productSpecification["country-of-origin"]?.let {
+            specList.add(
+                ProductSpecification(
+                    "Country of Origin",
+                    it
+                )
+            )
+        }
+        product.productSpecification["design-type"]?.let {
+            specList.add(
+                ProductSpecification(
+                    "Design Type",
+                    it
+                )
+            )
+        }
+        product.productSpecification["diamond-carat"]?.let {
+            specList.add(
+                ProductSpecification(
+                    "Diamond Carat",
+                    it
+                )
+            )
+        }
+        product.productSpecification["diamond-clarity"]?.let {
+            specList.add(
+                ProductSpecification(
+                    "Diamond Clarity",
+                    it
+                )
+            )
+        }
+        product.productSpecification["diamond-settings"]?.let {
+            specList.add(
+                ProductSpecification(
+                    "Diamond Settings",
+                    it
+                )
+            )
+        }
+        product.productSpecification["diamond-weight"]?.let {
+            specList.add(
+                ProductSpecification(
+                    "Diamond Weight",
+                    it
+                )
+            )
+        }
+        product.productSpecification["gender"]?.let {
+            specList.add(
+                ProductSpecification(
+                    "Gender",
+                    it
+                )
+            )
+        }
+        product.productSpecification["item-type"]?.let {
+            specList.add(
+                ProductSpecification(
+                    "Item Type",
+                    it
+                )
+            )
+        }
+        product.productSpecification["jewellery-type"]?.let {
+            specList.add(
+                ProductSpecification(
+                    "Jewellery Type",
+                    it
+                )
+            )
+        }
+        product.productSpecification["karatage"]?.let {
+            specList.add(
+                ProductSpecification(
+                    "Karatage",
+                    it
+                )
+            )
+        }
+        product.productSpecification["material-color"]?.let {
+            specList.add(
+                ProductSpecification(
+                    "Material Color",
+                    it
+                )
+            )
+        }
+        product.productSpecification["metal"]?.let {
+            specList.add(
+                ProductSpecification(
+                    "Metal",
+                    it
+                )
+            )
+        }
+        product.productSpecification["product-type"]?.let {
+            specList.add(
+                ProductSpecification(
+                    "Product Type",
+                    it
+                )
+            )
+        }
 
         if (specList.isEmpty()) {
             Log.e("ProductDescription", "Specification list is empty!")
@@ -152,7 +314,10 @@ class ProductDescription : AppCompatActivity() {
         binding.productSpecificationRV.layoutManager = LinearLayoutManager(this)
         Log.d("ProductDescription", "setProductSpecificationRecyclerView() recycler view setup")
         binding.productSpecificationRV.adapter = adapter
-        Log.d("ProductDescription", "setProductSpecificationRecyclerView() adapter added to recycler view")
+        Log.d(
+            "ProductDescription",
+            "setProductSpecificationRecyclerView() adapter added to recycler view"
+        )
     }
 
 
@@ -178,10 +343,11 @@ class ProductDescription : AppCompatActivity() {
                 )
                 Log.d("ProductDescription", "Product Description toggleExpandableLayout called")
                 isProductDescExpanded = !isProductDescExpanded
-            }catch( e:Exception){
+            } catch (e: Exception) {
                 Log.e("ProductDescription", "Error: ${e.message}", e)
 
-            }            }
+            }
+        }
 
         binding.downArrowPriceBreak.setOnClickListener {
             toggleExpandableLayout(
@@ -203,41 +369,39 @@ class ProductDescription : AppCompatActivity() {
             isSizeWeightExpanded = !isSizeWeightExpanded
         }
 
-        binding.storeLocationButton.setOnClickListener {
-            try {
-                if (binding.storeLocationLayout != null && binding.outerScrollView != null) {
-                    val originalColor = ContextCompat.getColor(this, R.color.white)
-                    binding.storeLocationLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.transparent))
+        binding.appointmentBookingButton.setOnClickListener {
+           startActivity(Intent(this@ProductDescription,BookAppoinment::class.java))
+        }
 
-                    binding.outerScrollView.post {
-                        val targetPosition = binding.storeLocationLayout.top
-                        Log.d("ProductDescription", "Scrolling to position: $targetPosition")
+        binding.storeLocationLayout.setOnClickListener {
+            startActivity(Intent(this, StoreLocation::class.java))
+        }
 
-                        if (targetPosition >= 0 && targetPosition <= binding.outerScrollView.height) {
-                            binding.outerScrollView.smoothScrollTo(0, targetPosition)
-                        } else {
-                            Log.e("ProductDescription", "Invalid scroll position: $targetPosition")
-                        }
-                    }
+        binding.talkToExpertButton.setOnClickListener {
+            val phoneNumber = "+919082953372"  // Replace with your actual WhatsApp number
+            val message =
+                "Hello, I'm interested in your jewelry collection. Could you please provide more details on your products?"
 
-                    lifecycleScope.launch {
-                        delay(2000)
-                        val animator = ObjectAnimator.ofArgb(
-                            binding.storeLocationLayout,
-                            "backgroundColor",
-                            ContextCompat.getColor(this@ProductDescription, R.color.transparent),
-                            originalColor
-                        )
-                        animator.duration = 1000
-                        animator.start()
-                    }
-                } else {
-                    Log.e("ProductDescription", "Null reference: storeLocationLayout or outerScrollView is null")
+            val url = "https://wa.me/$phoneNumber?text=${Uri.encode(message)}"
+
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+
+            val whatsappInstalled =
+                isAppInstalled("com.whatsapp") || isAppInstalled("com.whatsapp.w4b")
+
+            if (whatsappInstalled) {
+                try {
+                    startActivity(intent)
+                } catch (e: ActivityNotFoundException) {
+                    Log.e("WhatsApp Intent", "Error opening WhatsApp: Activity not found", e)
+                    Toast.makeText(
+                        this,
+                        "Error: WhatsApp app is not installed or could not be opened.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-            } catch (e: NullPointerException) {
-                Log.e("ProductDescription", "NullPointerException in setStoreLocationButton: ${e.message}")
-            } catch (e: Exception) {
-                Log.e("ProductDescription", "Exception in setStoreLocationButton: ${e.message}")
+            } else {
+                Toast.makeText(this, "WhatsApp is not installed.", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -246,8 +410,130 @@ class ProductDescription : AppCompatActivity() {
             startActivityForResult(intent, RING_SIZE_CALCULATOR_REQUEST_CODE)
         }
 
+
+        binding.postButton.setOnClickListener {
+            val rating = binding.ratingBar.rating.toInt()
+
+            val userEmail = FirebaseAuth.getInstance().currentUser?.email ?: ""
+
+            if (userEmail.isNotEmpty()) {
+
+                val productReference = FirebaseFirestore.getInstance()
+                    .collection("ratings")
+                    .document(binding.productName.text.toString())
+
+                productReference.get().addOnSuccessListener { document ->
+                    val existingRatingsMap = document.get("ratings") as? Map<String, Int> ?: hashMapOf()
+
+                    val updatedRatingsMap = existingRatingsMap.toMutableMap()
+
+                        updatedRatingsMap[userEmail] = rating
+                    productReference.update(
+                        "ratings", updatedRatingsMap
+                    ).addOnSuccessListener {
+                        calculateAverageRating(updatedRatingsMap)
+
+                        Toast.makeText(this, "Rating posted successfully!", Toast.LENGTH_SHORT).show()
+                    }.addOnFailureListener {
+
+                        val ratingMap= hashMapOf(
+                            userEmail to rating
+                        )
+                        val productMap= hashMapOf(
+                            "averageRating" to 0,
+                            "rating" to ratingMap
+                        )
+                        productReference.set(productMap).addOnSuccessListener {
+                            Toast.makeText(this, "Rating posted successfully!", Toast.LENGTH_SHORT).show()
+                        }
+
+                        calculateAverageRating(ratingMap)
+                    }
+                }.addOnFailureListener {
+                    val ratingMap= hashMapOf(
+                        userEmail to rating
+                    )
+                    val productMap= hashMapOf(
+                        "averageRating" to 0,
+                        "rating" to ratingMap
+                    )
+                    productReference.set(productMap)
+
+                    calculateAverageRating(ratingMap)
+
+                }
+            } else {
+
+                Toast.makeText(this, "Please log in to post a rating", Toast.LENGTH_SHORT).show()
+            }
+
+
+    }
+
         binding.backButton.setOnClickListener {
             finish()
+        }
+
+
+    }
+
+    private fun calculateAverageRating(ratingsMap: Map<String, Int>) {
+        val totalRatings = ratingsMap.values.sum()  // Sum all ratings
+        val ratingCount = ratingsMap.size  // Number of ratings
+
+        // Calculate the average rating
+        val averageRating = if (ratingCount > 0) {
+            totalRatings.toDouble() / ratingCount
+        } else {
+            0.0
+        }
+
+        // Store the average rating in a variable (e.g., proRatings)
+        val proRatings = averageRating.toFloat()
+
+        // Optionally, update the UI or store the average rating somewhere
+        Log.d("Average Rating", "The average rating is: $proRatings")
+        // You can also save the average rating back to Firestore if needed
+        // Example: update the document with the average rating
+        updateProductWithAverageRating(proRatings)
+    }
+
+    // Optionally, update Firestore with the calculated average rating
+    private fun updateProductWithAverageRating(averageRating: Float) {
+        val productReference = FirebaseFirestore.getInstance()
+            .collection("ratings")
+            .document(binding.productName.text.toString())
+
+        productReference.update(
+            "averageRating", averageRating  // Store the average rating in the "averageRating" field
+        ).addOnSuccessListener {
+            binding.avgRatingBar.rating=averageRating
+            Log.d("Average Rating", "Product average rating updated successfully")
+        }.addOnFailureListener { exception ->
+
+        }
+    }
+
+    private fun isAppInstalled(packageName: String): Boolean {
+        return try {
+            packageManager.getPackageInfo(packageName, 0)
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            // Log the error message if the app is not found
+            Log.e("App Install Check", "App not found: $packageName", e)
+
+            // Show the actual error message in the Toast
+            Toast.makeText(this, "Error: App not found for package: $packageName", Toast.LENGTH_SHORT).show()
+
+            false
+        } catch (e: Exception) {
+            // Catch any other unexpected exception
+            Log.e("App Install Check", "Unexpected error while checking for app: $packageName", e)
+
+            // Show the unexpected error message in the Toast
+            Toast.makeText(this, "Unexpected error: ${e.message}", Toast.LENGTH_SHORT).show()
+
+            false
         }
     }
 

@@ -7,7 +7,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.majorproject.R
 import com.example.majorproject.adapters.ItemAdapter
@@ -17,7 +16,7 @@ import com.example.majorproject.description.ProductDescription
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.DocumentSnapshot
 
-class SearchResult : AppCompatActivity(),ItemAdapter.OnItemClickListener{
+class SearchResult : AppCompatActivity(), ItemAdapter.OnItemClickListener {
 
     private lateinit var firestore: FirebaseFirestore
     private lateinit var recyclerView: RecyclerView
@@ -31,10 +30,9 @@ class SearchResult : AppCompatActivity(),ItemAdapter.OnItemClickListener{
         // Initialize Firestore and RecyclerView
         firestore = FirebaseFirestore.getInstance()
         recyclerView = findViewById(R.id.recycleview)
-        recyclerView.layoutManager = GridLayoutManager(this,2)
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
         itemList = mutableListOf()
-        itemAdapter = ItemAdapter(baseContext, itemList, this
-        )
+        itemAdapter = ItemAdapter(baseContext, itemList, this)
         recyclerView.adapter = itemAdapter
 
         // Get the query passed from the SearchActivity
@@ -46,15 +44,42 @@ class SearchResult : AppCompatActivity(),ItemAdapter.OnItemClickListener{
 
     // Fetch products based on the query
     private fun fetchProductsBasedOnQuery(query: String) {
-        // Check if the query contains certain keywords like "ring" or "gender"
+        val lowerCaseQuery = query.lowercase()
+
+        // Start with the base query that checks for lowercase product name
+        firestore.collection("Items")
+            .get()
+            .addOnSuccessListener { documents ->
+                val filteredDocuments = documents.filter { doc ->
+                    // Convert product name to lowercase for case-insensitive comparison
+                    val productName = doc.getString("productName") ?: ""
+                    productName.lowercase().contains(lowerCaseQuery)
+                }
+
+                if (filteredDocuments.isEmpty()) {
+                    // If no name matches, fallback to checking for item type
+                    fallbackToItemTypeQuery(query)
+                } else {
+                    parseAndDisplayProducts(filteredDocuments)
+                }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error fetching products: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    // Fallback method to fetch products by item type if no name matches
+    private fun fallbackToItemTypeQuery(query: String) {
         when {
             query.contains("ring", ignoreCase = true) -> fetchProductsByItemType("ring")
             query.contains("bracelet", ignoreCase = true) -> fetchProductsByItemType("bracelet")
             query.contains("men", ignoreCase = true) -> fetchProductsByGender("men")
             query.contains("women", ignoreCase = true) -> fetchProductsByGender("women")
             query.contains("kids", ignoreCase = true) -> fetchProductsByGender("kids")
-//            query.contains("gold", ignoreCase = true) -> fetchProductsByColor("gold")
-            // Add more conditions for other queries as needed
+            else -> {
+                // Handle case where no matching query is found
+                Toast.makeText(this, "No products found for your search", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -170,6 +195,4 @@ class SearchResult : AppCompatActivity(),ItemAdapter.OnItemClickListener{
             Log.d("ProductDescription", "Selected product not found")
         }
     }
-    }
-
-
+}

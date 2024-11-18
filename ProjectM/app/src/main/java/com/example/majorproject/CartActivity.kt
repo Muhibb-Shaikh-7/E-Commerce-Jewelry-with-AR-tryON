@@ -1,9 +1,10 @@
 package com.example.majorproject
 
 import CartAdapter
-import CartItem
+import com.example.majorproject.dataClass.CartItem
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -19,6 +20,7 @@ class CartActivity : AppCompatActivity() {
     private lateinit var cartRecyclerView: RecyclerView
     private lateinit var totalTextView: TextView
     private lateinit var taxTextView: TextView
+    private lateinit var cartTextView: TextView
     private lateinit var deliveryTextView: TextView
     private lateinit var subTotalTextView: TextView
     private lateinit var imgView: ImageView
@@ -38,6 +40,7 @@ class CartActivity : AppCompatActivity() {
         imgView = findViewById(R.id.back)
         checkOutButton = findViewById(R.id.checkOutButton)
         changeAdress = findViewById(R.id.changeAddress)
+        cartTextView=findViewById(R.id.textViewcart)
 
         cartRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -51,6 +54,7 @@ class CartActivity : AppCompatActivity() {
 
         checkOutButton.setOnClickListener {
             val intent = Intent(this, PaymentActivity::class.java)
+            intent.putExtra("TOTAL_AMOUNT", totalTextView.text.toString().substring(3).toDouble())
             startActivity(intent)
         }
 
@@ -77,14 +81,14 @@ class CartActivity : AppCompatActivity() {
 
                 for (document in result) {
                     val itemData = document.data
-
+                     cartTextView.visibility= View.GONE
                     // Safely retrieve and convert fields from Firestore
                     val name = itemData["productName"] as? String ?: "Unknown"
                     val price = (itemData["price"] as? String)?.toDoubleOrNull() ?: 0.0
                     val quantity = (itemData["quantity"] as? Long)?.toInt() ?: 1
                     val subTotal = (itemData["subTotal"] as? String)?.toDoubleOrNull() ?: price * quantity
 
-                    // Create CartItem object and add to list
+                    // Create com.example.majorproject.dataClass.CartItem object and add to list
                     val item = CartItem(
                         name = name,
                         price = price,

@@ -1,114 +1,74 @@
 package com.example.majorproject
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.wallet.PaymentsClient
-import com.google.android.gms.wallet.Wallet
-import com.google.android.gms.wallet.WalletConstants
-import com.google.android.gms.wallet.PaymentData
-import com.google.android.gms.wallet.PaymentDataRequest
-import org.json.JSONArray
-import org.json.JSONException
-import org.json.JSONObject
 
 class PaymentActivity : AppCompatActivity() {
 
-    private lateinit var paymentsClient: PaymentsClient
-    private var totalAmount: Double = 0.0 // Variable to hold the dynamic total amount
+
+    companion object {
+        const val UPI_PAYMENT_REQUEST_CODE = 123
+        const val UPI_ID = "mohdirfanulhaque23106@okicici"
+        const val MERCHANT_NAME = "Mahvir gems"
+        const val TRANSACTION_NOTE = "Transaction for Order"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
 
-        // Retrieve the total amount passed from CartActivity
-        totalAmount = intent.getDoubleExtra("TOTAL_AMOUNT", 0.0)
-
-        // Initialize the Google Pay client
-        paymentsClient = Wallet.getPaymentsClient(
-            this,
-            Wallet.WalletOptions.Builder()
-                .setEnvironment(WalletConstants.ENVIRONMENT_TEST) // Use ENVIRONMENT_PRODUCTION for live
-                .build()
-        )
-
-        // Set up the button to initiate Google Pay
+        val totalAmount:Double = intent.getDoubleExtra("TOTAL_AMOUNT",1.00)
         val payButton: Button = findViewById(R.id.pay_button)
         payButton.setOnClickListener {
-            startGooglePay()
+            initiateUpiPayment(totalAmount) // Replace with your dynamic amount
         }
     }
 
-    private fun startGooglePay() {
-        val paymentDataRequestJson = createPaymentDataRequest()
-        paymentDataRequestJson?.let {
-            val request = PaymentDataRequest.fromJson(it.toString())
-            paymentsClient.loadPaymentData(request).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val paymentData = task.result
-                    handlePaymentSuccess(paymentData)
-                    val intent = Intent(this, OrderConfirmationActivity::class.java)
-                    startActivity(intent)
+    private fun initiateUpiPayment(amount: Double) {
+        val uri = Uri.Builder()
+            .scheme("upi")
+            .authority("pay")
+            .appendQueryParameter("pa", UPI_ID) // Payee VPA (UPI ID)
+            .appendQueryParameter("pn", MERCHANT_NAME) // Payee name
+            .appendQueryParameter("tn", TRANSACTION_NOTE) // Transaction note
+            .appendQueryParameter("am", amount.toString()) // Amount
+            .appendQueryParameter("cu", "INR") // Currency
+            .build()
+
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = uri
+
+        try {
+            startActivityForResult(intent, UPI_PAYMENT_REQUEST_CODE)
+        } catch (e: Exception) {
+            Toast.makeText(this, "No UPI app found on your device", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == UPI_PAYMENT_REQUEST_CODE) {
+            if (resultCode == RESULT_OK || resultCode == RESULT_FIRST_USER) {
+                if (data != null) {
+                    val response = data.getStringExtra("response")
+                    processUpiResponse(response)
                 } else {
-                    val exception = task.exception
-                    if (exception is ApiException) {
-                        Log.e("PaymentActivity", "Payment failed: ${exception.statusCode}")
-                        Toast.makeText(this, "Payment failed: ${exception.message}", Toast.LENGTH_LONG).show()
-                    } else {
-                        // Handle other types of exceptions (e.g., network errors)
-                        Log.e("PaymentActivity", "Payment failed: ${exception?.message}")
-                        Toast.makeText(this, "Payment failed: ${exception?.message}", Toast.LENGTH_LONG).show()
-                    }
+                    Toast.makeText(this, "Payment Cancelled", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
-    private fun createPaymentDataRequest(): JSONObject? {
-        val paymentDataRequest = JSONObject()
-        try {
-            paymentDataRequest.put("apiVersion", 2)
-            paymentDataRequest.put("apiVersionMinor", 0)
-
-            // Configure allowed payment methods
-            val allowedPaymentMethods = JSONObject()
-            allowedPaymentMethods.put("type", "CARD")
-            val parameters = JSONObject()
-            parameters.put("allowedAuthMethods", JSONArray().put("PAN_ONLY").put("CRYPTOGRAM_3DS"))
-            parameters.put("allowedCardNetworks", JSONArray().put("MASTERCARD").put("VISA"))
-            allowedPaymentMethods.put("parameters", parameters)
-
-            // Payment information
-            val transactionInfo = JSONObject()
-            transactionInfo.put("totalPriceStatus", "FINAL")
-            transactionInfo.put("totalPrice", totalAmount.toString())  // Use the dynamic amount
-            transactionInfo.put("currencyCode", "INR")
-
-            // Merchant information
-            val merchantInfo = JSONObject()
-            merchantInfo.put("merchantName", "Example Merchant")
-
-            paymentDataRequest.put("allowedPaymentMethods", JSONArray().put(allowedPaymentMethods))
-            paymentDataRequest.put("transactionInfo", transactionInfo)
-            paymentDataRequest.put("merchantInfo", merchantInfo)
-
-            return paymentDataRequest
-
-        } catch (e: JSONException) {
-            Log.e("PaymentActivity", "Failed to create payment data request: ${e.message}")
-        }
-        return null
-    }
-
-    private fun handlePaymentSuccess(paymentData: PaymentData?) {
-        paymentData?.let {
-            val paymentInformation = paymentData.toJson()
-            Log.i("PaymentActivity", "Payment successful: $paymentInformation")
-            Toast.makeText(this, "Payment Successful!", Toast.LENGTH_LONG).show()
+    private fun processUpiResponse(response: String?) {
+        if (response != null && response.contains("SUCCESS", true)) {
+            Toast.makeText(this, "Payment Successful", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Payment Failed", Toast.LENGTH_SHORT).show()
         }
     }
 }
