@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("com.google.gms.google-services")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -41,7 +42,9 @@ android {
 }
 
 dependencies {
-    implementation("com.squareup.picasso:picasso:2.8")
+    implementation(libs.androidx.core.ktx.v1101)
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.picasso)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -50,16 +53,16 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     implementation(libs.androidx.navigation.fragment.ktx)
-    implementation("com.google.firebase:firebase-storage")
+    implementation(libs.firebase.storage)
     implementation(libs.play.services.maps)
     implementation(libs.lottie)
-    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
-    implementation("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
-    implementation("com.github.Spikeysanju:MotionToast:1.4")
-    implementation("nl.joery.animatedbottombar:library:1.1.0")
-    implementation("com.tbuonomo:dotsindicator:5.0")
-    implementation("com.github.wasabeef:blurry:3.0.0")
-    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation(platform(libs.kotlin.bom))
+    implementation(libs.smoothbottombar)
+    implementation(libs.motiontoast)
+    implementation(libs.library)
+    implementation(libs.dotsindicator)
+    implementation(libs.blurry)
+    implementation(libs.glide)
     implementation(libs.firebase.storage.ktx)
     implementation(libs.androidx.core.animation)
     implementation(libs.androidx.navigation.ui.ktx)
@@ -67,11 +70,12 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("pub.devrel:easypermissions:2.0.1")
-    implementation("pub.devrel:easypermissions:3.0.0")
-    implementation("com.google.android.gms:play-services-wallet:19.4.0")
-    implementation ("com.google.android.gms:play-services-ads-identifier:17.0.0")
+    implementation(libs.devrel.easypermissions)
+    implementation(libs.devrel.easypermissions)
+    implementation(libs.play.services.wallet)
+    implementation (libs.play.services.ads.identifier)
     implementation ("com.onesignal:OneSignal:[5.0.0, 5.99.99]")
+
 
 
 

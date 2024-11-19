@@ -1,3 +1,4 @@
+package com.example.majorproject.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,23 +9,29 @@ import com.example.majorproject.dataClass.CartItem
 
 class CartAdapter(private val cartItems: List<CartItem>) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
+    // Define the ViewHolder class
     class CartViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val itemName: TextView = view.findViewById(R.id.itemName) // Replace with actual ID
-        val itemPrice: TextView = view.findViewById(R.id.itemPrice) // Replace with actual ID
-        val itemQuantity: TextView = view.findViewById(R.id.itemQuantity) // Replace with actual ID
+        val productName: TextView = view.findViewById(R.id.itemName)
+        val productPrice: TextView = view.findViewById(R.id.itemPrice)
+        val productQuantity: TextView = view.findViewById(R.id.itemQuantity)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.cart_item, parent, false) // cart_item.xml for each item in the RecyclerView
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.cart_item, parent, false)
         return CartViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
         val item = cartItems[position]
-        holder.itemName.text = item.name
-        holder.itemPrice.text = "$${item.price}"
-        holder.itemQuantity.text = "Qty: ${item.quantity}"
+        holder.productName.text = item.name
+        holder.productPrice.text = "RS. ${"%.2f".format(item.price)}"
+        holder.productQuantity.text = "Qty: ${item.quantity}"
     }
 
     override fun getItemCount(): Int = cartItems.size
+
+    // Method to retrieve the current list of cart items
+    fun getCartItems(): List<CartItem> {
+        return cartItems
+    }
 }

@@ -1,6 +1,5 @@
 package com.example.majorproject
 
-import CartAdapter
 import com.example.majorproject.dataClass.CartItem
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.majorproject.adapters.CartAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -24,8 +24,8 @@ class CartActivity : AppCompatActivity() {
     private lateinit var deliveryTextView: TextView
     private lateinit var subTotalTextView: TextView
     private lateinit var imgView: ImageView
-    private lateinit var checkOutButton : Button
-    private lateinit var changeAdress : Button
+    private lateinit var checkOutButton: Button
+    private lateinit var changeAddress: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,31 +39,38 @@ class CartActivity : AppCompatActivity() {
         subTotalTextView = findViewById(R.id.textView10)
         imgView = findViewById(R.id.back)
         checkOutButton = findViewById(R.id.checkOutButton)
-        changeAdress = findViewById(R.id.changeAddress)
-        cartTextView=findViewById(R.id.textViewcart)
+        changeAddress = findViewById(R.id.changeAddress)
+        cartTextView = findViewById(R.id.textViewcart)
 
         cartRecyclerView.layoutManager = LinearLayoutManager(this)
 
         loadCartItems()
 
-        changeAdress.setOnClickListener{
+        changeAddress.setOnClickListener {
             val intent = Intent(this, AddressPopUp::class.java)
             startActivity(intent)
         }
 
-
         checkOutButton.setOnClickListener {
+            val cartItems = (cartRecyclerView.adapter as? CartAdapter)?.getCartItems() ?: emptyList()
+
+            // Convert cart items to a serializable ArrayList
+            val cartItemList = ArrayList(cartItems)
+
+            // Create intent and pass all the required details
             val intent = Intent(this, PaymentActivity::class.java)
-            intent.putExtra("TOTAL_AMOUNT", totalTextView.text.toString().substring(3).toDouble())
+            intent.putParcelableArrayListExtra("CART_ITEMS", cartItemList)
+            intent.putExtra("SUB_TOTAL", subTotalTextView.text.toString().substring(3).toDouble())
+            intent.putExtra("TAX", taxTextView.text.toString().substring(3).toDouble())
+            intent.putExtra("DELIVERY", deliveryTextView.text.toString().substring(3).toDouble())
+            intent.putExtra("TOTAL", totalTextView.text.toString().substring(3).toDouble())
             startActivity(intent)
         }
 
-
-        imgView.setOnClickListener{
+        imgView.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
-
     }
 
     private fun loadCartItems() {
@@ -81,14 +88,16 @@ class CartActivity : AppCompatActivity() {
 
                 for (document in result) {
                     val itemData = document.data
-                     cartTextView.visibility= View.GONE
+                    cartTextView.visibility = View.GONE
+
                     // Safely retrieve and convert fields from Firestore
                     val name = itemData["productName"] as? String ?: "Unknown"
                     val price = (itemData["price"] as? String)?.toDoubleOrNull() ?: 0.0
                     val quantity = (itemData["quantity"] as? Long)?.toInt() ?: 1
-                    val subTotal = (itemData["subTotal"] as? String)?.toDoubleOrNull() ?: price * quantity
+                    val subTotal =
+                        (itemData["subTotal"] as? String)?.toDoubleOrNull() ?: price * quantity
 
-                    // Create com.example.majorproject.dataClass.CartItem object and add to list
+                    // Create CartItem object and add to list
                     val item = CartItem(
                         name = name,
                         price = price,
@@ -104,8 +113,8 @@ class CartActivity : AppCompatActivity() {
                 cartRecyclerView.adapter = CartAdapter(cartItems)
 
                 // Calculate and display tax, delivery fee, and total amount
-                val tax = 0 // Assuming 18% tax rate
-                val delivery = 0// Flat delivery fee
+                val tax = total * 18// Assuming 18% tax rate
+                val delivery = 500.0 // Flat delivery fee
 
                 subTotalTextView.text = "RS. ${"%.2f".format(total)}"
                 taxTextView.text = "RS. ${"%.2f".format(tax)}"
