@@ -12,7 +12,7 @@ class ApplicationClass : Application() {
         val notificationHelper = NotificationHelper()
         notificationHelper.createChannel(this) // Ensure the channel is created before sending notifications
 
-        // Try sending a notification
+
         try {
             notificationHelper.sendNotification(
                 applicationContext,
@@ -25,7 +25,7 @@ class ApplicationClass : Application() {
                 applicationContext,
                 "Special Offer",
                 "Get 20% off your next purchase!",
-                R.drawable.banner3
+                R.drawable.baby
             )
         } catch (e: Exception) {
             Log.e("ApplicationClass", "Error sending notification", e)

@@ -153,6 +153,7 @@ class ProductDescription : AppCompatActivity() {
         }
 
         val cartItem = hashMapOf(
+            "image" to product.images["0"],
             "productName" to product.name,
             "price" to product.price,
             "quantity" to 1  // Default quantity is set to 1; update logic as needed

@@ -8,4 +8,13 @@
     <item name="orderNumberInput" type="id" />
     <item name="orderNumberLabel" type="id" />
     <item name="headerTitle" type="id" />
+    <item name="product_name_label" type="id" />
+    <item name="subtotal_label" type="id" />
+    <item name="subtotal" type="id" />
+    <item name="tax_label" type="id" />
+    <item name="tax" type="id" />
+    <item name="delivery_label" type="id" />
+    <item name="delivery" type="id" />
+    <item name="total_label" type="id" />
+    <item name="total" type="id" />
 </resources>

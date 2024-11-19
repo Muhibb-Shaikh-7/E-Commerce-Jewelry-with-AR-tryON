@@ -91,6 +91,7 @@ class CartActivity : AppCompatActivity() {
                     cartTextView.visibility = View.GONE
 
                     // Safely retrieve and convert fields from Firestore
+                    val image=itemData["image"] as? String ?: "Unknown"
                     val name = itemData["productName"] as? String ?: "Unknown"
                     val price = (itemData["price"] as? String)?.toDoubleOrNull() ?: 0.0
                     val quantity = (itemData["quantity"] as? Long)?.toInt() ?: 1
@@ -99,6 +100,7 @@ class CartActivity : AppCompatActivity() {
 
                     // Create CartItem object and add to list
                     val item = CartItem(
+                        image = image,
                         name = name,
                         price = price,
                         quantity = quantity,
