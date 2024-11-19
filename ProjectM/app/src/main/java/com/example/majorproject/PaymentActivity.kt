@@ -41,7 +41,7 @@ class PaymentActivity : AppCompatActivity() {
         }
 
         // Save data to Firestore after successful payment
-        onPaymentSuccess(cartItems, subTotal, tax, delivery, totalAmount)
+
     }
 
     private fun initiateUpiPayment(amount: Double) {
@@ -72,7 +72,19 @@ class PaymentActivity : AppCompatActivity() {
             if (resultCode == RESULT_OK || resultCode == RESULT_FIRST_USER) {
                 if (data != null) {
                     val response = data.getStringExtra("response")
-                    processUpiResponse(response)
+                    if (response != null && response.contains("SUCCESS", true)) {
+                        Toast.makeText(this, "Payment Successful", Toast.LENGTH_SHORT).show()
+                        // Call onPaymentSuccess after payment confirmation
+                        val cartItems: ArrayList<CartItem>? = intent.getParcelableArrayListExtra("CART_ITEMS")
+                        val subTotal: Double = intent.getDoubleExtra("SUB_TOTAL", 0.00)
+                        val tax: Double = intent.getDoubleExtra("TAX", 0.00)
+                        val delivery: Double = intent.getDoubleExtra("DELIVERY", 0.00)
+                        val totalAmount: Double = intent.getDoubleExtra("TOTAL", 1.00)
+
+                        onPaymentSuccess(cartItems, subTotal, tax, delivery, totalAmount)
+                    } else {
+                        Toast.makeText(this, "Payment Failed", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     Toast.makeText(this, "Payment Cancelled", Toast.LENGTH_SHORT).show()
                 }
@@ -80,9 +92,12 @@ class PaymentActivity : AppCompatActivity() {
         }
     }
 
+
     private fun processUpiResponse(response: String?) {
+        val obj : PaymentActivity
         if (response != null && response.contains("SUCCESS", true)) {
             Toast.makeText(this, "Payment Successful", Toast.LENGTH_SHORT).show()
+
             // Trigger saving the order to Firestore here
         } else {
             Toast.makeText(this, "Payment Failed", Toast.LENGTH_SHORT).show()
@@ -95,7 +110,11 @@ class PaymentActivity : AppCompatActivity() {
         tax: Double,
         delivery: Double,
         total: Double
-    ) {
+
+
+
+    )
+    {
         val currentUserEmail = auth.currentUser?.email
 
         if (currentUserEmail == null) {
@@ -108,6 +127,8 @@ class PaymentActivity : AppCompatActivity() {
             "tax" to tax,
             "delivery" to delivery,
             "total" to total,
+            "status" to "Pending",
+            "timestamp" to System.currentTimeMillis(),
             "items" to cartItems?.map { cartItem ->
                 mapOf(
                     "name" to cartItem.name,
@@ -115,9 +136,7 @@ class PaymentActivity : AppCompatActivity() {
                     "quantity" to cartItem.quantity,
                     "subTotal" to cartItem.subTotal
                 )
-            },
-            "status" to "Pending",
-            "timestamp" to System.currentTimeMillis()
+            }
         )
 
         firestore.collection("users")
@@ -129,11 +148,11 @@ class PaymentActivity : AppCompatActivity() {
                 // Redirect to success or order summary page
                 val intent = Intent(this, OrderConfirmationActivity::class.java)
                 startActivity(intent)
-                finish()
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Failed to place order: ${e.message}", Toast.LENGTH_SHORT)
                     .show()
             }
+
     }
 }
