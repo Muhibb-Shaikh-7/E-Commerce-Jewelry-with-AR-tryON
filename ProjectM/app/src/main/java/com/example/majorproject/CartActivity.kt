@@ -57,6 +57,10 @@ class CartActivity : AppCompatActivity() {
             // Convert cart items to a serializable ArrayList
             val cartItemList = ArrayList(cartItems)
 
+            // Create status and timestamp fields
+            val status = "Pending" // Default order status
+            val timestamp = System.currentTimeMillis() // Current time as timestamp
+
             // Create intent and pass all the required details
             val intent = Intent(this, PaymentActivity::class.java)
             intent.putParcelableArrayListExtra("CART_ITEMS", cartItemList)
@@ -64,6 +68,8 @@ class CartActivity : AppCompatActivity() {
             intent.putExtra("TAX", taxTextView.text.toString().substring(3).toDouble())
             intent.putExtra("DELIVERY", deliveryTextView.text.toString().substring(3).toDouble())
             intent.putExtra("TOTAL", totalTextView.text.toString().substring(3).toDouble())
+            intent.putExtra("STATUS", status)
+            intent.putExtra("TIMESTAMP", timestamp)
             startActivity(intent)
         }
 
@@ -113,7 +119,7 @@ class CartActivity : AppCompatActivity() {
                 cartRecyclerView.adapter = CartAdapter(cartItems)
 
                 // Calculate and display tax, delivery fee, and total amount
-                val tax = total * 18// Assuming 18% tax rate
+                val tax = total * 18 // Assuming 18% tax rate
                 val delivery = 500.0 // Flat delivery fee
 
                 subTotalTextView.text = "RS. ${"%.2f".format(total)}"
