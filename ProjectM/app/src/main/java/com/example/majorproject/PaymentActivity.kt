@@ -131,9 +131,7 @@ class PaymentActivity : AppCompatActivity() {
             }
         )
 
-        firestore.collection("users")
-            .document(currentUserEmail)
-            .collection("orders")
+        firestore.collection("orders")
             .add(orderData)
             .addOnSuccessListener {
                 Toast.makeText(this, "Order placed successfully!", Toast.LENGTH_SHORT).show()
