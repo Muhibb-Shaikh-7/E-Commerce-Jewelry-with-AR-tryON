@@ -128,4 +128,14 @@
         android:text="Pay Now"
         android:textColor="@android:color/white"
         android:backgroundTint="@color/colorPrimary" />
+    <Button
+        android:id="@+id/test_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/total_label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="78dp"
+        android:text="test"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/colorPrimary" />
 </RelativeLayout>
