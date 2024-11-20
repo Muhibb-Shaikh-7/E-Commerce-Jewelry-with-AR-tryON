@@ -2,13 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/main"
-   >
-<ScrollView 
+    android:id="@+id/main">
+<ScrollView
     android:padding="16dp"
-    android:background="@android:color/white" 
+    android:background="@android:color/white"
     android:layout_height="match_parent"
      android:layout_width="match_parent">
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -82,17 +83,15 @@
                 android:orientation="vertical"
                 android:gravity="center">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_check" />
+
 
                 <TextView
+                    android:id="@+id/confirmed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Confirmed"
                     android:textSize="12sp"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/holo_red_light" />
             </LinearLayout>
 
             <!-- com.example.majorproject.dataClass.Order Processed -->
@@ -103,17 +102,15 @@
                 android:orientation="vertical"
                 android:gravity="center">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_check_gray" />
+
 
                 <TextView
+                    android:id="@+id/processed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Processed"
                     android:textSize="12sp"
-                    android:textColor="@android:color/darker_gray" />
+                    android:textColor="@android:color/holo_red_light" />
             </LinearLayout>
 
             <!-- Shipped -->
@@ -124,17 +121,15 @@
                 android:orientation="vertical"
                 android:gravity="center">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_check_gray" />
+
 
                 <TextView
+                    android:id="@+id/shipped"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Shipped"
                     android:textSize="12sp"
-                    android:textColor="@android:color/darker_gray" />
+                    android:textColor="@android:color/holo_red_light" />
             </LinearLayout>
 
             <!-- Out for Delivery -->
@@ -145,17 +140,14 @@
                 android:orientation="vertical"
                 android:gravity="center">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_check_gray" />
 
                 <TextView
+                    android:id="@+id/outForDelivery"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Out for Delivery"
                     android:textSize="12sp"
-                    android:textColor="@android:color/darker_gray" />
+                    android:textColor="@android:color/holo_red_light" />
             </LinearLayout>
 
             <!-- Delivered -->
@@ -166,17 +158,15 @@
                 android:orientation="vertical"
                 android:gravity="center">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_check_gray" />
+
 
                 <TextView
+                    android:id="@+id/delivered"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Delivered"
                     android:textSize="12sp"
-                    android:textColor="@android:color/darker_gray" />
+                    android:textColor="@android:color/holo_red_light" />
             </LinearLayout>
         </LinearLayout>
 
@@ -211,7 +201,7 @@
                 android:paddingStart="8dp">
 
                 <TextView
-                    android:id="@+id/itemName"
+                    android:id="@+id/productName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Product Name"
@@ -219,19 +209,17 @@
                     android:textColor="@android:color/black" />
 
                 <TextView
-                    android:id="@+id/itemQuantity"
+                    android:id="@+id/productQuantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Qty: 1"
                     android:textSize="14sp"
-                    android:textColor="@android:color/darker_gray" />
+                    android:textColor="@android:color/black" />
             </LinearLayout>
 
             <TextView
-                android:id="@+id/itemPrice"
+                android:id="@+id/productPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RS. 50"
                 android:textSize="14sp"
                 android:textColor="@android:color/black" />
         </LinearLayout>
@@ -241,7 +229,7 @@
             android:id="@+id/shippingAddressTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Shipping Address:"
+            android:text="Shipping Email:"
             android:textSize="16sp"
             android:textStyle="bold"
             android:paddingTop="16dp" />
@@ -250,16 +238,24 @@
             android:id="@+id/shippingAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="John Doe, 123 Main St, New York, NY 10001"
+            android:text="Email"
             android:textSize="14sp"
             android:textColor="@android:color/black" />
 
         <!-- Carrier Information -->
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tracking ID:"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:paddingTop="8dp" />
+
+        <TextView
             android:id="@+id/carrierInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Shipped via DHL | Tracking ID: XYZ123456"
+            android:text="Tracking ID: XYZ123456"
             android:textSize="14sp"
             android:textColor="@android:color/darker_gray"
             android:paddingTop="8dp" />
@@ -273,14 +269,6 @@
             android:paddingTop="16dp">
 
             <Button
-                android:id="@+id/cancelOrderButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cancel Order"
-                android:textColor="@android:color/white"
-                android:backgroundTint="@android:color/holo_red_dark" />
-
-            <Button
                 android:id="@+id/contactSupportButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -289,6 +277,38 @@
                 android:backgroundTint="@android:color/holo_blue_dark"
                 android:layout_marginStart="16dp" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="16dp"
+            android:gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/trackingIdInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:hint="Enter Tracking ID"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:padding="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/fetchOrderButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Fetch"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@android:color/holo_blue_dark" />
+        </LinearLayout>
+
 
     </LinearLayout>
 </ScrollView>
