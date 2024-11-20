@@ -28,7 +28,7 @@ class AdminDashboard : AppCompatActivity() {
 //            startActivity(intent)
 //        }
 //
-           findViewById<ImageView>(R.id.admin_track_status).setOnClickListener {
+           findViewById<CardView>(R.id.admin_track_status).setOnClickListener {
 
             val intent = Intent(this, EditOrderStatusActivity::class.java)
             startActivity(intent)
