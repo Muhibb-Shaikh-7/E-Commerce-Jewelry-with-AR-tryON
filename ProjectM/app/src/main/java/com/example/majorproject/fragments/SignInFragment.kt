@@ -48,8 +48,7 @@ class SignInFragment : Fragment() {
         emailEditText = view.findViewById(R.id.emailAddress)
         passwordEditText = view.findViewById(R.id.Password)
         loginButton = view.findViewById(R.id.sign_in_button)
-
-      signUpLink= view.findViewById(R.id.signupLink)
+        signUpLink= view.findViewById(R.id.signupLink)
 
         loginButton.setOnClickListener {
             if (emailEditText.text.toString()=="admin"&&passwordEditText.text.toString()=="admin"){
