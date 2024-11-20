@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.majorproject.adapters.CartAdapter
+import com.example.majorproject.navigation.Container
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -68,7 +69,7 @@ class CartActivity : AppCompatActivity() {
         }
 
         imgView.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, Container::class.java)
             startActivity(intent)
         }
     }

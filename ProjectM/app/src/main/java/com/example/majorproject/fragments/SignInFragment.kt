@@ -32,6 +32,7 @@ class SignInFragment : Fragment() {
     private lateinit var loginButton: Button
     private lateinit var  signUpLink: TextView
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
@@ -47,6 +48,7 @@ class SignInFragment : Fragment() {
         emailEditText = view.findViewById(R.id.emailAddress)
         passwordEditText = view.findViewById(R.id.Password)
         loginButton = view.findViewById(R.id.sign_in_button)
+
       signUpLink= view.findViewById(R.id.signupLink)
 
         loginButton.setOnClickListener {
@@ -56,7 +58,13 @@ class SignInFragment : Fragment() {
             else
             loginUser()
         }
-
+       view.findViewById<TextView>(R.id.forget_password).setOnClickListener {
+           activity?.let { activity ->
+               if (activity is AuthenticationSelection) {
+                   (activity as? AuthenticationSelection)?.switchFragment(2)
+               }
+           }
+       }
         signUpLink.setOnClickListener {
             // Switch to SignInFragment (ViewPager2 position 0)
             activity?.let { activity ->
