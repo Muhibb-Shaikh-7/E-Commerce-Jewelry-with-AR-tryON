@@ -3,13 +3,16 @@ package com.example.majorproject.dataClass
 import android.os.Parcel
 import android.os.Parcelable
 
-data class CartItem(
+data class
+CartItem(
+    val image :String,
     val name: String,
     val price: Double,
     val quantity: Int,
     val subTotal: Double
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString().orEmpty(),
         parcel.readString().orEmpty(),
         parcel.readDouble(),
         parcel.readInt(),

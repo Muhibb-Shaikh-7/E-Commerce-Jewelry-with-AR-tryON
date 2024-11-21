@@ -29,30 +29,39 @@ class PaymentActivity : AppCompatActivity() {
         firestore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
 
+        // Retrieve passed data
         val totalAmount: Double = intent.getDoubleExtra("TOTAL", 1.00)
         val cartItems: ArrayList<CartItem>? = intent.getParcelableArrayListExtra("CART_ITEMS")
         val subTotal: Double = intent.getDoubleExtra("SUB_TOTAL", 0.00)
         val tax: Double = intent.getDoubleExtra("TAX", 0.00)
         val delivery: Double = intent.getDoubleExtra("DELIVERY", 0.00)
 
+        // Initialize buttons
         val payButton: Button = findViewById(R.id.pay_button)
+        val testButton: Button = findViewById(R.id.test_button)
+
         payButton.setOnClickListener {
             initiateUpiPayment(totalAmount)
         }
 
-        // Save data to Firestore after successful payment
-
+        testButton.setOnClickListener {
+            // Directly save test payment to Firestore
+            onPaymentSuccess(
+                cartItems, subTotal, tax, delivery, totalAmount,
+                "Test Order", System.currentTimeMillis()
+            )
+        }
     }
 
     private fun initiateUpiPayment(amount: Double) {
         val uri = Uri.Builder()
             .scheme("upi")
             .authority("pay")
-            .appendQueryParameter("pa", UPI_ID) // Payee VPA (UPI ID)
-            .appendQueryParameter("pn", MERCHANT_NAME) // Payee name
-            .appendQueryParameter("tn", TRANSACTION_NOTE) // Transaction note
-            .appendQueryParameter("am", amount.toString()) // Amount
-            .appendQueryParameter("cu", "INR") // Currency
+            .appendQueryParameter("pa", UPI_ID)
+            .appendQueryParameter("pn", MERCHANT_NAME)
+            .appendQueryParameter("tn", TRANSACTION_NOTE)
+            .appendQueryParameter("am", amount.toString())
+            .appendQueryParameter("cu", "INR")
             .build()
 
         val intent = Intent(Intent.ACTION_VIEW)
@@ -70,37 +79,22 @@ class PaymentActivity : AppCompatActivity() {
 
         if (requestCode == UPI_PAYMENT_REQUEST_CODE) {
             if (resultCode == RESULT_OK || resultCode == RESULT_FIRST_USER) {
-                if (data != null) {
-                    val response = data.getStringExtra("response")
-                    if (response != null && response.contains("SUCCESS", true)) {
-                        Toast.makeText(this, "Payment Successful", Toast.LENGTH_SHORT).show()
-                        // Call onPaymentSuccess after payment confirmation
-                        val cartItems: ArrayList<CartItem>? = intent.getParcelableArrayListExtra("CART_ITEMS")
-                        val subTotal: Double = intent.getDoubleExtra("SUB_TOTAL", 0.00)
-                        val tax: Double = intent.getDoubleExtra("TAX", 0.00)
-                        val delivery: Double = intent.getDoubleExtra("DELIVERY", 0.00)
-                        val totalAmount: Double = intent.getDoubleExtra("TOTAL", 1.00)
+                val response = data?.getStringExtra("response")
+                if (response != null && response.contains("SUCCESS", true)) {
+                    Toast.makeText(this, "Payment Successful", Toast.LENGTH_SHORT).show()
+                    val cartItems: ArrayList<CartItem>? = intent.getParcelableArrayListExtra("CART_ITEMS")
+                    val subTotal: Double = intent.getDoubleExtra("SUB_TOTAL", 0.00)
+                    val tax: Double = intent.getDoubleExtra("TAX", 0.00)
+                    val delivery: Double = intent.getDoubleExtra("DELIVERY", 0.00)
+                    val totalAmount: Double = intent.getDoubleExtra("TOTAL", 1.00)
 
-                        onPaymentSuccess(cartItems, subTotal, tax, delivery, totalAmount)
-                    } else {
-                        Toast.makeText(this, "Payment Failed", Toast.LENGTH_SHORT).show()
-                    }
+                    onPaymentSuccess(cartItems, subTotal, tax, delivery, totalAmount, "Confirmed", System.currentTimeMillis())
                 } else {
-                    Toast.makeText(this, "Payment Cancelled", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Payment Failed", Toast.LENGTH_SHORT).show()
                 }
+            } else {
+                Toast.makeText(this, "Payment Cancelled", Toast.LENGTH_SHORT).show()
             }
-        }
-    }
-
-
-    private fun processUpiResponse(response: String?) {
-        val obj : PaymentActivity
-        if (response != null && response.contains("SUCCESS", true)) {
-            Toast.makeText(this, "Payment Successful", Toast.LENGTH_SHORT).show()
-
-            // Trigger saving the order to Firestore here
-        } else {
-            Toast.makeText(this, "Payment Failed", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -109,12 +103,10 @@ class PaymentActivity : AppCompatActivity() {
         subTotal: Double,
         tax: Double,
         delivery: Double,
-        total: Double
-
-
-
-    )
-    {
+        total: Double,
+        status: String,
+        timestamp: Long
+    ) {
         val currentUserEmail = auth.currentUser?.email
 
         if (currentUserEmail == null) {
@@ -127,8 +119,8 @@ class PaymentActivity : AppCompatActivity() {
             "tax" to tax,
             "delivery" to delivery,
             "total" to total,
-            "status" to "Pending",
-            "timestamp" to System.currentTimeMillis(),
+            "status" to "Confirmed",
+            "timestamp" to timestamp,
             "items" to cartItems?.map { cartItem ->
                 mapOf(
                     "name" to cartItem.name,
@@ -139,20 +131,14 @@ class PaymentActivity : AppCompatActivity() {
             }
         )
 
-        firestore.collection("users")
-            .document(currentUserEmail)
-            .collection("orders")
+        firestore.collection("orders")
             .add(orderData)
             .addOnSuccessListener {
                 Toast.makeText(this, "Order placed successfully!", Toast.LENGTH_SHORT).show()
-                // Redirect to success or order summary page
-                val intent = Intent(this, OrderConfirmationActivity::class.java)
-                startActivity(intent)
+                startActivity(Intent(this, OrderConfirmationActivity::class.java))
             }
             .addOnFailureListener { e ->
-                Toast.makeText(this, "Failed to place order: ${e.message}", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(this, "Failed to place order: ${e.message}", Toast.LENGTH_SHORT).show()
             }
-
     }
 }

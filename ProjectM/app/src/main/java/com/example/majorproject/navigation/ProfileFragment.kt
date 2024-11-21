@@ -15,6 +15,7 @@ import com.example.majorproject.AuthenticationSelection
 import com.example.majorproject.CartActivity
 import com.example.majorproject.R
 import com.example.majorproject.TrackOrder
+import com.example.majorproject.OrderHistory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -75,7 +76,7 @@ class ProfileFragment : Fragment() {
 
         orderForwardImg.setOnClickListener {
             // Replace TrackOrder with the actual OrderActivity if there is one
-            startActivity(Intent(requireContext(), CartActivity::class.java))
+            startActivity(Intent(requireContext(), OrderHistory::class.java))
         }
 
         trackOrderForwardImg.setOnClickListener {
