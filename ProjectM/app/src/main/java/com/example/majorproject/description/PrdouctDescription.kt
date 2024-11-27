@@ -152,28 +152,50 @@ class ProductDescription : AppCompatActivity() {
             return
         }
 
-        val cartItem = hashMapOf(
-            "image" to product.images["0"],
-            "productName" to product.name,
-            "price" to product.price,
-            "quantity" to 1  // Default quantity is set to 1; update logic as needed
-        )
-
         val userDocRef = firestore.collection("users").document(userEmail)
-        userDocRef.collection("cart")
-            .document(product.name)  // Using product name as document ID for uniqueness
-            .set(cartItem, SetOptions.merge())  // Merge to prevent overwriting existing fields
-            .addOnSuccessListener {
-                Toast.makeText(this, "Added to cart", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, CartActivity::class.java))
-                Log.d("ProductDescription", "Successfully added product to cart")
+        val cartItemDocRef = userDocRef.collection("cart").document(product.name)
+
+        // Check if the product already exists in the cart
+        cartItemDocRef.get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    // Product already exists in the cart
+                    Toast.makeText(this, "Product is already in the cart", Toast.LENGTH_SHORT).show()
+                } else {
+                    // Product doesn't exist, add it to the cart
+                    val cartItem = hashMapOf(
+                        "image" to product.images["0"],
+                        "productName" to product.name,
+                        "price" to product.price,
+                        "quantity" to 1  // Default quantity is set to 1
+                    )
+
+                    cartItemDocRef.set(cartItem, SetOptions.merge())
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "Added to cart", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this, CartActivity::class.java))
+                            Log.d("ProductDescription", "Successfully added product to cart")
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(
+                                this,
+                                "Failed to add to cart: ${e.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            Log.e("ProductDescription", "Error adding product to cart: ${e.message}", e)
+                        }
+                }
             }
             .addOnFailureListener { e ->
-                Toast.makeText(this, "Failed to add to cart: ${e.message}", Toast.LENGTH_SHORT)
-                    .show()
-                Log.e("ProductDescription", "Error adding product to cart: ${e.message}", e)
+                Toast.makeText(
+                    this,
+                    "Failed to check cart: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+                Log.e("ProductDescription", "Error checking cart: ${e.message}", e)
             }
     }
+
 
     private fun setProductSpecificationRecyclerView(product: Product) {
 
