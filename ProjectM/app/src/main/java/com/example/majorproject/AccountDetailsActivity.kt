@@ -35,8 +35,7 @@ class AccountDetailsActivity : AppCompatActivity() {
         }
 
         backbtn.setOnClickListener {
-            val intent = Intent(this, ProfileFragment::class.java)
-            startActivity(intent)
+            onBackPressed()
         }
 
 
@@ -76,5 +75,9 @@ class AccountDetailsActivity : AppCompatActivity() {
             addressTextView.text = "User not logged in"
             phoneNumberTextView.text = "User not logged in"
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }
