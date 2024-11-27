@@ -46,8 +46,8 @@ class OrderConfirmationActivity : AppCompatActivity() {
                 for (document in result) {
                     val itemData = document.data
 
-                    val name = itemData["productName"] as? String ?: "Unknown"
-                    val price = (itemData["price"] as? String)?.toDoubleOrNull() ?: 0.0
+                    val name = itemData["productName"] as? String ?: "Unknown Product"
+                    val price = (itemData["price"] as? Double) ?: 0.0
                     val quantity = (itemData["quantity"] as? Long)?.toInt() ?: 1
                     val subTotal = price * quantity
 
@@ -58,7 +58,7 @@ class OrderConfirmationActivity : AppCompatActivity() {
 
                 val tax = (total * 18) / 100 // Assuming 18% tax
                 val deliveryFee = 500.0 // Flat delivery fee
-                val totalAmount : Long = total.toLong() + tax.toLong() + deliveryFee.toLong()
+                val totalAmount = (total + tax + deliveryFee).toLong()
 
                 val orderData = mapOf(
                     "orderId" to orderId,
@@ -77,7 +77,7 @@ class OrderConfirmationActivity : AppCompatActivity() {
                         orderIdTextView.text = "Order ID: $orderId"
                         trackIdTextView.text = "Track ID: $trackId"
                         orderDetailsTextView.text = orderDetails.toString()
-                        totalAmountTextView.text = "Total Amount: RS. ${"%.2f".format(totalAmount)}"
+                        totalAmountTextView.text = "Total Amount: RS. ${"%.2f".format(totalAmount.toDouble())}"
                     }
                     .addOnFailureListener { e ->
                         orderDetailsTextView.text = "Failed to save order: ${e.message}"
@@ -87,4 +87,5 @@ class OrderConfirmationActivity : AppCompatActivity() {
                 orderDetailsTextView.text = "Failed to fetch cart items: ${e.message}"
             }
     }
+
 }
