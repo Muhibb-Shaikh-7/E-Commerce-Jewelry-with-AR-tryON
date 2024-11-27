@@ -36,8 +36,8 @@ class CartActivity : AppCompatActivity() {
         cartRecyclerView = findViewById(R.id.cartRecyclerView)
         totalTextView = findViewById(R.id.textView4)
         taxTextView = findViewById(R.id.textView8)
-        deliveryTextView = findViewById(R.id.textView9)
-        subTotalTextView = findViewById(R.id.textView10)
+        deliveryTextView = findViewById(R.id.textView10)
+        subTotalTextView = findViewById(R.id.textView9)
         imgView = findViewById(R.id.back)
         checkOutButton = findViewById(R.id.checkOutButton)
         changeAddress = findViewById(R.id.changeAddress)
@@ -62,17 +62,24 @@ class CartActivity : AppCompatActivity() {
             val status = "Pending" // Default order status
             val timestamp = System.currentTimeMillis() // Current time as timestamp
 
+            // Retrieve values from TextViews and parse them correctly as Doubles
+            val subTotal = subTotalTextView.text.toString().removePrefix("RS.").toDoubleOrNull() ?: 0.0
+            val tax = taxTextView.text.toString().removePrefix("RS.").toDoubleOrNull() ?: 0.0
+            val delivery = deliveryTextView.text.toString().removePrefix("RS.").toDoubleOrNull() ?: 0.0
+            val total = totalTextView.text.toString().removePrefix("RS.").toDoubleOrNull() ?: 0.0
+
             // Create intent and pass all the required details
             val intent = Intent(this, PaymentActivity::class.java)
             intent.putParcelableArrayListExtra("CART_ITEMS", cartItemList)
-            intent.putExtra("SUB_TOTAL", subTotalTextView.text.toString().substring(3).toDouble())
-            intent.putExtra("TAX", taxTextView.text.toString().substring(3).toDouble())
-            intent.putExtra("DELIVERY", deliveryTextView.text.toString().substring(3).toDouble())
-            intent.putExtra("TOTAL", totalTextView.text.toString().substring(3).toDouble())
+            intent.putExtra("SUB_TOTAL", subTotal)
+            intent.putExtra("TAX", tax)
+            intent.putExtra("DELIVERY", delivery)
+            intent.putExtra("TOTAL", total)
             intent.putExtra("STATUS", status)
             intent.putExtra("TIMESTAMP", timestamp)
             startActivity(intent)
         }
+
 
         imgView.setOnClickListener {
             val intent = Intent(this, Container::class.java)
