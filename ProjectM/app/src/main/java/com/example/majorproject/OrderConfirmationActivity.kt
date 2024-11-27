@@ -56,9 +56,9 @@ class OrderConfirmationActivity : AppCompatActivity() {
                     total += subTotal
                 }
 
-                val tax = total * 0.18 // Assuming 18% tax
+                val tax = (total * 18) / 100 // Assuming 18% tax
                 val deliveryFee = 500.0 // Flat delivery fee
-                val totalAmount = total + tax + deliveryFee
+                val totalAmount : Long = total.toLong() + tax.toLong() + deliveryFee.toLong()
 
                 val orderData = mapOf(
                     "orderId" to orderId,
