@@ -66,7 +66,6 @@ dependencies {
     implementation(libs.firebase.storage.ktx)
     implementation(libs.androidx.core.animation)
     implementation(libs.androidx.navigation.ui.ktx)
-    //implementation("com.paulrybitskyi.persistentsearchview:persistentsearchview:1.0.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
