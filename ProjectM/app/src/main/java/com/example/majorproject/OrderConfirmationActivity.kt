@@ -1,6 +1,7 @@
 package com.example.majorproject
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -37,6 +38,11 @@ class OrderConfirmationActivity : AppCompatActivity() {
         firestore.collection("users").document(currentUserEmail).collection("cart")
             .get()
             .addOnSuccessListener { result ->
+                if (result.isEmpty) {
+                    orderDetailsTextView.text = "Your cart is empty."
+                    return@addOnSuccessListener
+                }
+
                 val orderId = UUID.randomUUID().toString()
                 val trackId = UUID.randomUUID().toString()
                 var total = 0.0
@@ -47,18 +53,35 @@ class OrderConfirmationActivity : AppCompatActivity() {
                     val itemData = document.data
 
                     val name = itemData["productName"] as? String ?: "Unknown Product"
-                    val price = (itemData["price"] as? Double) ?: 0.0
+                    val price = (itemData["price"] as? String)?.toDoubleOrNull() ?: 0.0
                     val quantity = (itemData["quantity"] as? Long)?.toInt() ?: 1
-                    val subTotal = price * quantity
 
+                    if (price <= 0.0) {
+                        orderDetails.append("• $name: Price is not available\n")
+                        continue // Skip items with invalid price
+                    }
+
+                    val subTotal = price * quantity
                     orderDetails.append("• $name (x$quantity): RS. ${"%.2f".format(subTotal)}\n")
-                    orderItems.add(mapOf("productName" to name, "price" to price, "quantity" to quantity))
+                    orderItems.add(
+                        mapOf(
+                            "name" to name,
+                            "price" to price,
+                            "quantity" to quantity,
+                            "subTotal" to subTotal
+                        )
+                    )
                     total += subTotal
+                }
+
+                if (orderItems.isEmpty()) {
+                    orderDetailsTextView.text = "No valid items to place an order."
+                    return@addOnSuccessListener
                 }
 
                 val tax = (total * 18) / 100 // Assuming 18% tax
                 val deliveryFee = 500.0 // Flat delivery fee
-                val totalAmount = (total + tax + deliveryFee).toLong()
+                val totalAmount = total + tax + deliveryFee
 
                 val orderData = mapOf(
                     "orderId" to orderId,
@@ -77,7 +100,10 @@ class OrderConfirmationActivity : AppCompatActivity() {
                         orderIdTextView.text = "Order ID: $orderId"
                         trackIdTextView.text = "Track ID: $trackId"
                         orderDetailsTextView.text = orderDetails.toString()
-                        totalAmountTextView.text = "Total Amount: RS. ${"%.2f".format(totalAmount.toDouble())}"
+                        totalAmountTextView.text = "Total Amount: RS. ${"%.2f".format(totalAmount)}"
+
+                        // Clear the user's cart after placing the order
+                        clearCart(currentUserEmail)
                     }
                     .addOnFailureListener { e ->
                         orderDetailsTextView.text = "Failed to save order: ${e.message}"
@@ -85,6 +111,20 @@ class OrderConfirmationActivity : AppCompatActivity() {
             }
             .addOnFailureListener { e ->
                 orderDetailsTextView.text = "Failed to fetch cart items: ${e.message}"
+            }
+    }
+
+    private fun clearCart(userEmail: String) {
+        firestore.collection("users").document(userEmail).collection("cart")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    document.reference.delete()
+                }
+            }
+            .addOnFailureListener { e ->
+                // Handle failure to clear the cart
+                Log.e("OrderConfirmation", "Failed to clear cart: ${e.message}")
             }
     }
 
