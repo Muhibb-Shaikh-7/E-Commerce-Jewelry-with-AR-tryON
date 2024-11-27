@@ -90,7 +90,7 @@ class CartActivity : AppCompatActivity() {
         firestore.collection("users").document(currentUserEmail).collection("cart")
             .get()
             .addOnSuccessListener { result ->
-                var total = 0.0
+                var total : Long = 0L
                 val cartItems = mutableListOf<CartItem>()
 
                 for (document in result) {
@@ -98,20 +98,21 @@ class CartActivity : AppCompatActivity() {
                     cartTextView.visibility = View.GONE
 
                     // Safely retrieve and convert fields from Firestore
-                    val image=itemData["image"] as? String ?: "Unknown"
+                    val image = itemData["image"] as? String ?: "Unknown"
                     val name = itemData["productName"] as? String ?: "Unknown"
-                    val price = (itemData["price"] as? String)?.toDoubleOrNull() ?: 0.0
+                    val price = (itemData["price"] as? String)?.toDoubleOrNull()?.toLong() ?: 0L
                     val quantity = (itemData["quantity"] as? Long)?.toInt() ?: 1
                     val subTotal =
-                        (itemData["subTotal"] as? String)?.toDoubleOrNull() ?: price * quantity
+                        ((itemData["subTotal"] as? String)?.toDoubleOrNull()?.toLong()
+                            ?: (price * quantity.toLong()))
 
                     // Create CartItem object and add to list
                     val item = CartItem(
                         image = image,
                         name = name,
-                        price = price,
+                        price = price.toDouble(),
                         quantity = quantity,
-                        subTotal = subTotal
+                        subTotal = subTotal.toDouble()
                     )
                     cartItems.add(item)
 
@@ -122,7 +123,7 @@ class CartActivity : AppCompatActivity() {
                 cartRecyclerView.adapter = CartAdapter(cartItems)
 
                 // Calculate and display tax, delivery fee, and total amount
-                val tax = total * 18 // Assuming 18% tax rate
+                val tax = (total * 18.0) / 100 // Assuming 18% tax rate
                 val delivery = 500.0 // Flat delivery fee
 
                 subTotalTextView.text = "RS. ${"%.2f".format(total)}"
