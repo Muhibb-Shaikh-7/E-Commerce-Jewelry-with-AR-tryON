@@ -1,4 +1,5 @@
 package com.example.majorproject.adapters
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.majorproject.R
 import com.example.majorproject.dataClass.CartItem
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 
@@ -32,8 +34,28 @@ class CartAdapter(private val cartItems: List<CartItem>) : RecyclerView.Adapter<
         holder.productPrice.text = "RS. ${"%.2f".format(item.price)}"
         holder.productQuantity.text = "Qty: ${item.quantity}"
         Picasso.get().load(item.image).into(holder.image)
+
+        // Set delete button functionality
         holder.delete.setOnClickListener {
-          FirebaseFirestore.getInstance().collection("cart").document(holder.productName.text.toString()).delete()
+            // Replace this with the actual user email if known or dynamically fetched
+            // Example email from Firestore structure
+
+            // Delete the document from Firestore
+            FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(FirebaseAuth.getInstance().currentUser?.email ?:"")
+                .collection("cart")
+                .document(item.name) // Document name should match the product name or its ID
+                .delete()
+                .addOnSuccessListener {
+                    // Optionally notify the user about successful deletion
+                    cartItems.toMutableList().remove(item)
+                    notifyItemRemoved(position)
+                }
+                .addOnFailureListener { e ->
+                    // Handle errors
+                    Log.e("CartAdapter", "Error deleting item: ${e.message}")
+                }
         }
     }
 

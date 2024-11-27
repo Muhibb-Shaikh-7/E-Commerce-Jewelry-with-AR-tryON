@@ -138,21 +138,18 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
 
     private fun fetchAllAuspiciousProducts() {
         val db = FirebaseFirestore.getInstance()
-        progressBarProducts.visibility=View.VISIBLE
+        progressBarProducts.visibility = View.VISIBLE
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // Convert itemType2 and selectedGender to lowercase and fetch from the specified path
+                // Query items where the "item-type" in productSpecification equals "ring"
                 val productTypeRef = db.collection("Items")
+                    .whereEqualTo("productSpecification.item-type", "ring")
 
-
-                // Fetch all items within the specified "Items" collection
+                // Fetch the filtered items
                 val itemsSnapshot = productTypeRef.get().await()
                 if (itemsSnapshot.isEmpty) {
-                    Log.e(
-                        "fetchAllProducts",
-                        "No items found in specified path: "
-                    )
+                    Log.e("fetchAllProducts", "No items found with item-type: ring")
                     return@launch
                 }
 
@@ -187,20 +184,18 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
                             ),
                             productSpecification = mapOf(
                                 "Brand" to "Mahavir",
-                                "collection" to (priceBreakingMap?.get("collection").toString()
-                                    ?: ""),
+                                "collection" to (priceBreakingMap?.get("collection").toString() ?: ""),
                                 "design-type" to (priceBreakingMap?.get("design-type").toString()
                                     ?: ""),
                                 "diamond-clarity" to "22k",
                                 "diamond-settings" to "121k",
                                 "country-of-origin" to "india",
-                                "diamond-carat" to (specificationMap?.get("diamond-carat")
-                                    .toString() ?: ""),
+                                "diamond-carat" to (specificationMap?.get("diamond-carat").toString()
+                                    ?: ""),
                                 "diamond-weight" to (specificationMap?.get("diamond-weight")
                                     .toString() ?: ""),
                                 "gender" to (specificationMap?.get("gender").toString() ?: ""),
-                                "item-type" to (specificationMap?.get("item-type").toString()
-                                    ?: ""),
+                                "item-type" to (specificationMap?.get("item-type").toString() ?: ""),
                                 "jewellery-type" to (specificationMap?.get("jewellery-type")
                                     .toString() ?: ""),
                                 "karatage" to (specificationMap?.get("karatage").toString() ?: ""),
@@ -234,7 +229,7 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
 
                         withContext(Dispatchers.Main) {
                             adapter.notifyDataSetChanged()
-                            progressBarProducts.visibility=View.GONE
+                            progressBarProducts.visibility = View.GONE
                         }
                         Log.d("fetchAllProducts", "Fetched item: ${product.name}")
                     } else {
@@ -243,9 +238,14 @@ class HomeFragment : Fragment(), ItemAdapter.OnItemClickListener {
                 }
             } catch (e: Exception) {
                 Log.e("fetchAllProducts", "Error fetching products", e)
+                withContext(Dispatchers.Main) {
+                    progressBarProducts.visibility = View.GONE
+                    Toast.makeText(context, "Error loading products", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
+
     override fun onItemClick(clickedItem: item) {
         // Access the Product directly from clickedItem
         val selectedProduct = clickedItem.product

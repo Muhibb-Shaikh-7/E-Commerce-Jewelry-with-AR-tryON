@@ -26,6 +26,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.example.majorproject.CartActivity
 import com.example.majorproject.R
 import com.example.majorproject.contactus.CallNow
 import com.example.majorproject.Search.SearchActivity
@@ -104,6 +105,9 @@ class Container : AppCompatActivity() {
         binding.you.setOnClickListener {
             binding.relativeLayout.removeView(binding.headerTitle)
             selectFragment(4, ProfileFragment(), binding.you, binding.you2)
+        }
+        binding.cartIcon.setOnClickListener {
+            startActivity(Intent(this@Container, CartActivity::class.java))
         }
     }
 
