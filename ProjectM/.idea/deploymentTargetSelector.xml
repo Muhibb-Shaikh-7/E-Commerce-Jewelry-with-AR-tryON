@@ -2,8 +2,14 @@
 <project version="4">
   <component name="deploymentTargetSelector">
     <selectionStates>
+<<<<<<< HEAD
       <SelectionState runConfigName="app">
-      <SelectionState runConfigName="TrackOrder">
+=======
+      <SelectionState runConfigName="App">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="CartActivity">
+>>>>>>> 1dc76726693690bca12705329f66c6a3646a94f0
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

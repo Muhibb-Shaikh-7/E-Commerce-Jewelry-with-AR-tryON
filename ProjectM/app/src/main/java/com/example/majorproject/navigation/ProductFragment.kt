@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -48,6 +49,22 @@ lateinit var adapter:ItemAdapter
 
 
         fetchAllAuspiciousProducts()
+      view.findViewById<ImageView>(R.id.banner1).setOnClickListener{
+          navigateToCategoryActivity("necklace")
+      }
+      view.findViewById<ImageView>(R.id.banner2).setOnClickListener{
+          navigateToCategoryActivity("ring")
+      }
+        view.findViewById<ImageView>(R.id.ring_explore).setOnClickListener{
+            navigateToCategoryActivity("ring")
+        }
+        view.findViewById<ImageView>(R.id.necklace_explore).setOnClickListener{
+            navigateToCategoryActivity("necklace")
+
+        }
+        view.findViewById<ImageView>(R.id.bracelet_explore).setOnClickListener{
+            navigateToCategoryActivity("bracelet")
+        }
 
         return view
     }
@@ -176,5 +193,11 @@ lateinit var adapter:ItemAdapter
             Log.d("ProductDescription", "Selected product not found")
         }
     }
+    private fun navigateToCategoryActivity(category: String) {
+        val intent = Intent(context, Categories::class.java)
+        intent.putExtra("selected_category", category)
+        startActivity(intent)
     }
+
+}
 

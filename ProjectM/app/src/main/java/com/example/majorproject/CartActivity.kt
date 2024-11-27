@@ -36,8 +36,8 @@ class CartActivity : AppCompatActivity() {
         cartRecyclerView = findViewById(R.id.cartRecyclerView)
         totalTextView = findViewById(R.id.textView4)
         taxTextView = findViewById(R.id.textView8)
-        deliveryTextView = findViewById(R.id.textView9)
-        subTotalTextView = findViewById(R.id.textView10)
+        deliveryTextView = findViewById(R.id.textView10)
+        subTotalTextView = findViewById(R.id.textView9)
         imgView = findViewById(R.id.back)
         checkOutButton = findViewById(R.id.checkOutButton)
         changeAddress = findViewById(R.id.changeAddress)
@@ -62,17 +62,24 @@ class CartActivity : AppCompatActivity() {
             val status = "Pending" // Default order status
             val timestamp = System.currentTimeMillis() // Current time as timestamp
 
+            // Retrieve values from TextViews and parse them correctly as Doubles
+            val subTotal = subTotalTextView.text.toString().removePrefix("RS.").toDoubleOrNull() ?: 0.0
+            val tax = taxTextView.text.toString().removePrefix("RS.").toDoubleOrNull() ?: 0.0
+            val delivery = deliveryTextView.text.toString().removePrefix("RS.").toDoubleOrNull() ?: 0.0
+            val total = totalTextView.text.toString().removePrefix("RS.").toDoubleOrNull() ?: 0.0
+
             // Create intent and pass all the required details
             val intent = Intent(this, PaymentActivity::class.java)
             intent.putParcelableArrayListExtra("CART_ITEMS", cartItemList)
-            intent.putExtra("SUB_TOTAL", subTotalTextView.text.toString().substring(3).toDouble())
-            intent.putExtra("TAX", taxTextView.text.toString().substring(3).toDouble())
-            intent.putExtra("DELIVERY", deliveryTextView.text.toString().substring(3).toDouble())
-            intent.putExtra("TOTAL", totalTextView.text.toString().substring(3).toDouble())
+            intent.putExtra("SUB_TOTAL", subTotal)
+            intent.putExtra("TAX", tax)
+            intent.putExtra("DELIVERY", delivery)
+            intent.putExtra("TOTAL", total)
             intent.putExtra("STATUS", status)
             intent.putExtra("TIMESTAMP", timestamp)
             startActivity(intent)
         }
+
 
         imgView.setOnClickListener {
             val intent = Intent(this, Container::class.java)
@@ -90,7 +97,7 @@ class CartActivity : AppCompatActivity() {
         firestore.collection("users").document(currentUserEmail).collection("cart")
             .get()
             .addOnSuccessListener { result ->
-                var total : Long = 0L
+                var total = 0.0
                 val cartItems = mutableListOf<CartItem>()
 
                 for (document in result) {
@@ -98,21 +105,20 @@ class CartActivity : AppCompatActivity() {
                     cartTextView.visibility = View.GONE
 
                     // Safely retrieve and convert fields from Firestore
-                    val image = itemData["image"] as? String ?: "Unknown"
+                    val image=itemData["image"] as? String ?: "Unknown"
                     val name = itemData["productName"] as? String ?: "Unknown"
-                    val price = (itemData["price"] as? String)?.toDoubleOrNull()?.toLong() ?: 0L
+                    val price = (itemData["price"] as? String)?.toDoubleOrNull() ?: 0.0
                     val quantity = (itemData["quantity"] as? Long)?.toInt() ?: 1
                     val subTotal =
-                        ((itemData["subTotal"] as? String)?.toDoubleOrNull()?.toLong()
-                            ?: (price * quantity.toLong()))
+                        (itemData["subTotal"] as? String)?.toDoubleOrNull() ?: price * quantity
 
                     // Create CartItem object and add to list
                     val item = CartItem(
                         image = image,
                         name = name,
-                        price = price.toDouble(),
+                        price = price,
                         quantity = quantity,
-                        subTotal = subTotal.toDouble()
+                        subTotal = subTotal
                     )
                     cartItems.add(item)
 
@@ -123,7 +129,7 @@ class CartActivity : AppCompatActivity() {
                 cartRecyclerView.adapter = CartAdapter(cartItems)
 
                 // Calculate and display tax, delivery fee, and total amount
-                val tax = (total * 18.0) / 100 // Assuming 18% tax rate
+                val tax = (total * 18) / 100  // Assuming 18% tax rate
                 val delivery = 500.0 // Flat delivery fee
 
                 subTotalTextView.text = "RS. ${"%.2f".format(total)}"

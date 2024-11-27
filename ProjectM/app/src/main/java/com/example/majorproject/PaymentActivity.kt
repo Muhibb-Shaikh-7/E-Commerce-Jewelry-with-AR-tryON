@@ -119,16 +119,16 @@ class PaymentActivity : AppCompatActivity() {
             "tax" to tax,
             "delivery" to delivery,
             "total" to total,
-            "status" to "Confirmed",
+            "status" to status,
             "timestamp" to timestamp,
-            "items" to cartItems?.map { cartItem ->
+            "items" to (cartItems?.map { cartItem ->
                 mapOf(
                     "name" to cartItem.name,
                     "price" to cartItem.price,
                     "quantity" to cartItem.quantity,
                     "subTotal" to cartItem.subTotal
                 )
-            }
+            } ?: emptyList())
         )
 
         firestore.collection("orders")
@@ -141,4 +141,5 @@ class PaymentActivity : AppCompatActivity() {
                 Toast.makeText(this, "Failed to place order: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
+
 }
