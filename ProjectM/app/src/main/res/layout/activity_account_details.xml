@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/offwhite"
     tools:context=".AccountDetailsActivity">
 
     <!-- Header Layout with Back Arrow and Title -->
@@ -29,20 +30,20 @@
             android:id="@+id/back_arr"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:contentDescription="@string/fav_icon_desc"
             android:src="@drawable/back"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="@string/fav_icon_desc" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Title Text -->
         <TextView
             android:layout_width="272dp"
             android:layout_height="44dp"
             android:layout_weight="1"
-            android:gravity="center"
             android:fontFamily="@font/tenor_sans"
+            android:gravity="center"
             android:text="My Profile"
-            android:textColor="@color/black_olive"
+            android:textColor="@color/brown_rust"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -51,6 +52,8 @@
             android:layout_width="38dp"
             android:layout_height="30dp"
             android:layout_marginStart="10dp"
+            android:backgroundTint="@color/brown_rust"
+            android:backgroundTintMode="add"
             android:src="@drawable/ic_edit"
             tools:ignore="ContentDescription" />
     </LinearLayout>
@@ -59,24 +62,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout2"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout2">
 
         <!-- Profile ImageView -->
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profile_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:contentDescription="@string/profile_image"
-            android:src="@drawable/profile_placeholder"
-            app:shapeAppearanceOverlay="@style/cricular"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Username Label -->
+
+        <!-- Username TextView -->
+
         <TextView
             android:id="@+id/username_label"
             android:layout_width="82dp"
@@ -85,24 +81,23 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/tenor_sans"
             android:text="@string/name"
-            android:textColor="@color/black_olive"
+            android:textColor="@color/brown_rust"
             android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profile_image"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="TextSizeCheck" />
 
-        <!-- Username TextView -->
         <TextView
             android:id="@+id/username_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:minHeight="42dp"
             android:fontFamily="@font/tenor_sans"
-            android:textColor="#000000"
+            android:minHeight="42dp"
+            android:textColor="@color/black_olive"
             android:textSize="20dp"
-            textco
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/username_label" />
@@ -118,7 +113,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/tenor_sans"
             android:text="@string/email1"
-            android:textColor="@color/black_olive"
+            android:textColor="@color/brown_rust"
             android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/username_text_view" />
@@ -129,10 +124,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:textSize="19dp"
             android:fontFamily="@font/tenor_sans"
             android:minHeight="42dp"
-            android:textColor="#000000"
+            android:textColor="@color/black_olive"
+            android:textSize="19dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/email_label" />
@@ -146,7 +141,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/tenor_sans"
             android:text="@string/address1"
-            android:textColor="@color/black_olive"
+            android:textColor="@color/brown_rust"
             android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/email_text_view" />
@@ -158,10 +153,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:textSize="20dp"
             android:fontFamily="@font/tenor_sans"
             android:minHeight="42dp"
             android:textColor="@color/black_olive"
+            android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/address_label" />
@@ -175,7 +170,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/tenor_sans"
             android:text="@string/phone_number"
-            android:textColor="@color/black_olive"
+            android:textColor="@color/brown_rust"
             android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/address_text_view"
@@ -188,8 +183,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:minHeight="42dp"
             android:fontFamily="@font/tenor_sans"
+            android:minHeight="42dp"
             android:textColor="@color/black_olive"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"

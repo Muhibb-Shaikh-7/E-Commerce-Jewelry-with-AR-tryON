@@ -15,12 +15,12 @@
         <!-- Banner 2 -->
         <ImageView
             android:id="@+id/banner1"
-            android:layout_width="390dp"
-            android:layout_height="293dp"
+            android:layout_width="379dp"
+            android:layout_height="297dp"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="16dp"
             android:scaleType="centerCrop"
             android:src="@drawable/banner3" />
 

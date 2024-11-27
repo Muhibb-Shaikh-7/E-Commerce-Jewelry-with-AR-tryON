@@ -87,6 +87,7 @@ class ProfileFragment : Fragment() {
             // Navigate to SignUpFragment on logout
             auth.signOut()
             startActivity(Intent(context,AuthenticationSelection::class.java))
+            findNavController().popBackStack()
         }
 
         return view

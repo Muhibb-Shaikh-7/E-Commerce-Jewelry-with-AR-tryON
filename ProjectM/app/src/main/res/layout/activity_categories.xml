@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/offwhite"
     tools:context=".navigation.Categories">
 
     <TextView
@@ -18,7 +19,7 @@
         android:drawablePadding="4dp"
         android:fontFamily="@font/tenor_sans"
         android:text="Our categories"
-        android:textColor="@android:color/black"
+        android:textColor="@color/brown_rust"
         android:textSize="29sp" />
 
     <HorizontalScrollView
@@ -45,8 +46,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:layout_marginRight="6dp">
+                    android:layout_marginRight="6dp"
+                    android:orientation="vertical">
 
 
                     <ImageView
@@ -57,7 +58,7 @@
                         android:background="@drawable/circular_categories_bg"
                         android:padding="10dp"
                         android:scaleType="centerInside"
-                        android:src="@drawable/kids" />
+                        android:src="@drawable/children" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -76,8 +77,8 @@
                     android:layout_height="wrap_content"
 
                     android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:layout_marginRight="6dp">
+                    android:layout_marginRight="6dp"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/menCategory"
@@ -87,7 +88,7 @@
                         android:background="@drawable/circular_categories_bg"
                         android:padding="10dp"
                         android:scaleType="centerInside"
-                        android:src="@drawable/male1" />
+                        android:src="@drawable/man2" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -105,18 +106,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:layout_marginRight="6dp">
+                    android:layout_marginRight="6dp"
+                    android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/womenCategory"
                         android:layout_width="65dp"
                         android:layout_height="65dp"
                         android:layout_marginRight="10dp"
-                        android:id="@+id/womenCategory"
                         android:background="@drawable/circular_categories_bg"
                         android:padding="10dp"
                         android:scaleType="centerInside"
-                        android:src="@drawable/woman1" />
+                        android:src="@drawable/woman23" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -134,8 +135,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:layout_marginRight="6dp">
+                    android:layout_marginRight="6dp"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/necklaceCategory"
@@ -145,7 +146,7 @@
                         android:background="@drawable/circular_categories_bg"
                         android:padding="10dp"
                         android:scaleType="centerInside"
-                        android:src="@drawable/necklace" />
+                        android:src="@drawable/necklace44" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -158,23 +159,25 @@
                         android:textSize="17sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:layout_marginRight="6dp">
+                    android:layout_marginRight="6dp"
+                    android:orientation="vertical">
 
 
-                <ImageView
-                    android:id="@+id/ringCategory"
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/circular_categories_bg"
-                    android:padding="10dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_ring" />
+                    <ImageView
+                        android:id="@+id/ringCategory"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/circular_categories_bg"
+                        android:padding="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/diamondring" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -186,22 +189,24 @@
                         android:textSize="17sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:layout_marginRight="6dp">
+                    android:layout_marginRight="6dp"
+                    android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/braceletCategory"
-                    android:layout_width="65dp"
-                    android:layout_height="65dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/circular_categories_bg"
-                    android:padding="10dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_bracelet" />
+                    <ImageView
+                        android:id="@+id/braceletCategory"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/circular_categories_bg"
+                        android:padding="10dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/bracelet44" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -221,7 +226,8 @@
         android:id="@+id/recycleviewCategories"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/HorizontalScrollView"/>
+        android:layout_below="@id/HorizontalScrollView"
+        android:background="@color/offwhite" />
 
 
 </RelativeLayout>
