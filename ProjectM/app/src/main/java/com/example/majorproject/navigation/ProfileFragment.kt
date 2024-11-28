@@ -42,6 +42,7 @@ class ProfileFragment : Fragment() {
         val trackOrderForwardImg = view.findViewById<ImageView>(R.id.track_order_forwardimg)
         val logoutForwardImg = view.findViewById<ImageView>(R.id.logout_forwardimg)
         val backArrow = view.findViewById<ImageView>(R.id.back_button)
+        val cartForwardImg = view.findViewById<ImageView>(R.id.cart_forwardimg)
 
         // Fetch user data only if the user is logged in
         if (currentUser != null) {
@@ -67,6 +68,10 @@ class ProfileFragment : Fragment() {
         // Set click listeners for navigation to different activities or fragments
         profileForwardImg.setOnClickListener {
             startActivity(Intent(requireContext(), AccountDetailsActivity::class.java))
+        }
+
+        cartForwardImg.setOnClickListener{
+            startActivity(Intent(requireContext(), CartActivity::class.java))
         }
 
         addressForwardImg.setOnClickListener {
