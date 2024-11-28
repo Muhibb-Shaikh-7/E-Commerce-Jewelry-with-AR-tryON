@@ -517,23 +517,34 @@ class Container : AppCompatActivity() {
     }
 
     private fun setupSearchView() {
+        // Change hint text color for SearchView
         searchView.findViewById<TextView>(androidx.appcompat.R.id.search_src_text)
             ?.setHintTextColor(ContextCompat.getColor(this, R.color.text_gray))
 
+        // Customize search icon
         val searchIconView: ImageView = searchView.findViewById(androidx.appcompat.R.id.search_mag_icon)
-        searchIconView.drawable?.let {
-            it.setTint(ContextCompat.getColor(this, R.color.text_gray))
-            searchIconView.setImageDrawable(it)
+
+
+        // Handle click and focus change
+        searchView.setOnClickListener {
+            searchView.clearFocus() // Clear focus immediately
+            startActivity(Intent(baseContext, SearchActivity::class.java))
         }
 
-
+        searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                searchView.clearFocus() // Remove focus to avoid keyboard pop-up
+                startActivity(Intent(baseContext, SearchActivity::class.java))
+            }
+        }
     }
     override fun onResume() {
         super.onResume()
-
+        searchView.clearFocus()
         // Set up the SearchView listener every time the activity is resumed
         searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
+                searchView.clearFocus()
                 // Start the SearchActivity when the SearchView is clicked or focused
                 startActivity(Intent(baseContext, SearchActivity::class.java))
             }

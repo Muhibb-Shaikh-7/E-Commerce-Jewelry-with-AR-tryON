@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.majorproject.dataClass.CartItem
@@ -22,6 +23,17 @@ class PaymentActivity : AppCompatActivity() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
 
+    private lateinit var subTotalTextView: TextView
+    private lateinit var taxTextView: TextView
+    private lateinit var deliveryTextView: TextView
+    private lateinit var totalTextView: TextView
+
+    private var cartItems = arrayListOf<CartItem>()
+    private var subTotal = 0.0
+    private var tax = 0.0
+    private var delivery = 50.0 // Flat delivery fee
+    private var total = 0.0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
@@ -29,28 +41,74 @@ class PaymentActivity : AppCompatActivity() {
         firestore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
 
-        // Retrieve passed data
-        val totalAmount: Double = intent.getDoubleExtra("TOTAL", 1.00)
-        val cartItems: ArrayList<CartItem>? = intent.getParcelableArrayListExtra("CART_ITEMS")
-        val subTotal: Double = intent.getDoubleExtra("SUB_TOTAL", 0.00)
-        val tax: Double = intent.getDoubleExtra("TAX", 0.00)
-        val delivery: Double = intent.getDoubleExtra("DELIVERY", 0.00)
+        // Initialize views
+        subTotalTextView = findViewById(R.id.subtotal)
+        taxTextView = findViewById(R.id.tax)
+        deliveryTextView = findViewById(R.id.delivery)
+        totalTextView = findViewById(R.id.total)
 
-        // Initialize buttons
         val payButton: Button = findViewById(R.id.pay_button)
         val testButton: Button = findViewById(R.id.test_button)
 
+        // Fetch cart details
+        fetchCartDetails()
+
         payButton.setOnClickListener {
-            initiateUpiPayment(totalAmount)
+            initiateUpiPayment(total)
         }
 
         testButton.setOnClickListener {
-            // Directly save test payment to Firestore
             onPaymentSuccess(
-                cartItems, subTotal, tax, delivery, totalAmount,
+                cartItems, subTotal, tax, delivery, total,
                 "Test Order", System.currentTimeMillis()
             )
         }
+    }
+
+    private fun fetchCartDetails() {
+        val currentUserEmail = auth.currentUser?.email
+        if (currentUserEmail == null) {
+            Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        firestore.collection("users").document(currentUserEmail).collection("cart")
+            .get()
+            .addOnSuccessListener { result ->
+                if (result.isEmpty) {
+                    Toast.makeText(this, "Your cart is empty!", Toast.LENGTH_SHORT).show()
+                    return@addOnSuccessListener
+                }
+
+                subTotal = 0.0
+                cartItems.clear()
+
+                for (document in result) {
+                    val name = document.getString("productName") ?: "Unknown Product"
+                    val price = (document.getString("price")?.toDoubleOrNull() ?: 0.0)
+                    val quantity = (document.getLong("quantity")?.toInt() ?: 1)
+
+                    val subTotalForItem = price * quantity
+                    subTotal += subTotalForItem
+                    val image = document.getString("imageUrl") ?: "" // Assuming "imageUrl" is the field name in Firestore
+                    cartItems.add(CartItem(image, name, price, quantity, subTotalForItem))
+
+                }
+
+                // Calculate tax and total
+                tax = subTotal * 0.18 // Assuming 18% tax
+                total = subTotal + tax + delivery
+
+                // Update UI
+
+                subTotalTextView.text = "₹%.2f".format(subTotal)
+                taxTextView.text = "₹%.2f".format(tax)
+                deliveryTextView.text = "₹%.2f".format(delivery)
+                totalTextView.text = "₹%.2f".format(total)
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Failed to fetch cart details: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun initiateUpiPayment(amount: Double) {
@@ -82,13 +140,10 @@ class PaymentActivity : AppCompatActivity() {
                 val response = data?.getStringExtra("response")
                 if (response != null && response.contains("SUCCESS", true)) {
                     Toast.makeText(this, "Payment Successful", Toast.LENGTH_SHORT).show()
-                    val cartItems: ArrayList<CartItem>? = intent.getParcelableArrayListExtra("CART_ITEMS")
-                    val subTotal: Double = intent.getDoubleExtra("SUB_TOTAL", 0.00)
-                    val tax: Double = intent.getDoubleExtra("TAX", 0.00)
-                    val delivery: Double = intent.getDoubleExtra("DELIVERY", 0.00)
-                    val totalAmount: Double = intent.getDoubleExtra("TOTAL", 1.00)
-
-                    onPaymentSuccess(cartItems, subTotal, tax, delivery, totalAmount, "Confirmed", System.currentTimeMillis())
+                    onPaymentSuccess(
+                        cartItems, subTotal, tax, delivery, total,
+                        "Confirmed", System.currentTimeMillis()
+                    )
                 } else {
                     Toast.makeText(this, "Payment Failed", Toast.LENGTH_SHORT).show()
                 }
@@ -99,7 +154,7 @@ class PaymentActivity : AppCompatActivity() {
     }
 
     private fun onPaymentSuccess(
-        cartItems: ArrayList<CartItem>?,
+        cartItems: ArrayList<CartItem>,
         subTotal: Double,
         tax: Double,
         delivery: Double,
@@ -121,14 +176,14 @@ class PaymentActivity : AppCompatActivity() {
             "total" to total,
             "status" to status,
             "timestamp" to timestamp,
-            "items" to (cartItems?.map { cartItem ->
+            "items" to cartItems.map { cartItem ->
                 mapOf(
                     "name" to cartItem.name,
                     "price" to cartItem.price,
                     "quantity" to cartItem.quantity,
                     "subTotal" to cartItem.subTotal
                 )
-            } ?: emptyList())
+            }
         )
 
         firestore.collection("orders")
@@ -141,5 +196,4 @@ class PaymentActivity : AppCompatActivity() {
                 Toast.makeText(this, "Failed to place order: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
-
 }

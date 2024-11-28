@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -48,6 +49,9 @@ class SearchActivity : AppCompatActivity(),ItemAdapter.OnItemClickListener {
         itemAdapter = ItemAdapter(this, itemList, this
           )
         popularSearchRecyclerView.adapter = itemAdapter
+ findViewById<ImageView>(R.id.back).setOnClickListener {
+onBackPressed()
+ }
 
         // Fetch popular search items
         fetchPopularSearchItems()

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="@color/offwhite"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Search.SearchActivity">
@@ -48,6 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/relative_layout"
+        android:background="@color/offwhite"
         android:layout_marginTop="16dp">
 
         <LinearLayout
@@ -88,9 +90,11 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycleview_popular_search"
+                    android:background="@color/offwhite"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="16dp" />
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"/>
 
                 <ProgressBar
                     android:id="@+id/progressBarItems"
