@@ -181,6 +181,41 @@
         </LinearLayout>
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="center_vertical"
+            android:foregroundGravity="center">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:contentDescription="My Profile Icon"
+                android:src="@drawable/outline_shopping_cart_24"
+                app:tint="#000000" />
+
+            <TextView
+                android:layout_width="293dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="16dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/tenor_sans"
+                android:text="My Cart"
+                android:textColor="@color/black_olive"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/cart_forwardimg"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:backgroundTint="@color/white"
+                android:contentDescription="Arrow"
+                android:src="@drawable/forward_img" />
+        </LinearLayout>
+
         <!-- Track com.example.majorproject.dataClass.Order -->
         <LinearLayout
             android:layout_width="match_parent"
